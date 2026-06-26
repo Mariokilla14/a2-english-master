@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A2 English Master V6</title>
+  <title>A2 English Master V6 AI</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 <div class="app">
   <aside class="sidebar">
-    <div class="brand"><div class="brandIcon">🚀</div><div><h1>A2 English<br><span>Master V6</span></h1><p>Unified stable version</p></div></div>
+    <div class="brand"><div class="brandIcon">🚀</div><div><h1>A2 English<br><span>Master V6 AI</span></h1><p>Teacher AI Ready</p></div></div>
     <nav>
       <button class="nav active" data-page="home">🏠 Home</button>
       <button class="nav" data-page="study">📚 Studio Unit</button>
@@ -18,26 +18,26 @@
       <button class="nav" data-page="progress">📊 Progressi</button>
       <button class="nav" data-page="ai">🤖 Teacher AI</button>
     </nav>
-    <div class="sideCard"><b>🎯 V6 Unified</b><p>Versione stabile unica: offline + AI-ready.</p></div>
+    <div class="sideCard"><b>🤖 AI Ready</b><p>Frontend + funzione Vercel /api/correct.</p></div>
   </aside>
 
   <main>
     <section id="home" class="page active">
-      <div class="hero"><span class="tag">✨ V6 • Stable • GitHub Pages Ready</span><h2>Il tuo simulatore A2</h2><p>Studio, esame, correzione, progressi e Teacher AI Ready in un unico progetto stabile.</p>
-      <div class="cards"><div class="card"><div class="emoji">📚</div><h3>Studio</h3><p>12 Unit con modelli.</p><button class="primary" data-go="study">Apri</button></div><div class="card"><div class="emoji">🎓</div><h3>Esame</h3><p>40 minuti e voto /30.</p><button class="primary pink" data-go="exam">Start</button></div><div class="card"><div class="emoji">🤖</div><h3>AI Ready</h3><p>Pronto per backend AI.</p><button class="primary" data-go="ai">Vedi</button></div></div></div>
+      <div class="hero"><span class="tag">✨ V6 AI • Vercel Ready • Secure API</span><h2>Il tuo simulatore A2 con Teacher AI</h2><p>Versione stabile con correzione offline + pulsante Teacher AI collegabile a Vercel.</p>
+      <div class="cards"><div class="card"><div class="emoji">📚</div><h3>Studio</h3><p>12 Unit con modelli.</p><button class="primary" data-go="study">Apri</button></div><div class="card"><div class="emoji">🎓</div><h3>Esame</h3><p>40 minuti, voto offline e AI.</p><button class="primary pink" data-go="exam">Start</button></div><div class="card"><div class="emoji">🤖</div><h3>Teacher AI</h3><p>Correzione da professore tramite API.</p><button class="primary" data-go="ai">Configura</button></div></div></div>
     </section>
 
     <section id="study" class="page">
-      <div class="panel"><div class="toolbar"><h2>📚 Studio Unit</h2><select id="unitSelect"></select></div><div id="unitInfo"></div><button id="showModel" class="primary">👀 Mostra modello</button><pre id="modelBox" class="model hidden"></pre><h3>✍️ Scrivi e correggi</h3><textarea id="studyText" placeholder="Dear Sam,\n\nThanks for your email..."></textarea><button id="correctStudy" class="primary pink">🧠 Correggi</button><div id="studyReport"></div></div>
+      <div class="panel"><div class="toolbar"><h2>📚 Studio Unit</h2><select id="unitSelect"></select></div><div id="unitInfo"></div><button id="showModel" class="primary">👀 Mostra modello</button><pre id="modelBox" class="model hidden"></pre><h3>✍️ Scrivi e correggi</h3><textarea id="studyText" placeholder="Dear Sam,\n\nThanks for your email..."></textarea><button id="correctStudy" class="primary pink">🧠 Correggi offline</button><button id="aiStudy" class="primary">🤖 Teacher AI</button><div id="studyReport"></div><div id="studyAI"></div></div>
     </section>
 
     <section id="exam" class="page">
-      <div class="panel"><div class="toolbar"><h2>🎓 Modalità Esame</h2><button id="startExam" class="primary pink">🎲 Traccia casuale</button></div><div class="examTop"><div class="scoreCard"><span>⏱ Timer</span><strong id="timer">40:00</strong></div><div class="scoreCard"><span>✍️ Words</span><strong id="examWords">0</strong></div><div class="scoreCard"><span>🎯 Target</span><strong>120-150</strong></div></div><div id="examTask" class="taskBox">Premi “Traccia casuale”.</div><textarea id="examText" placeholder="Dear Sam,\n\nThanks for your email..."></textarea><button id="finishExam" class="primary">✅ Finish & Correct</button><div id="examReport"></div></div>
+      <div class="panel"><div class="toolbar"><h2>🎓 Modalità Esame</h2><button id="startExam" class="primary pink">🎲 Traccia casuale</button></div><div class="examTop"><div class="scoreCard"><span>⏱ Timer</span><strong id="timer">40:00</strong></div><div class="scoreCard"><span>✍️ Words</span><strong id="examWords">0</strong></div><div class="scoreCard"><span>🎯 Target</span><strong>120-150</strong></div></div><div id="examTask" class="taskBox">Premi “Traccia casuale”.</div><textarea id="examText" placeholder="Dear Sam,\n\nThanks for your email..."></textarea><button id="finishExam" class="primary">✅ Finish & Correct offline</button><button id="aiExam" class="primary">🤖 Teacher AI</button><div id="examReport"></div><div id="examAI"></div></div>
     </section>
 
     <section id="grammar" class="page"><div class="panel"><h2>📖 Grammar Book</h2><div id="grammarList" class="ruleGrid"></div></div></section>
     <section id="progress" class="page"><div class="panel"><div class="toolbar"><h2>📊 Progressi</h2><button id="clearProgress" class="secondary">🧹 Cancella</button></div><div id="progressBox"></div></div></section>
-    <section id="ai" class="page"><div class="panel"><h2>🤖 Teacher AI Ready</h2><p>Per avere AI vera serve backend sicuro su Vercel/Netlify. Non mettere mai la chiave API in GitHub Pages.</p><div class="taskBox"><b>Prossimo step:</b><br>creiamo una funzione server <code>/api/correct</code> che riceve il testo e restituisce una correzione da insegnante.</div></div></section>
+    <section id="ai" class="page"><div class="panel"><h2>🤖 Teacher AI Setup</h2><p>Questa versione include già il frontend e il backend Vercel in <code>api/correct.js</code>.</p><div class="taskBox"><b>Su Vercel devi aggiungere:</b><br><code>OPENAI_API_KEY = la tua chiave API</code><br><br>Poi apri l'app dal link Vercel, non da GitHub Pages, per usare Teacher AI.</div></div></section>
   </main>
 </div>
 <script src="js/app.js" type="module"></script>

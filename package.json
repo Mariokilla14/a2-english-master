@@ -1,0 +1,9 @@
+{
+  "name": "a2-english-master-v6-ai",
+  "version": "6.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "openai": "^4.104.0"
+  }
+}

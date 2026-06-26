@@ -1,23 +1,26 @@
-# A2 English Master V6 Unified
+# A2 English Master V6 AI Vercel
 
-Versione unica stabile pronta per GitHub Pages.
+Questa versione contiene:
+- frontend statico
+- correzione offline
+- progressi
+- Teacher AI tramite Vercel Serverless Function `/api/correct`
 
-## Funziona subito su GitHub Pages
-Carica tutto nella repository:
-- index.html
-- css/
-- js/
-- data/
-- api/ (placeholder, non usato da GitHub Pages)
+## Come attivare Teacher AI
 
-## Include
-- Studio 12 Unit
-- Modalità Esame 40 minuti
-- Grammar Engine offline
-- Voto /30
-- Cambridge Bands
-- Progressi nel browser
-- Sezione Teacher AI Ready
+1. Carica tutto su GitHub.
+2. Vai su Vercel.
+3. Importa la repository.
+4. In Vercel vai su Settings → Environment Variables.
+5. Aggiungi:
 
-## Nota AI
-La vera AI richiede backend sicuro su Vercel/Netlify. Non inserire mai chiavi API in GitHub Pages.
+```text
+OPENAI_API_KEY = la tua chiave OpenAI
+```
+
+6. Fai Redeploy.
+7. Apri il link Vercel, non GitHub Pages.
+
+## Importante
+
+Non mettere mai la chiave API nel frontend, in `index.html` o in `js/app.js`.

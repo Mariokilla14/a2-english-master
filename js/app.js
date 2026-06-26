@@ -2,6 +2,7 @@ let units = [];
 let grammar = [];
 let timerId = null;
 let timeLeft = 2400;
+let currentExamTask = '';
 
 const $ = id => document.getElementById(id);
 
@@ -26,6 +27,7 @@ function setupStudy(){
   sel.onchange=loadUnit; loadUnit();
   $('showModel').onclick=()=>$('modelBox').classList.toggle('hidden');
   $('correctStudy').onclick=()=>renderReport('studyReport', analyse($('studyText').value), 'study');
+  $('aiStudy').onclick=()=>teacherAI('studyText','studyAI', units[$('unitSelect').value||0].examTask);
 }
 function loadUnit(){
   const u=units[$('unitSelect').value||0];
@@ -33,9 +35,10 @@ function loadUnit(){
   $('modelBox').textContent=u.model; $('modelBox').classList.add('hidden');
 }
 function setupExam(){
-  $('startExam').onclick=()=>{const u=units[Math.floor(Math.random()*units.length)]; $('examTask').innerHTML=`<b>Exam task: ${u.title}</b><p>${u.examTask}</p>`; $('examText').value=''; $('examWords').textContent='0'; resetTimer(); startTimer();}
+  $('startExam').onclick=()=>{const u=units[Math.floor(Math.random()*units.length)]; currentExamTask=u.examTask; $('examTask').innerHTML=`<b>Exam task: ${u.title}</b><p>${u.examTask}</p>`; $('examText').value=''; $('examWords').textContent='0'; resetTimer(); startTimer();}
   $('examText').oninput=()=>$('examWords').textContent=words($('examText').value).length;
   $('finishExam').onclick=()=>{stopTimer(); renderReport('examReport', analyse($('examText').value), 'exam');}
+  $('aiExam').onclick=()=>teacherAI('examText','examAI', currentExamTask || 'Informal A2 email task');
 }
 function resetTimer(){stopTimer(); timeLeft=2400; tick();}
 function startTimer(){timerId=setInterval(()=>{timeLeft=Math.max(0,timeLeft-1);tick(); if(timeLeft===0)stopTimer();},1000);}
@@ -77,6 +80,20 @@ function renderReport(target,r,mode){
   $(target).innerHTML=html;
   $('saveResultBtn').onclick=()=>saveProgress(r,mode);
 }
+async function teacherAI(textareaId, outputId, task){
+  const text=$(textareaId).value.trim();
+  if(!text){$(outputId).innerHTML='<div class="issue warn">Scrivi prima una email.</div>';return;}
+  $(outputId).innerHTML='<div class="aiBox loading">🤖 Teacher AI sta correggendo...</div>';
+  try{
+    const res=await fetch('/api/correct',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,task})});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||'Errore API');
+    $(outputId).innerHTML=`<div class="aiBox"><h3>🤖 Teacher AI Report</h3>${formatAI(data.feedback||data.text||JSON.stringify(data,null,2))}</div>`;
+  }catch(err){
+    $(outputId).innerHTML=`<div class="issue bad"><b>AI non disponibile.</b><br>${err.message}<br><br>Apri l'app dal link Vercel e controlla OPENAI_API_KEY.</div>`;
+  }
+}
+function formatAI(text){ return String(text).replace(/\n/g,'<br>'); }
 function saveProgress(r,mode){
   const old=JSON.parse(localStorage.getItem('a2_v6_progress')||'[]');
   old.push({id:Date.now(),date:new Date().toLocaleString(),mode,score:r.score,wordCount:r.wordCount,issues:r.issues.length,categories:r.issues.map(i=>i.cat)});
@@ -86,9 +103,8 @@ function renderProgress(){
   const res=JSON.parse(localStorage.getItem('a2_v6_progress')||'[]');
   const avg=res.length?Math.round(res.reduce((s,r)=>s+r.score,0)/res.length):0;
   const best=res.length?Math.max(...res.map(r=>r.score)):0;
-  const words=res.reduce((s,r)=>s+r.wordCount,0);
-  const cats={}; res.forEach(r=>(r.categories||[]).forEach(c=>cats[c]=(cats[c]||0)+1));
-  $('progressBox').innerHTML=`<div class="reportGrid"><div class="scoreCard"><span>Media</span><strong>${avg}/30</strong></div><div class="scoreCard"><span>Best</span><strong>${best}/30</strong></div><div class="scoreCard"><span>Parole</span><strong>${words}</strong></div></div><h3>Storico</h3>${res.slice().reverse().map(r=>`<div class="issue"><b>${r.score}/30</b> — ${r.wordCount} parole — ${r.issues} errori<br><small>${r.date}</small></div>`).join('')||'<p>Nessun risultato.</p>'}`;
+  const totalWords=res.reduce((s,r)=>s+r.wordCount,0);
+  $('progressBox').innerHTML=`<div class="reportGrid"><div class="scoreCard"><span>Media</span><strong>${avg}/30</strong></div><div class="scoreCard"><span>Best</span><strong>${best}/30</strong></div><div class="scoreCard"><span>Parole</span><strong>${totalWords}</strong></div></div><h3>Storico</h3>${res.slice().reverse().map(r=>`<div class="issue"><b>${r.score}/30</b> — ${r.wordCount} parole — ${r.issues} errori<br><small>${r.date}</small></div>`).join('')||'<p>Nessun risultato.</p>'}`;
   $('clearProgress').onclick=()=>{localStorage.removeItem('a2_v6_progress');renderProgress();}
 }
 init();
