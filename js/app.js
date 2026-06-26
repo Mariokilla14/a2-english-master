@@ -189,7 +189,7 @@ function fillGapUI(){
   if(preload) preload.onclick=()=>preloadGapCache(true);
 
   updateGapCacheStatus();
-  setTimeout(()=>preloadGapCache(false), 800);
+  setTimeout(()=>{try{preloadOfflineFillGapBank(30)}catch{}; preloadGapCache(false);},800);
 }
 
 function getGapCache(){
@@ -235,32 +235,15 @@ function updateGapCacheStatus(){
 }
 
 async function generateSmartFillGap(){
-  const cache=getGapCache();
-
-  // If cache has items, show immediately and refill in background.
-  if(cache.length){
-    const ex=cache.shift();
-    setGapCache(cache);
-    markGapAsUsed(ex);
-    $('gapStatus').innerHTML=`⚡ Esercizio pronto caricato dalla cache.<br><small>Nel frattempo preparo un nuovo esercizio in background.</small>`;
-    renderFillGap(ex);
-    preloadGapCache(false);
-    return;
-  }
-
-  $('gapStatus').innerHTML='🤖 Cache vuota: Gemini sta generando un nuovo esercizio...';
-  $('gapExercise').innerHTML='';
-  try{
-    const ex=await fetchNewGap();
-    markGapAsUsed(ex);
-    renderFillGap(ex);
-    preloadGapCache(false);
-  }catch(e){
-    $('gapStatus').innerHTML=`<span class="bad">AI non disponibile:</span> ${e.message}<br>Uso esercizio demo offline.`;
-    const demo=makeDemoGap();
-    markGapAsUsed(demo);
-    renderFillGap(demo);
-  }
+  const grammar=$('gapGrammar')?.value || 'Mixed Grammar - Tutto il libro';
+  const level=$('gapLevel')?.value || 'Cambridge Exam';
+  const topic=$('gapTopic')?.value || 'Random';
+  const mode=$('gapMode')?.value || '⚡ Offline Bank';
+  const ex=createOfflineFillGap({grammar,level,topic,mode});
+  markGapAsUsed(ex);
+  $('gapStatus').innerHTML='⚡ Esercizio offline generato senza consumare AI.<br><small>Fonte: V20 Offline Bank</small>';
+  renderFillGap(ex);
+  try{preloadOfflineFillGapBank(30)}catch{}
 }
 
 function useReadyGap(){
@@ -306,22 +289,9 @@ async function fetchNewGap(){
   const grammar=$('gapGrammar')?.value || 'Mixed Grammar - Tutto il libro';
   const level=$('gapLevel')?.value || 'Cambridge Exam';
   const topic=$('gapTopic')?.value || 'Random';
-  const mode=$('gapMode')?.value || '🎲 Casuale';
-  const weakRules=getWeakRules();
-  const recentExercises=getRecentExerciseLabels();
-
-  const res=await fetch('/api/fillgap',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({grammar,level,topic,mode,weakRules,recentExercises})
-  });
-
-  const data=await res.json();
-  if(!res.ok) throw new Error(data.error||'Errore generazione fill the gap');
-
-  const ex=data.exercise||data;
-  ex.modelUsed=data.modelUsed||'Gemini';
-  ex.cacheId='gap_'+Date.now()+'_'+Math.random().toString(16).slice(2);
+  const mode=$('gapMode')?.value || '⚡ Offline Bank';
+  const ex=createOfflineFillGap({grammar,level,topic,mode});
+  ex.cacheId='offline_'+Date.now()+'_'+Math.random().toString(16).slice(2);
   return ex;
 }
 

@@ -1,28 +1,27 @@
-# A2 English Master V19 Gemini 3 Preview Fix
+# A2 English Master V20 Offline FillGap Bank
 
-Questa versione aggiorna la parte AI per usare il modello indicato da Google AI Studio:
+Questa versione riduce drasticamente i consumi Gemini.
 
-- `gemini-3-flash-preview`
+## Novità principale
 
-Include:
-- Login Supabase
-- Admin Panel
-- Cloud
+Il Fill the Gap NON usa più Gemini a ogni esercizio.
+
+Ora viene generato offline dal browser con:
+- brani sempre diversi
+- 30 domande
+- 4 opzioni per domanda
+- risposta corretta
+- spiegazione grammaticale
+- grammatica A2 completa
+- argomenti vari
+- nessun consumo API per Fill the Gap
+
+## Gemini resta attivo solo per
 - Teacher AI
-- Fill the Gap AI
-- AI Email Library
-- API Gemini tramite SDK `@google/genai`
+- Correzione email
+- Email AI Library
 
-## Variabili Vercel richieste
-
-- `GEMINI_API_KEY`
-- `SUPABASE_URL`
-- `SUPABASE_ANON_KEY`
-
-## Dopo il deploy
-
-Apri:
-
-`https://a2-english-master.vercel.app/api/ai-health`
-
-Se tutto è corretto deve rispondere con `OK`.
+## Deploy
+1. Carica tutto su GitHub sostituendo i vecchi file.
+2. Su Vercel controlla `GEMINI_API_KEY`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`.
+3. Fai Redeploy.
