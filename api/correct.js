@@ -1,3 +1,12 @@
+const MODELS = [
+  "gemini-3-flash-preview",
+  "gemini-2.5-flash",
+  "gemini-2.5-flash-lite",
+  "gemini-2.0-flash",
+  "gemini-1.5-flash",
+  "gemini-1.5-flash-8b"
+];
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Use POST" });
 
@@ -9,42 +18,70 @@ export default async function handler(req, res) {
     if (!apiKey) return res.status(500).json({ error: "Missing GEMINI_API_KEY on Vercel" });
 
     const prompt = `
-Sei un esaminatore Cambridge A2 e un insegnante italiano.
-Correggi questa informal email A2.
+Sei un insegnante italiano di inglese A2 e un esaminatore Cambridge.
+Correggi questa informal email.
 
-DEVI RESTITUIRE:
-1. Voto finale /30
-2. Grammar /25, Vocabulary /25, Organisation /25, Task Achievement /25
-3. Correzione riga per riga
-4. Errori grammaticali, spelling, preposizioni, tempi verbali, frasi innaturali
-5. Versione corretta dell'email
-6. 3 consigli pratici per arrivare a 30/30
-7. Argomenti grammaticali da ripassare
-8. Commento severo ma incoraggiante
+IMPORTANTE:
+- Rispondi in italiano.
+- Valuta /30.
+- Dai Content /25, Communicative Achievement /25, Organisation /25, Language /25.
+- Fai correzione riga per riga.
+- Indica: errore, correzione, spiegazione.
+- Controlla apertura e chiusura: devono essere tipo "Dear Sam," e "Best wishes,".
+- Controlla 120-150 parole.
+- Dai una versione corretta dell'email.
+- Dai 3 consigli per prendere 30/30.
 
 TRACCIA:
-${task || "Informal A2 email, 120-150 words"}
+${task || "A2 informal email"}
 
 EMAIL:
 ${text}
 `;
 
-    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
-      body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.2, maxOutputTokens: 2500 }
-      })
+    let errors = [];
+
+    for (const model of MODELS) {
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-goog-api-key": apiKey
+            },
+            body: JSON.stringify({
+              contents: [{ role: "user", parts: [{ text: prompt }] }],
+              generationConfig: { temperature: 0.2, maxOutputTokens: 2500 }
+            })
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          errors.push(`${model}: ${data?.error?.message || response.status}`);
+          continue;
+        }
+
+        const feedback =
+          data?.candidates?.[0]?.content?.parts?.map(p => p.text).join("\n") ||
+          "Nessun feedback generato.";
+
+        return res.status(200).json({ feedback, modelUsed: model });
+
+      } catch (err) {
+        errors.push(`${model}: ${err.message}`);
+      }
+    }
+
+    return res.status(429).json({
+      error: "Nessun modello Gemini disponibile con questa chiave. Dettagli: " + errors.join(" | ")
     });
 
-    const data = await response.json();
-    if (!response.ok) return res.status(response.status).json({ error: data?.error?.message || "Gemini API error" });
-
-    const feedback = data?.candidates?.[0]?.content?.parts?.map(p => p.text).join("\n") || "Nessun feedback generato.";
-    return res.status(200).json({ feedback });
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
     return res.status(500).json({ error: "AI correction failed" });
   }
 }

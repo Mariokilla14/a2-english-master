@@ -1,17 +1,41 @@
-# A2 English Master - Gemini Fix + Email Spunto
+# A2 English Master - Gemini 3 Fix + Email Spunto
 
-Questa versione rimane solo su:
+Questa versione resta solo su:
 - GitHub
 - Vercel
 - Gemini
 
-## Cosa risolve
-- Problema quota/modello Gemini: prova automaticamente più modelli.
-- Aggiunge sezione Email Spunto.
-- Intestazione e parte finale sono sempre uguali al modello del libro.
+## Fix principale
+Il tuo Google AI Studio mostra il modello:
 
-## Su Vercel
+```text
+models/gemini-3-flash-preview
+```
+
+Quindi questa versione prova prima:
+
+```text
+gemini-3-flash-preview
+```
+
+e poi fa fallback automatico su:
+- gemini-2.5-flash
+- gemini-2.5-flash-lite
+- gemini-2.0-flash
+- gemini-1.5-flash
+- gemini-1.5-flash-8b
+
+## Include
+- Teacher AI Gemini
+- Email Spunto con apertura e chiusura uguali al modello del libro
+- 200+ tracce
+- Dashboard base
+
+## Vercel
 Environment Variable:
-GEMINI_API_KEY = tua chiave Google AI Studio
 
-Poi fai Redeploy.
+```text
+GEMINI_API_KEY = la tua chiave Google AI Studio
+```
+
+Dopo aver caricato su GitHub, fai Redeploy su Vercel.
