@@ -40,9 +40,11 @@
 #gapStatus small{color:var(--muted)}
 #useCachedGap,#preloadGap,#nextGapSmart{border-color:rgba(6,182,212,.4)}
 @media(max-width:900px){.fillControls{grid-template-columns:1fr!important}}
-/* V16 Enterprise */
+/* V17 Enterprise */
 .loginScreen{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(circle at 20% 20%,rgba(236,72,153,.35),transparent 32%),linear-gradient(135deg,#020617,#111827,#1e1b4b)}
 .loginBox{width:min(440px,92vw);border:1px solid var(--line);background:rgba(255,255,255,.11);backdrop-filter:blur(22px);border-radius:34px;padding:30px;box-shadow:0 30px 90px rgba(0,0,0,.4)}
 .loginBox h1{font-size:34px;margin:8px 0}.loginBox label{display:block;color:var(--muted);font-weight:900;margin-top:14px}.loginBox input{width:100%;border:1px solid var(--line);background:rgba(2,6,23,.65);color:var(--text);border-radius:18px;padding:14px;margin-top:6px;outline:none}.hidden{display:none!important}
 .deviceRow{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.07);padding:12px;margin:8px 0}.deviceRow small{color:var(--muted)}
-@media(max-width:900px){.deviceRow{display:grid;grid-template-columns:1fr}}
+.adminGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}.adminGrid input,.adminGrid select{border:1px solid var(--line);background:rgba(2,6,23,.65);color:var(--text);border-radius:14px;padding:12px}
+.cloudPre{white-space:pre-wrap;max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:16px;background:rgba(0,0,0,.25);padding:12px}
+@media(max-width:900px){.deviceRow{display:grid;grid-template-columns:1fr}.adminGrid{grid-template-columns:1fr}}

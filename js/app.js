@@ -402,6 +402,7 @@ function saveGap(correct,total,details){
   details.filter(d=>!d.ok).forEach(d=>wrongRules[d.rule||'Grammar']=(wrongRules[d.rule||'Grammar']||0)+1);
   old.push({id:Date.now(),date:new Date().toLocaleString(),correct,total,wrongRules});
   localStorage.setItem('a2_fillgap_memory',JSON.stringify(old));
+  if(typeof saveCloudNote==='function') saveCloudNote('fillgap_result','Fill the Gap Result',{correct,total,details});
 }
 
 function makeDemoGap(){
@@ -828,6 +829,7 @@ function saveTeacherReport(report, mode){
     issues:(report.issues || []).map(i=>i.rule || i.type || 'Grammar')
   });
   localStorage.setItem('a2_teacher_reports', JSON.stringify(old));
+  if(typeof saveCloudNote==='function') saveCloudNote('teacher_report','Teacher AI Report', report);
 }
 
 setTimeout(setupTeacherPackage2, 400);
@@ -836,7 +838,10 @@ setTimeout(setupTeacherPackage2, 400);
 
 
 
-/* V16 ENTERPRISE LOGIN + ADMIN */
+
+
+
+/* V17 PROFESSIONAL LOGIN + ADMIN + CLOUD */
 const SESSION_KEY='a2_enterprise_session';
 const USER_KEY='a2_enterprise_user';
 const DEVICE_KEY='a2_device_id';
@@ -849,23 +854,8 @@ function getDeviceId(){
   }
   return id;
 }
-function detectOS(){
-  const ua=navigator.userAgent;
-  if(/Mac/i.test(ua))return'Mac';
-  if(/Windows/i.test(ua))return'Windows';
-  if(/iPhone|iPad/i.test(ua))return'iPhone/iPad';
-  if(/Android/i.test(ua))return'Android';
-  if(/Linux/i.test(ua))return'Linux';
-  return'Unknown';
-}
-function detectBrowser(){
-  const ua=navigator.userAgent;
-  if(/Edg/i.test(ua))return'Edge';
-  if(/Chrome/i.test(ua)&&!/Edg/i.test(ua))return'Chrome';
-  if(/Safari/i.test(ua)&&!/Chrome/i.test(ua))return'Safari';
-  if(/Firefox/i.test(ua))return'Firefox';
-  return'Browser';
-}
+function detectOS(){const ua=navigator.userAgent;if(/Mac/i.test(ua))return'Mac';if(/Windows/i.test(ua))return'Windows';if(/iPhone|iPad/i.test(ua))return'iPhone/iPad';if(/Android/i.test(ua))return'Android';if(/Linux/i.test(ua))return'Linux';return'Unknown'}
+function detectBrowser(){const ua=navigator.userAgent;if(/Edg/i.test(ua))return'Edge';if(/Chrome/i.test(ua)&&!/Edg/i.test(ua))return'Chrome';if(/Safari/i.test(ua)&&!/Chrome/i.test(ua))return'Safari';if(/Firefox/i.test(ua))return'Firefox';return'Browser'}
 function getSessionId(){return localStorage.getItem(SESSION_KEY)}
 
 (function patchFetchForSession(){
@@ -884,19 +874,13 @@ async function loginEnterprise(){
   const password=$('loginPassword').value;
   $('loginError').innerHTML='';
   try{
-    const res=await fetch('/api/login',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({username,password,deviceId:getDeviceId(),browser:detectBrowser(),os:detectOS()})
-    });
+    const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password,deviceId:getDeviceId(),browser:detectBrowser(),os:detectOS()})});
     const data=await res.json();
     if(!res.ok) throw new Error(data.error||'Login non riuscito');
     localStorage.setItem(SESSION_KEY,data.session_id);
     localStorage.setItem(USER_KEY,JSON.stringify(data.user));
     showAppAfterLogin(data.user);
-  }catch(e){
-    $('loginError').innerHTML=`<div class="issue bad">${e.message}</div>`;
-  }
+  }catch(e){$('loginError').innerHTML=`<div class="issue bad">${e.message}</div>`}
 }
 
 async function checkExistingSession(){
@@ -915,39 +899,26 @@ async function checkExistingSession(){
   }
 }
 
-function showLogin(){
-  const ls=$('loginScreen');
-  if(ls)ls.style.display='grid';
-  document.body.classList.add('lockedApp');
-}
-
+function showLogin(){const ls=$('loginScreen');if(ls)ls.style.display='grid';document.body.classList.add('lockedApp')}
 function showAppAfterLogin(user){
-  const ls=$('loginScreen');
-  if(ls)ls.style.display='none';
+  const ls=$('loginScreen');if(ls)ls.style.display='none';
   document.body.classList.remove('lockedApp');
-
   const adminBtn=$('adminNavBtn');
   if(adminBtn&&user.role==='admin')adminBtn.classList.remove('hidden');
   if(adminBtn&&user.role!=='admin')adminBtn.classList.add('hidden');
-
   addUserBox(user);
 }
-
 function addUserBox(user){
   if(document.getElementById('userBox'))return;
-  const sidebar=document.querySelector('.sidebar'); 
-  if(!sidebar)return;
-  const box=document.createElement('div');
-  box.id='userBox';
-  box.className='sidecard';
+  const sidebar=document.querySelector('.sidebar'); if(!sidebar)return;
+  const box=document.createElement('div');box.id='userBox';box.className='sidecard';
   box.innerHTML=`<b>👤 ${escapeHtml(user.username)}</b><p>Ruolo: ${escapeHtml(user.role)}<br>Device: ${getDeviceId()}</p><button id="logoutBtn" class="secondary">Esci</button>`;
   sidebar.appendChild(box);
   $('logoutBtn').onclick=()=>{localStorage.removeItem(SESSION_KEY);localStorage.removeItem(USER_KEY);location.reload()};
 }
 
 async function loadAdminPanel(){
-  const box=$('adminList'); 
-  if(!box)return;
+  const box=$('adminList'); if(!box)return;
   box.innerHTML='<div class="box">Carico utenti...</div>';
   try{
     const res=await fetch('/api/admin-overview');
@@ -956,20 +927,53 @@ async function loadAdminPanel(){
     const users=data.users||[];
     const online=users.flatMap(u=>u.sessions||[]).filter(s=>s.online).length;
     $('adminStats').innerHTML=`<div class="stat"><span>Utenti</span><b>${users.length}</b></div><div class="stat"><span>Online</span><b>${online}</b></div><div class="stat"><span>Device</span><b>${users.reduce((n,u)=>n+(u.sessions||[]).length,0)}</b></div>`;
-    box.innerHTML=users.map(adminUserCard).join('');
+
+    box.innerHTML = adminCreateBox() + users.map(adminUserCard).join('');
+
+    const createBtn=$('createUserBtn');
+    if(createBtn) createBtn.onclick=createNewUserFromAdmin;
+
     users.forEach(u=>{
       const toggle=document.getElementById('toggle_user_'+u.id);
       if(toggle)toggle.onclick=()=>adminAction({type:'user_enabled',userId:u.id,enabled:!u.enabled});
+      const reset=document.getElementById('reset_user_'+u.id);
+      if(reset)reset.onclick=()=>adminAction({type:'reset_usage',userId:u.id});
+      const update=document.getElementById('update_user_'+u.id);
+      if(update)update.onclick=()=>updateUserPlan(u.id);
       (u.sessions||[]).forEach(s=>{
         const b=document.getElementById('block_session_'+s.id);
         if(b)b.onclick=()=>adminAction({type:'session_blocked',sessionTargetId:s.id,blocked:!s.blocked});
       });
     });
-  }catch(e){
-    box.innerHTML=`<div class="issue bad">${e.message}</div>`;
-  }
+  }catch(e){box.innerHTML=`<div class="issue bad">${e.message}</div>`}
 }
 
+function adminCreateBox(){
+  return `<div class="emailcard adminCreate">
+    <h3>➕ Crea nuovo utente</h3>
+    <div class="adminGrid">
+      <input id="newUsername" placeholder="username">
+      <input id="newPassword" placeholder="password">
+      <select id="newRole"><option value="basic">basic</option><option value="premium">premium</option><option value="admin">admin</option></select>
+      <input id="newTeacherLimit" placeholder="Teacher limit (vuoto = ∞)">
+      <input id="newFillgapLimit" placeholder="FillGap limit">
+      <input id="newEmailLimit" placeholder="Email limit">
+    </div>
+    <button id="createUserBtn" class="primary pink">Crea utente</button>
+  </div>`;
+}
+function nullableInt(v){v=String(v??'').trim();return v===''?null:Number(v)}
+async function createNewUserFromAdmin(){
+  await adminAction({
+    type:'create_user',
+    username:$('newUsername').value.trim(),
+    password:$('newPassword').value,
+    role:$('newRole').value,
+    teacherLimit:nullableInt($('newTeacherLimit').value),
+    fillgapLimit:nullableInt($('newFillgapLimit').value),
+    emailLimit:nullableInt($('newEmailLimit').value)
+  });
+}
 function adminUserCard(u){
   const limitText=(used,limit)=>limit==null?`${used} / ∞`:`${used} / ${limit}`;
   return `<div class="emailcard">
@@ -980,8 +984,20 @@ function adminUserCard(u){
         <h3>${escapeHtml(u.username)}</h3>
         <p>Teacher: ${limitText(u.teacher_used,u.teacher_limit)} • FillGap: ${limitText(u.fillgap_used,u.fillgap_limit)} • Email: ${limitText(u.email_used,u.email_limit)}</p>
       </div>
-      <button id="toggle_user_${u.id}" class="secondary dangerBtn">${u.enabled?'🚫 Blocca utente':'✅ Sblocca utente'}</button>
+      <div class="cardActions">
+        <button id="toggle_user_${u.id}" class="secondary dangerBtn">${u.enabled?'🚫 Blocca':'✅ Sblocca'}</button>
+        <button id="reset_user_${u.id}" class="secondary">🔄 Reset usi</button>
+      </div>
     </div>
+    <details class="whyBox"><summary>⚙️ Modifica piano</summary>
+      <div class="adminGrid">
+        <select id="role_${u.id}"><option ${u.role==='basic'?'selected':''} value="basic">basic</option><option ${u.role==='premium'?'selected':''} value="premium">premium</option><option ${u.role==='admin'?'selected':''} value="admin">admin</option></select>
+        <input id="tl_${u.id}" value="${u.teacher_limit??''}" placeholder="Teacher limit">
+        <input id="fl_${u.id}" value="${u.fillgap_limit??''}" placeholder="FillGap limit">
+        <input id="el_${u.id}" value="${u.email_limit??''}" placeholder="Email limit">
+      </div>
+      <button id="update_user_${u.id}" class="primary">Salva piano</button>
+    </details>
     <h4>💻 Dispositivi</h4>
     ${(u.sessions||[]).map(s=>`<div class="deviceRow">
       <div>
@@ -992,7 +1008,16 @@ function adminUserCard(u){
     </div>`).join('')||'<p>Nessun dispositivo registrato.</p>'}
   </div>`;
 }
-
+async function updateUserPlan(id){
+  await adminAction({
+    type:'update_plan',
+    userId:id,
+    role:$('role_'+id).value,
+    teacherLimit:nullableInt($('tl_'+id).value),
+    fillgapLimit:nullableInt($('fl_'+id).value),
+    emailLimit:nullableInt($('el_'+id).value)
+  });
+}
 async function adminAction(payload){
   try{
     const res=await fetch('/api/admin-action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
@@ -1002,14 +1027,30 @@ async function adminAction(payload){
   }catch(e){alert(e.message)}
 }
 
+async function saveCloudNote(kind,title,content){
+  try{
+    await fetch('/api/cloud-note',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind,title,content})});
+  }catch{}
+}
+async function loadCloudNotes(){
+  const box=$('cloudNotesList'); if(!box)return;
+  box.innerHTML='<div class="box">Carico archivio cloud...</div>';
+  try{
+    const res=await fetch('/api/cloud-note');
+    const data=await res.json();
+    if(!res.ok)throw new Error(data.error||'Errore cloud');
+    const notes=data.notes||[];
+    box.innerHTML=notes.length?notes.map(n=>`<div class="emailcard"><span class="scorebadge">${escapeHtml(n.kind)}</span><h3>${escapeHtml(n.title||'Senza titolo')}</h3><small>${new Date(n.created_at).toLocaleString()}</small><pre class="cloudPre">${escapeHtml(JSON.stringify(n.content,null,2))}</pre></div>`).join(''):'<div class="box">Nessun elemento salvato nel cloud.</div>';
+  }catch(e){box.innerHTML=`<div class="issue bad">${e.message}</div>`}
+}
+
 setTimeout(()=>{
-  const btn=$('loginBtn'); 
-  if(btn)btn.onclick=loginEnterprise;
-  const pass=$('loginPassword'); 
-  if(pass)pass.addEventListener('keydown',e=>{if(e.key==='Enter')loginEnterprise()});
-  const refresh=$('refreshAdmin'); 
-  if(refresh)refresh.onclick=loadAdminPanel;
+  const btn=$('loginBtn'); if(btn)btn.onclick=loginEnterprise;
+  const pass=$('loginPassword'); if(pass)pass.addEventListener('keydown',e=>{if(e.key==='Enter')loginEnterprise()});
+  const refresh=$('refreshAdmin'); if(refresh)refresh.onclick=loadAdminPanel;
+  const cloud=$('loadCloudNotes'); if(cloud)cloud.onclick=loadCloudNotes;
   document.querySelectorAll('[data-page="admin"]').forEach(b=>b.addEventListener('click',()=>setTimeout(loadAdminPanel,100)));
+  document.querySelectorAll('[data-page="cloud"]').forEach(b=>b.addEventListener('click',()=>setTimeout(loadCloudNotes,100)));
   checkExistingSession();
 },300);
 

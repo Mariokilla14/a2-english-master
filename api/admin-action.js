@@ -7,7 +7,11 @@ export default async function handler(req, res) {
     const sessionId = req.headers["x-session-id"];
     if (!sessionId) return res.status(401).json({ error: "Login richiesto" });
 
-    const { type, userId, sessionTargetId, enabled, blocked } = req.body || {};
+    const {
+      type, userId, sessionTargetId, enabled, blocked,
+      username, password, role, teacherLimit, fillgapLimit, emailLimit
+    } = req.body || {};
+
     let data;
 
     if (type === "user_enabled") {
@@ -21,6 +25,30 @@ export default async function handler(req, res) {
         p_session_id: sessionId,
         p_target_session_id: sessionTargetId,
         p_blocked: !!blocked
+      });
+    } else if (type === "create_user") {
+      data = await rpc("admin_create_user", {
+        p_session_id: sessionId,
+        p_username: username,
+        p_password: password,
+        p_role: role || "basic",
+        p_teacher_limit: teacherLimit ?? null,
+        p_fillgap_limit: fillgapLimit ?? null,
+        p_email_limit: emailLimit ?? null
+      });
+    } else if (type === "update_plan") {
+      data = await rpc("admin_update_user_plan", {
+        p_session_id: sessionId,
+        p_user_id: userId,
+        p_role: role || "basic",
+        p_teacher_limit: teacherLimit ?? null,
+        p_fillgap_limit: fillgapLimit ?? null,
+        p_email_limit: emailLimit ?? null
+      });
+    } else if (type === "reset_usage") {
+      data = await rpc("admin_reset_usage", {
+        p_session_id: sessionId,
+        p_user_id: userId
       });
     } else {
       return res.status(400).json({ error: "Azione non valida" });

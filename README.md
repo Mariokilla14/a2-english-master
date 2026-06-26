@@ -1,37 +1,38 @@
-# A2 English Master V16 Enterprise Complete
+# A2 English Master V17 Professional Admin
 
 Include:
 - Login con username/password
 - Ruoli: admin, premium, basic
 - Limiti utenti da Supabase
-- Admin Panel
+- Admin Panel avanzato
+- Creazione utenti dal sito
+- Modifica ruolo e limiti dal sito
+- Reset utilizzi dal sito
 - Utenti online
 - Device ID generato dall'app
 - Blocco/sblocco utenti e dispositivi
-- Protezione delle API Gemini tramite sessione
-- Teacher AI, Fill the Gap, Email Library e Dashboard già integrati
+- Archivio Cloud per report e risultati
+- Protezione API Gemini tramite sessione
 
-## Prima di caricare su GitHub
+## Prima di caricare
 
-In Supabase SQL Editor hai già eseguito il setup V15. Se vuoi, puoi eseguire anche:
-`SUPABASE_V16_SETUP.sql`
+In Supabase SQL Editor esegui:
 
-È sicuro da eseguire.
+`SUPABASE_V17_SETUP.sql`
 
-## Variabili Vercel richieste
+Poi controlla Vercel:
 
 - `GEMINI_API_KEY`
 - `SUPABASE_URL`
 - `SUPABASE_ANON_KEY`
 
-## Login iniziali
-
-- `enjoy14` / `Carolina05!` → admin
-- `quellistretti` / `Riccimerda!` → premium illimitato
-- `utente` / `Smam` → basic con 5 Teacher AI, 5 Fill Gap, 5 Email AI
-
 ## Deploy
 
 1. Carica tutto su GitHub sostituendo i vecchi file.
-2. Controlla che Vercel abbia le variabili.
-3. Fai Redeploy.
+2. Fai Redeploy su Vercel.
+3. Entra con `enjoy14`.
+
+Login iniziali:
+- `enjoy14` / `Carolina05!` → admin
+- `quellistretti` / `Riccimerda!` → premium
+- `utente` / `Smam` → basic
