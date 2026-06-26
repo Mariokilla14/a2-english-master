@@ -1,8 +1,10 @@
 
+import { GoogleGenAI } from "@google/genai";
+
 const DEFAULT_MODELS = [
-  "gemini-2.0-flash",
-  "gemini-1.5-flash",
-  "gemini-1.5-flash-8b"
+  "gemini-3-flash-preview",
+  "gemini-2.5-flash",
+  "gemini-2.0-flash"
 ];
 
 export function cleanApiKey(key) {
@@ -29,7 +31,13 @@ export function extractJson(text) {
   return null;
 }
 
-export async function callGemini({ prompt, expectJson = false, maxOutputTokens = 3500, temperature = 0.35, models = DEFAULT_MODELS }) {
+export async function callGemini({
+  prompt,
+  expectJson = false,
+  maxOutputTokens = 3500,
+  temperature = 0.35,
+  models = DEFAULT_MODELS
+}) {
   const apiKey = cleanApiKey(process.env.GEMINI_API_KEY);
   if (!apiKey) {
     const err = new Error("GEMINI_API_KEY mancante su Vercel");
@@ -37,59 +45,49 @@ export async function callGemini({ prompt, expectJson = false, maxOutputTokens =
     throw err;
   }
 
+  const ai = new GoogleGenAI({ apiKey });
   const errors = [];
 
   for (const model of models) {
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
-      const body = {
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: String(prompt || "") }]
-          }
-        ],
-        generationConfig: {
-          temperature,
-          maxOutputTokens
-        }
+      const config = {
+        temperature,
+        maxOutputTokens
       };
 
       if (expectJson) {
-        body.generationConfig.responseMimeType = "application/json";
+        config.responseMimeType = "application/json";
       }
 
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
+      const response = await ai.models.generateContent({
+        model,
+        contents: String(prompt || ""),
+        config
       });
 
-      const data = await response.json().catch(() => ({}));
+      const text =
+        response?.text ||
+        response?.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("\n") ||
+        "";
 
-      if (!response.ok) {
-        errors.push(`${model}: ${data?.error?.message || response.status}`);
-        continue;
-      }
-
-      const text = data?.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("\n").trim() || "";
-      if (!text) {
+      const finalText = String(text || "").trim();
+      if (!finalText) {
         errors.push(`${model}: risposta vuota`);
         continue;
       }
 
       if (expectJson) {
-        const parsed = extractJson(text);
+        const parsed = extractJson(finalText);
         if (!parsed) {
           errors.push(`${model}: JSON non valido`);
           continue;
         }
-        return { modelUsed: model, json: parsed, text };
+        return { modelUsed: model, json: parsed, text: finalText };
       }
 
-      return { modelUsed: model, text };
+      return { modelUsed: model, text: finalText };
     } catch (e) {
-      errors.push(`${model}: ${e.message}`);
+      errors.push(`${model}: ${e.message || e}`);
     }
   }
 

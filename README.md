@@ -1,41 +1,28 @@
-# A2 English Master V18 Gemini Stable
+# A2 English Master V19 Gemini 3 Preview Fix
 
-Questa versione stabilizza definitivamente la parte AI.
+Questa versione aggiorna la parte AI per usare il modello indicato da Google AI Studio:
 
-Novità:
-- Nuovo helper unico `api/_gemini.js`
-- Niente SDK Gemini vecchio
-- Chiamate REST dirette alle API Gemini attuali
-- Teacher AI stabile
-- Fill the Gap AI stabile
-- Email Library AI stabile
-- Endpoint test: `/api/ai-health`
-- Login Supabase, Admin Panel e Cloud mantenuti
+- `gemini-3-flash-preview`
 
-## Prima del deploy
+Include:
+- Login Supabase
+- Admin Panel
+- Cloud
+- Teacher AI
+- Fill the Gap AI
+- AI Email Library
+- API Gemini tramite SDK `@google/genai`
 
-Controlla su Vercel:
+## Variabili Vercel richieste
 
 - `GEMINI_API_KEY`
 - `SUPABASE_URL`
 - `SUPABASE_ANON_KEY`
 
-Poi fai Redeploy con cache disattivata se possibile.
+## Dopo il deploy
 
-## Test rapido
+Apri:
 
-Dopo il deploy apri:
+`https://a2-english-master.vercel.app/api/ai-health`
 
-`https://tuo-sito.vercel.app/api/ai-health`
-
-Deve rispondere:
-
-```json
-{"ok":true,"modelUsed":"...","text":"OK"}
-```
-
-## Login iniziali
-
-- `enjoy14` / `Carolina05!` → admin
-- `quellistretti` / `Riccimerda!` → premium
-- `utente` / `Smam` → basic
+Se tutto è corretto deve rispondere con `OK`.

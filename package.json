@@ -2,5 +2,8 @@
   "name": "a2-english-master-v12-fill-gap-ai",
   "version": "12.0.0",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@google/genai": "^1.0.0"
+  }
 }
