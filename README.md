@@ -1,25 +1,37 @@
-# A2 English Master V14 - Smart Fill the Gap
+# A2 English Master V16 Enterprise Complete
 
-Questa versione aggiunge la modifica richiesta:
-- Cache intelligente per Fill the Gap
-- Non mostra sempre gli stessi esercizi
-- Ogni esercizio usato viene marcato come consumato
-- Gemini prepara nuovi esercizi in background
-- Modalità Allenamento:
-  - 🎲 Casuale
-  - 🎯 Errori ricorrenti
-  - 🎓 Simulazione Cambridge
-- Evita doppioni passando a Gemini gli ultimi esercizi generati
-- Usa gli errori salvati per creare esercizi più mirati
+Include:
+- Login con username/password
+- Ruoli: admin, premium, basic
+- Limiti utenti da Supabase
+- Admin Panel
+- Utenti online
+- Device ID generato dall'app
+- Blocco/sblocco utenti e dispositivi
+- Protezione delle API Gemini tramite sessione
+- Teacher AI, Fill the Gap, Email Library e Dashboard già integrati
 
-Include anche:
-- Pacchetto 1: AI Email Library
-- Pacchetto 2: Teacher AI 4.0
-- Infinite Fill the Gap AI
+## Prima di caricare su GitHub
+
+In Supabase SQL Editor hai già eseguito il setup V15. Se vuoi, puoi eseguire anche:
+`SUPABASE_V16_SETUP.sql`
+
+È sicuro da eseguire.
+
+## Variabili Vercel richieste
+
+- `GEMINI_API_KEY`
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+
+## Login iniziali
+
+- `enjoy14` / `Carolina05!` → admin
+- `quellistretti` / `Riccimerda!` → premium illimitato
+- `utente` / `Smam` → basic con 5 Teacher AI, 5 Fill Gap, 5 Email AI
 
 ## Deploy
-Carica tutto su GitHub sostituendo i file vecchi.
-Poi su Vercel fai Redeploy.
 
-## Variabile Vercel
-GEMINI_API_KEY = la tua chiave Google AI Studio
+1. Carica tutto su GitHub sostituendo i vecchi file.
+2. Controlla che Vercel abbia le variabili.
+3. Fai Redeploy.

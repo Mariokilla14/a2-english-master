@@ -5,6 +5,19 @@
 <title>A2 English Master V12</title><link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div id="loginScreen" class="loginScreen">
+  <div class="loginBox">
+    <div class="rocket">🔐</div>
+    <h1>A2 English Master</h1>
+    <p>Accedi con username e password.</p>
+    <label>Username</label>
+    <input id="loginUsername" placeholder="enjoy14">
+    <label>Password</label>
+    <input id="loginPassword" type="password" placeholder="Password">
+    <button id="loginBtn" class="primary pink">Accedi</button>
+    <div id="loginError"></div>
+  </div>
+</div>
 <div class="app">
 <aside class="sidebar">
 <div class="brand"><div class="rocket">🚀</div><h1>A2 English<br><span>Master V12</span></h1><p>Gemini + Fill the Gap AI</p></div>
@@ -15,6 +28,7 @@
 <button class="nav" data-page="examples">📧 AI Email Library</button>
 <button class="nav" data-page="traces">📚 200+ Tracce</button>
 <button class="nav" data-page="dashboard">📊 Dashboard</button>
+<button id="adminNavBtn" class="nav hidden" data-page="admin">👑 Admin Panel</button>
 <div class="sidecard"><b>🧩 Infinite Gap</b><p>Brani A2 con 30 domande, 4 opzioni e spiegazioni.</p></div>
 </aside>
 <main>
@@ -132,6 +146,20 @@
 
 <section id="traces" class="page"><div class="panel"><h2>📚 200+ Tracce</h2><input id="traceSearch" class="search" placeholder="Cerca traccia..."><div id="traceList" class="tracegrid"></div></div></section>
 <section id="dashboard" class="page"><div class="panel"><div class="toolbar"><h2>📊 Dashboard</h2><button id="clearData" class="secondary">🧹 Cancella</button></div><div id="dashboardBox"></div></div></section>
+
+<section id="admin" class="page">
+  <div class="panel">
+    <div class="toolbar">
+      <div>
+        <h2>👑 Admin Panel</h2>
+        <p>Vedi utenti, dispositivi, sessioni online e blocca/sblocca accessi.</p>
+      </div>
+      <button id="refreshAdmin" class="primary pink">🔄 Aggiorna</button>
+    </div>
+    <div id="adminStats" class="stats"></div>
+    <div id="adminList"></div>
+  </div>
+</section>
 </main></div>
 <script type="module" src="js/app.js"></script>
 </body></html>

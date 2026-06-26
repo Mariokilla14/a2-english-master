@@ -1,9 +1,11 @@
+import { incrementUsage } from "./_supabase.js";
 const MODELS = ["gemini-3-flash-preview","gemini-2.5-flash","gemini-2.5-flash-lite","gemini-2.0-flash","gemini-1.5-flash","gemini-1.5-flash-8b"];
 
 function extractJson(text){
   if(!text) return null;
   const cleaned = text.replace(/```json/gi,"").replace(/```/g,"").trim();
-  try { return JSON.parse(cleaned); } catch {}
+  try {
+    await incrementUsage(req, "email"); return JSON.parse(cleaned); } catch {}
   const s = cleaned.indexOf("{"), e = cleaned.lastIndexOf("}");
   if(s !== -1 && e !== -1 && e > s){
     try { return JSON.parse(cleaned.slice(s,e+1)); } catch {}

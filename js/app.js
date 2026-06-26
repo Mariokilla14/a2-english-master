@@ -832,4 +832,185 @@ function saveTeacherReport(report, mode){
 
 setTimeout(setupTeacherPackage2, 400);
 
+
+
+
+
+/* V16 ENTERPRISE LOGIN + ADMIN */
+const SESSION_KEY='a2_enterprise_session';
+const USER_KEY='a2_enterprise_user';
+const DEVICE_KEY='a2_device_id';
+
+function getDeviceId(){
+  let id=localStorage.getItem(DEVICE_KEY);
+  if(!id){
+    id='DEV-'+Math.random().toString(36).slice(2,6).toUpperCase()+'-'+Date.now().toString(36).slice(-5).toUpperCase();
+    localStorage.setItem(DEVICE_KEY,id);
+  }
+  return id;
+}
+function detectOS(){
+  const ua=navigator.userAgent;
+  if(/Mac/i.test(ua))return'Mac';
+  if(/Windows/i.test(ua))return'Windows';
+  if(/iPhone|iPad/i.test(ua))return'iPhone/iPad';
+  if(/Android/i.test(ua))return'Android';
+  if(/Linux/i.test(ua))return'Linux';
+  return'Unknown';
+}
+function detectBrowser(){
+  const ua=navigator.userAgent;
+  if(/Edg/i.test(ua))return'Edge';
+  if(/Chrome/i.test(ua)&&!/Edg/i.test(ua))return'Chrome';
+  if(/Safari/i.test(ua)&&!/Chrome/i.test(ua))return'Safari';
+  if(/Firefox/i.test(ua))return'Firefox';
+  return'Browser';
+}
+function getSessionId(){return localStorage.getItem(SESSION_KEY)}
+
+(function patchFetchForSession(){
+  const original=window.fetch.bind(window);
+  window.fetch=(url,opts={})=>{
+    if(typeof url==='string'&&url.startsWith('/api/')&&!url.includes('/api/login')){
+      opts.headers=opts.headers||{};
+      if(!(opts.headers instanceof Headers)) opts.headers['x-session-id']=getSessionId()||'';
+    }
+    return original(url,opts);
+  };
+})();
+
+async function loginEnterprise(){
+  const username=$('loginUsername').value.trim();
+  const password=$('loginPassword').value;
+  $('loginError').innerHTML='';
+  try{
+    const res=await fetch('/api/login',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({username,password,deviceId:getDeviceId(),browser:detectBrowser(),os:detectOS()})
+    });
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||'Login non riuscito');
+    localStorage.setItem(SESSION_KEY,data.session_id);
+    localStorage.setItem(USER_KEY,JSON.stringify(data.user));
+    showAppAfterLogin(data.user);
+  }catch(e){
+    $('loginError').innerHTML=`<div class="issue bad">${e.message}</div>`;
+  }
+}
+
+async function checkExistingSession(){
+  const sid=getSessionId();
+  if(!sid){showLogin();return}
+  try{
+    const res=await fetch('/api/me',{headers:{'x-session-id':sid}});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||'Sessione scaduta');
+    localStorage.setItem(USER_KEY,JSON.stringify(data.user));
+    showAppAfterLogin(data.user);
+  }catch{
+    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(USER_KEY);
+    showLogin();
+  }
+}
+
+function showLogin(){
+  const ls=$('loginScreen');
+  if(ls)ls.style.display='grid';
+  document.body.classList.add('lockedApp');
+}
+
+function showAppAfterLogin(user){
+  const ls=$('loginScreen');
+  if(ls)ls.style.display='none';
+  document.body.classList.remove('lockedApp');
+
+  const adminBtn=$('adminNavBtn');
+  if(adminBtn&&user.role==='admin')adminBtn.classList.remove('hidden');
+  if(adminBtn&&user.role!=='admin')adminBtn.classList.add('hidden');
+
+  addUserBox(user);
+}
+
+function addUserBox(user){
+  if(document.getElementById('userBox'))return;
+  const sidebar=document.querySelector('.sidebar'); 
+  if(!sidebar)return;
+  const box=document.createElement('div');
+  box.id='userBox';
+  box.className='sidecard';
+  box.innerHTML=`<b>👤 ${escapeHtml(user.username)}</b><p>Ruolo: ${escapeHtml(user.role)}<br>Device: ${getDeviceId()}</p><button id="logoutBtn" class="secondary">Esci</button>`;
+  sidebar.appendChild(box);
+  $('logoutBtn').onclick=()=>{localStorage.removeItem(SESSION_KEY);localStorage.removeItem(USER_KEY);location.reload()};
+}
+
+async function loadAdminPanel(){
+  const box=$('adminList'); 
+  if(!box)return;
+  box.innerHTML='<div class="box">Carico utenti...</div>';
+  try{
+    const res=await fetch('/api/admin-overview');
+    const data=await res.json();
+    if(!res.ok)throw new Error(data.error||'Errore admin');
+    const users=data.users||[];
+    const online=users.flatMap(u=>u.sessions||[]).filter(s=>s.online).length;
+    $('adminStats').innerHTML=`<div class="stat"><span>Utenti</span><b>${users.length}</b></div><div class="stat"><span>Online</span><b>${online}</b></div><div class="stat"><span>Device</span><b>${users.reduce((n,u)=>n+(u.sessions||[]).length,0)}</b></div>`;
+    box.innerHTML=users.map(adminUserCard).join('');
+    users.forEach(u=>{
+      const toggle=document.getElementById('toggle_user_'+u.id);
+      if(toggle)toggle.onclick=()=>adminAction({type:'user_enabled',userId:u.id,enabled:!u.enabled});
+      (u.sessions||[]).forEach(s=>{
+        const b=document.getElementById('block_session_'+s.id);
+        if(b)b.onclick=()=>adminAction({type:'session_blocked',sessionTargetId:s.id,blocked:!s.blocked});
+      });
+    });
+  }catch(e){
+    box.innerHTML=`<div class="issue bad">${e.message}</div>`;
+  }
+}
+
+function adminUserCard(u){
+  const limitText=(used,limit)=>limit==null?`${used} / ∞`:`${used} / ${limit}`;
+  return `<div class="emailcard">
+    <div class="emailTop">
+      <div>
+        <span class="scorebadge">${u.enabled?'🟢 Attivo':'🔴 Bloccato'}</span>
+        <span class="scorebadge">${escapeHtml(u.role)}</span>
+        <h3>${escapeHtml(u.username)}</h3>
+        <p>Teacher: ${limitText(u.teacher_used,u.teacher_limit)} • FillGap: ${limitText(u.fillgap_used,u.fillgap_limit)} • Email: ${limitText(u.email_used,u.email_limit)}</p>
+      </div>
+      <button id="toggle_user_${u.id}" class="secondary dangerBtn">${u.enabled?'🚫 Blocca utente':'✅ Sblocca utente'}</button>
+    </div>
+    <h4>💻 Dispositivi</h4>
+    ${(u.sessions||[]).map(s=>`<div class="deviceRow">
+      <div>
+        <b>${s.online?'🟢 Online':'⚫ Offline'} ${escapeHtml(s.device_id)}</b><br>
+        <small>${escapeHtml(s.os||'')} • ${escapeHtml(s.browser||'')} • Ultima attività: ${new Date(s.last_seen).toLocaleString()}</small>
+      </div>
+      <button id="block_session_${s.id}" class="secondary">${s.blocked?'✅ Sblocca device':'🚫 Blocca device'}</button>
+    </div>`).join('')||'<p>Nessun dispositivo registrato.</p>'}
+  </div>`;
+}
+
+async function adminAction(payload){
+  try{
+    const res=await fetch('/api/admin-action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const data=await res.json();
+    if(!res.ok)throw new Error(data.error||'Errore azione admin');
+    loadAdminPanel();
+  }catch(e){alert(e.message)}
+}
+
+setTimeout(()=>{
+  const btn=$('loginBtn'); 
+  if(btn)btn.onclick=loginEnterprise;
+  const pass=$('loginPassword'); 
+  if(pass)pass.addEventListener('keydown',e=>{if(e.key==='Enter')loginEnterprise()});
+  const refresh=$('refreshAdmin'); 
+  if(refresh)refresh.onclick=loadAdminPanel;
+  document.querySelectorAll('[data-page="admin"]').forEach(b=>b.addEventListener('click',()=>setTimeout(loadAdminPanel,100)));
+  checkExistingSession();
+},300);
+
 init();
