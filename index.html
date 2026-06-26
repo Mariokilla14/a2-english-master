@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🚀 A2 English Master 3.0</title>
+<style>
+:root{
+  --bg1:#070b1a; --bg2:#111827; --glass:rgba(255,255,255,.11);
+  --glass2:rgba(255,255,255,.18); --line:rgba(255,255,255,.18);
+  --text:#f8fafc; --muted:#cbd5e1; --soft:#94a3b8;
+  --pink:#ec4899; --violet:#8b5cf6; --cyan:#06b6d4; --green:#22c55e; --yellow:#f59e0b; --red:#ef4444;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(236,72,153,.35), transparent 28%),
+    radial-gradient(circle at 88% 14%, rgba(6,182,212,.35), transparent 32%),
+    radial-gradient(circle at 60% 95%, rgba(139,92,246,.32), transparent 38%),
+    linear-gradient(135deg,#020617,#0f172a 45%,#1e1b4b);
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.32;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size:38px 38px;
+}
+button,textarea,select,input{font:inherit}
+button{transition:.18s transform,.18s background,.18s opacity; cursor:pointer}
+button:hover{transform:translateY(-1px)}
+.app{display:grid;grid-template-columns:290px 1fr;min-height:100vh;position:relative}
+.sidebar{
+  padding:22px;border-right:1px solid var(--line);background:rgba(2,6,23,.54);
+  backdrop-filter:blur(22px);position:sticky;top:0;height:100vh;z-index:2
+}
+.logoBox{
+  border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.06));
+  border-radius:28px;padding:18px;margin-bottom:16px;box-shadow:0 20px 60px rgba(0,0,0,.22)
+}
+.logo{font-weight:950;font-size:25px;line-height:1.02;letter-spacing:-.7px}
+.logo span{background:linear-gradient(90deg,var(--cyan),#c084fc,var(--pink));-webkit-background-clip:text;color:transparent}
+.sub{font-size:13px;color:var(--muted);margin-top:9px}
+.nav button{
+  width:100%;border:1px solid transparent;background:transparent;color:var(--text);
+  padding:14px 14px;border-radius:18px;text-align:left;margin:5px 0;display:flex;align-items:center;gap:10px
+}
+.nav button:hover,.nav button.active{background:var(--glass2);border-color:var(--line);box-shadow:0 10px 30px rgba(0,0,0,.13)}
+.miniStats{margin-top:18px;border:1px solid var(--line);background:var(--glass);border-radius:22px;padding:14px}
+.progressBar{height:10px;background:rgba(255,255,255,.12);border-radius:99px;overflow:hidden}
+.progressBar div{height:100%;width:62%;background:linear-gradient(90deg,var(--green),var(--cyan),var(--violet));border-radius:99px}
+.main{padding:28px;max-width:1220px;width:100%;margin:0 auto;z-index:1}
+.page{animation:fade .22s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hidden{display:none!important}
+.hero{
+  position:relative;overflow:hidden;padding:34px;border:1px solid var(--line);border-radius:34px;
+  background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.06));box-shadow:0 25px 90px rgba(0,0,0,.25)
+}
+.hero::after{content:"📧";position:absolute;right:34px;top:22px;font-size:94px;opacity:.12;transform:rotate(10deg)}
+h1{font-size:46px;margin:8px 0 10px;letter-spacing:-1.2px}
+h2{font-size:30px;margin:0 0 18px;letter-spacing:-.5px}
+h3{margin:14px 0 10px}
+p{color:var(--muted);line-height:1.55}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+.card{
+  border:1px solid var(--line);border-radius:28px;background:var(--glass);padding:20px;backdrop-filter:blur(16px);
+  box-shadow:0 15px 45px rgba(0,0,0,.18)
+}
+.cardIcon{font-size:38px;margin-bottom:8px}
+.bigbtn{
+  border:0;border-radius:18px;padding:14px 18px;color:white;
+  background:linear-gradient(90deg,var(--violet),var(--cyan));font-weight:900;box-shadow:0 14px 30px rgba(6,182,212,.18)
+}
+.bigbtn.pink{background:linear-gradient(90deg,var(--pink),var(--violet))}
+.ghost{
+  border:1px solid var(--line);background:rgba(255,255,255,.09);color:var(--text);
+  border-radius:16px;padding:11px 13px
+}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.badge{
+  display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;
+  padding:8px 12px;background:rgba(255,255,255,.09);font-size:13px;color:var(--muted)
+}
+select,input{
+  border-radius:16px;border:1px solid var(--line);background:rgba(15,23,42,.82);color:var(--text);padding:11px 12px
+}
+textarea{
+  width:100%;min-height:285px;border-radius:24px;border:1px solid var(--line);
+  background:rgba(2,6,23,.62);color:var(--text);padding:18px;resize:vertical;outline:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06)
+}
+textarea:focus{border-color:rgba(6,182,212,.55);box-shadow:0 0 0 4px rgba(6,182,212,.12)}
+.model{white-space:pre-wrap;background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:22px;padding:18px;color:#e2e8f0}
+.kpi{font-size:44px;font-weight:950;letter-spacing:-1px}.ok{color:var(--green)}.warn{color:var(--yellow)}.bad{color:var(--red)}
+.report{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
+.issue{padding:13px 14px;border-radius:18px;background:rgba(255,255,255,.085);border:1px solid var(--line);margin:8px 0}
+.issue b{color:#fff}.pill{font-size:12px;padding:4px 8px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid var(--line);display:inline-block;margin-right:7px}
+.timer{font-size:31px;font-weight:950}
+.rule{margin:10px 0;padding:17px;border-radius:22px;background:rgba(255,255,255,.085);border:1px solid var(--line)}
+.rule h3{display:flex;gap:9px;align-items:center}
+.floating{
+  position:fixed;right:20px;bottom:20px;z-index:9;border:1px solid var(--line);background:rgba(15,23,42,.78);
+  backdrop-filter:blur(18px);border-radius:24px;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,.28);max-width:285px
+}
+.toast{font-size:13px;color:var(--muted)}
+.emojiTitle{font-size:20px}
+@media(max-width:930px){
+  .app{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.grid,.report{grid-template-columns:1fr}.main{padding:16px}h1{font-size:34px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="logoBox">
+    <div class="logo">🚀 A2 English<br><span>Master 3.0</span></div>
+    <div class="sub">Mini-app per puntare al 30 nel Writing</div>
+  </div>
+  <div class="nav">
+    <button class="active" data-page="home">🏠 Home</button>
+    <button data-page="study">📚 Studio Unit</button>
+    <button data-page="exam">🎓 Modalità Esame</button>
+    <button data-page="grammar">📖 Grammar Book</button>
+    <button data-page="progress">📊 Progressi</button>
+  </div>
+  <div class="miniStats">
+    <div class="row" style="justify-content:space-between"><b>🔥 Training</b><span>62%</span></div>
+    <div class="progressBar"><div></div></div>
+    <p style="font-size:12px;margin:10px 0 0">Continua a scrivere email per sbloccare il livello A2 Champion 🏆</p>
+  </div>
+</aside>
+
+<main class="main">
+<section id="home" class="page">
+  <div class="hero">
+    <span class="badge">✨ App Mode • 🎯 A2 Writing • 🧠 Smart Rules</span>
+    <h1>Il tuo simulatore d’esame inglese</h1>
+    <p>Scrivi email informali da 120-150 parole, fai simulazioni da 40 minuti e ricevi correzioni su spelling, grammatica, tempi verbali, organizzazione e naturalezza.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="cardIcon">📚</div><h3>Studio Unit</h3>
+        <p>Modelli, tracce e vocabolario. Qui puoi vedere gli aiuti.</p>
+        <button class="bigbtn go" data-page="study">Inizia a studiare</button>
+      </div>
+      <div class="card">
+        <div class="cardIcon">🎓</div><h3>Esame reale</h3>
+        <p>Traccia casuale, 40 minuti, niente modello, voto finale /30.</p>
+        <button class="bigbtn pink go" data-page="exam">Start Exam</button>
+      </div>
+      <div class="card">
+        <div class="cardIcon">📖</div><h3>Grammar Book</h3>
+        <p>Tutte le regole utili per non perdere punti.</p>
+        <button class="bigbtn go" data-page="grammar">Ripassa regole</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="study" class="page hidden">
+  <h2>📚 Studio Unit</h2>
+  <div class="card">
+    <div class="row">
+      <label>Unit:</label><select id="unitSelect"></select>
+      <button class="ghost" id="showModel">👀 Mostra modello</button>
+      <button class="ghost" id="correctStudy">🧠 Correggi</button>
+      <span class="badge">✍️ Words: <b id="wordCount">0</b></span>
+    </div>
+    <h3 id="taskTitle"></h3>
+    <p id="taskText"></p>
+    <div id="modelBox" class="model hidden"></div>
+    <h3>✍️ Scrivi qui la tua email</h3>
+    <textarea id="studyText" placeholder="Dear Sam,&#10;&#10;Thanks for your email..."></textarea>
+    <div id="studyReport"></div>
+  </div>
+</section>
+
+<section id="exam" class="page hidden">
+  <h2>🎓 Modalità Esame</h2>
+  <div class="card">
+    <div class="row">
+      <button class="bigbtn pink" id="startExam">🎲 Genera traccia e avvia timer</button>
+      <span class="timer" id="timer">40:00</span>
+      <span class="badge">✍️ Words: <b id="examWords">0</b></span>
+    </div>
+    <h3 id="examTitle">Premi Start Exam</h3>
+    <p id="examTask">In modalità esame non vedrai modello, vocabolario o suggerimenti.</p>
+    <textarea id="examText" placeholder="Scrivi qui la tua email d'esame..."></textarea>
+    <div class="row"><button class="bigbtn" id="finishExam">✅ Correggi e dammi il voto</button></div>
+    <div id="examReport"></div>
+  </div>
+</section>
+
+<section id="grammar" class="page hidden">
+  <h2>📖 Grammar Book</h2>
+  <div id="grammarList"></div>
+</section>
+
+<section id="progress" class="page hidden">
+  <h2>📊 Progressi</h2>
+  <div class="card">
+    <p>Risultati salvati in questo browser. Più email fai, più capisci dove perdi punti.</p>
+    <div id="progressList"></div>
+  </div>
+</section>
+</main>
+</div>
+
+<div class="floating">
+  <div class="emojiTitle">💡 Tip da 30/30</div>
+  <div class="toast" id="tipBox">Usa sempre una domanda finale: “What about you?”</div>
+</div>
+
+<script>
+const units=[
+{u:1,t:"A new friend at university",task:"Write an email to an English friend. Say who you met, describe the person, and ask a question.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+Last week I met a new friend at university. Her name is Anna and she is very kind. She usually wears jeans and a colourful shirt, but yesterday she wore a beautiful dress because we went to a party. We talked about music, films and sport. I think she is one of the nicest people in my class. Next weekend we are going to study together, and maybe we will go for a coffee after the lesson. Have you made any new friends this year?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`},
+{u:2,t:"A photo competition",task:"Tell your friend about a photo competition. Say what you photographed, what happened, and ask a question.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+I have just taken part in a photo competition at school. I took a picture of my town while the sun was going down. It was difficult because there were many people in the street, but in the end the photo was really good. I haven't won yet, but my teacher said that my picture was interesting. If I win, I will buy a new camera. Have you ever taken part in a competition like this?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`},
+{u:3,t:"A new restaurant",task:"Write about a new restaurant. Describe food, service, price and invite your friend.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+Yesterday I went to a new Italian restaurant with my family. The place was small but very nice. I ordered pasta with tomato sauce and my sister had pizza. The waiter was friendly and the food was delicious. It wasn't too expensive, so I think we should go there together one day. I have never eaten such good pasta in my town. If you come next weekend, we can have dinner there. What kind of food do you like best?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`},
+{u:4,t:"A car accident",task:"Tell your friend about a small accident after a party. Explain what happened and how you felt.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+Last Saturday I went to a birthday party with my friends. While I was going home, a car suddenly stopped in front of me. I was driving slowly, so nobody was hurt, but my car was damaged. I felt really scared and worried. A police officer arrived after ten minutes and helped us. Now the car is at the garage, but I am fine. I think I will be more careful in the future. Have you ever had an accident?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`},
+{u:5,t:"A trip to London",task:"Tell your friend about a trip. Mention transport, hotel, places and advice.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+I have just come back from London. I went there by plane with two friends. The flight was short, but our luggage arrived late, so we were a little worried. Our hotel was near the centre and it was comfortable enough. We visited the British Museum, walked near the river and bought some souvenirs. London is more expensive than my town, but it is one of the most exciting cities I have ever visited. If you go there, you should take an umbrella. Where would you like to travel next?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`},
+{u:6,t:"A new smartphone",task:"Write about a new phone or technology. Say why you bought it and what you use it for.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+I bought a new smartphone two days ago because my old one was too slow. This phone is faster and the camera is much better. I use it to study English, listen to music and send messages to my friends. I have already downloaded a useful app which helps me learn new words. I think technology can make life easier, but we shouldn't use our phones all day. Tomorrow I am going to take some photos in the park. Do you use any good apps for studying?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`},
+{u:7,t:"A healthier life",task:"Give advice to a friend who wants to be healthier.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+I'm happy you want to have a healthier life. If I were you, I would eat more fruit and vegetables and drink a lot of water. You shouldn't eat too many sweets, and you should do some sport twice a week. Last year I used to stay at home all afternoon, but now I go running with my cousin. At first it was hard, but now I feel better and I sleep more. If you start slowly, you will not get tired. What sport would you like to try?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`},
+{u:8,t:"A football match",task:"Tell your friend about a match or film. Say what happened and give your opinion.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+Yesterday evening I watched a football match with my brother. Our team played very well in the first half, but the other team scored after twenty minutes. While everyone was shouting, our best player scored a fantastic goal. In the end we won 2-1. It was the most exciting match I have seen this year. The stadium was very crowded, but our seats were good enough. Next time you should come with us. Do you prefer watching sport at home or at the stadium?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`},
+{u:9,t:"A job interview",task:"Write about your first job interview. Explain questions, feelings and result.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+Yesterday I had my first job interview in a clothes shop. I was very nervous before it, but the manager was kind. She asked me why I wanted the job and what I could do well. I said that I am friendly, organised and good with people. I have never worked in a shop before, but I have helped my uncle in his office. They will call me next week. If they choose me, I will work on Saturdays. Have you ever had a job interview?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`},
+{u:10,t:"Lost wallet",task:"Tell your friend about losing your wallet on holiday and how you solved the problem.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+Last month, while I was on holiday, I lost my wallet at the train station. I had some money and my student card inside, so I was very worried. I went to the information office and explained the problem. Luckily, a woman had found it near a ticket machine and gave it to the police. I was so happy because nothing was missing. Since that day, I have always kept my wallet in a safer place. What would you do in this situation?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`},
+{u:11,t:"A festival in another country",task:"Describe a festival or tradition in another country.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+Last summer I visited Spain and went to a local festival. People wore traditional clothes and danced in the main square. There was a lot of music, and everyone was very friendly. I tried some local food which was different from Italian food, but it was tasty. I didn't understand everything people said, but a girl who spoke English helped me. It was a wonderful experience because I learnt something about another culture. If you visited my country, I would show you our best traditions. What festival would you like to see?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`},
+{u:12,t:"Going to the doctor",task:"Tell your friend you were ill. Say what happened, what the doctor said, and ask for advice.",model:`Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+I haven't been very well this week. On Monday I had a headache and a sore throat, so I went to the doctor. He said I had to stay at home for three days and drink a lot of water. I also had to take some medicine after lunch and dinner. I was bored because I couldn't go out, but I watched a funny series and read a book. Now I feel much better, although I am still a bit tired. Do you know any good ways to feel stronger after being ill?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`}
+];
+
+const grammar=[
+["✅ Present Simple","I/you/we/they work; he/she/it works. Uso: abitudini e fatti. Errore tipico: she like ❌ → she likes ✅"],
+["🔄 Present Continuous","am/is/are + verb-ing. Uso: azioni ora o periodo temporaneo. I am studying English."],
+["⏪ Past Simple","Verbo regolare -ed o irregolare. Yesterday I went. Errore: Yesterday I go ❌"],
+["🎬 Past Continuous","was/were + verb-ing. Uso: azione in corso nel passato. While I was walking, it started to rain."],
+["🏁 Present Perfect","have/has + participio. I have visited London. Errore: I have went ❌ → I have gone ✅"],
+["🔮 Will / Going to","will + base verb: I will go. be going to per programmi/intenzioni: I am going to study."],
+["🧩 Conditionals","First: If it rains, I will stay home. Second semplice: If I were you, I would study."],
+["🛑 Modals","can/could/should/must/have to + verbo base. You should study. You mustn't smoke."],
+["📈 Comparatives/Superlatives","bigger, more interesting, the best, the most beautiful."],
+["🔢 Quantifiers","some/any, much/many, a few/a little. Many friends, much money."],
+["🧱 Articles","a/an per singolare generico; the per specifico. I bought a dress. The dress is blue."],
+["📍 Prepositions","arrive in a city/country, arrive at a place. interested in, good at, listen to."],
+["⚖️ Too/Enough","too expensive = troppo caro; good enough = abbastanza buono."],
+["🔗 Relative pronouns","who per persone, which per cose, that per persone/cose. A friend who helps me."],
+["🧵 Linking words","because, so, but, although, however, when, while, before, after, in the end."]
+];
+
+const tips=[
+"Usa sempre una domanda finale: “What about you?”",
+"Per fare bella figura usa: Luckily / Unfortunately / In the end.",
+"Ricorda: he, she, it + verbo con -s.",
+"Dopo will il verbo non prende mai la -s.",
+"Con yesterday usa il Past Simple.",
+"120-150 parole è la zona perfetta per l’esame.",
+"Non scrivere I am agree: scrivi I agree.",
+"Per chiudere usa: Write back soon and tell me your news."
+];
+
+const commonWords = new Set(("dear thanks email sorry written long time busy how are you hope well last week yesterday today tomorrow friend friends family school university class teacher manager police officer car accident party birthday gift jeans shirt dress nike carolina best wishes write back soon tell news went go gone going come came back from to in at on with for since already yet never ever just while when because so but however although if would will should could can must have had has been was were is am are be do does did make made take took buy bought eat ate drink drank see saw seen meet met wear wore worn drive drove driven study studied studying listen music photo competition picture town sun street people end good better best nice kind nervous worried scared happy sad tired ill doctor medicine water airport flight luggage hotel centre museum river souvenir expensive exciting umbrella phone smartphone app technology faster camera useful words life healthy fruit vegetables sport running cousin football match brother team scored stadium crowded seats interview clothes shop organised office saturday holiday wallet money student card train station information office ticket machine safe safer spain festival traditional square food culture country headache sore throat home lunch dinner bored funny series book stronger one of the most really quite a bit very").split(/\s+/));
+const corrections = {
+"dres":"dress","jeens":"jeans","shurt":"shirt","writen":"written","freind":"friend","becouse":"because","wich":"which","beatiful":"beautiful","resturant":"restaurant","recieve":"receive","tomorow":"tomorrow","yestarday":"yesterday","studing":"studying","exspensive":"expensive","becaus":"because","frend":"friend"
+};
+const grammarPatterns=[
+{re:/\b(she|he|it)\s+(really\s+|usually\s+|often\s+|sometimes\s+)?like\b/gi,msg:"Present Simple: con he/she/it serve la -s.",fix:"she/he/it likes"},
+{re:/\b(she|he|it)\s+(really\s+|usually\s+|often\s+|sometimes\s+)?go\b/gi,msg:"Present Simple: con he/she/it si scrive goes.",fix:"she/he/it goes"},
+{re:/\b(she|he|it)\s+(really\s+|usually\s+|often\s+|sometimes\s+)?wear\b/gi,msg:"Present Simple: con he/she/it serve wears.",fix:"she/he/it wears"},
+{re:/\b(she|he|it)\s+(really\s+|usually\s+|often\s+|sometimes\s+)?have\b/gi,msg:"Present Simple: con he/she/it si usa has.",fix:"she/he/it has"},
+{re:/\b(the girl|my friend|anna|tom|sam|carolina)\s+(really\s+|usually\s+|often\s+|sometimes\s+)?like\b/gi,msg:"Soggetto terza persona singolare: serve likes.",fix:"likes"},
+{re:/\bI am agree\b/gi,msg:"Agree è un verbo: non si usa 'am'.",fix:"I agree"},
+{re:/\bwill\s+\w+s\b/gi,msg:"Dopo will il verbo resta alla forma base, senza -s.",fix:"will start / will go"},
+{re:/\bhave went\b|\bhas went\b/gi,msg:"Present Perfect: serve il participio passato.",fix:"have/has gone"},
+{re:/\byesterday\s+I\s+go\b/gi,msg:"Con yesterday serve il Past Simple.",fix:"Yesterday I went"},
+{re:/\bwas\s+play\b|\bwere\s+play\b/gi,msg:"Past Continuous: was/were + verbo in -ing.",fix:"was/were playing"},
+{re:/\bbuyed\b/gi,msg:"Buy è irregolare.",fix:"bought"},
+{re:/\bmake a party\b|\bmade a party\b/gi,msg:"In inglese naturale si dice have/had a party.",fix:"have/had a party"},
+{re:/\barrived to\b/gi,msg:"Si dice arrive in/at, non arrive to.",fix:"arrived in London / arrived at school"},
+{re:/\ba black jeans\b/gi,msg:"Jeans è plurale: meglio black jeans oppure a pair of black jeans.",fix:"black jeans / a pair of black jeans"}
+];
+
+function words(text){return (text.trim().match(/[A-Za-z']+/g)||[])}
+function countWords(id,out){document.getElementById(out).textContent=words(document.getElementById(id).value).length}
+
+function analyse(text){
+ let w=words(text), issues=[], score=30;
+ w.forEach(x=>{
+   let lw=x.toLowerCase();
+   if(corrections[lw]){issues.push({type:"🔤 Spelling",bad:x,msg:`Forse volevi scrivere "${corrections[lw]}".`}); score-=0.5}
+ });
+ grammarPatterns.forEach(p=>{
+   let m=text.match(p.re);
+   if(m){m.forEach(b=>issues.push({type:"🧠 Grammar",bad:b,msg:p.msg+" Correzione: "+p.fix})); score-=1}
+ });
+ let wc=w.length;
+ if(wc<120){issues.push({type:"✍️ Words",bad:String(wc),msg:"Sotto 120 parole: aggiungi dettagli."}); score-=2}
+ if(wc>150){issues.push({type:"✍️ Words",bad:String(wc),msg:"Sopra 150 parole: accorcia il testo."}); score-=1.5}
+ if(!/dear/i.test(text)){issues.push({type:"📩 Organisation",bad:"opening",msg:"Manca Dear + nome."}); score-=1}
+ if(!/best wishes|love|take care/i.test(text)){issues.push({type:"📩 Organisation",bad:"ending",msg:"Manca una chiusura informale."}); score-=1}
+ if(!/\?/.test(text)){issues.push({type:"🎯 Task",bad:"question",msg:"Aggiungi una domanda al tuo amico."}); score-=1}
+ if(!/\b(because|so|but|although|while|when|if|in the end|luckily|unfortunately)\b/i.test(text)){issues.push({type:"🔗 Linking",bad:"linkers",msg:"Usa almeno un connettivo: because, so, while, although..." }); score-=1}
+ let repeatedVery=(text.match(/\bvery\b/gi)||[]).length;
+ if(repeatedVery>=4){issues.push({type:"🌟 Style",bad:"very",msg:"Hai ripetuto very molte volte. Prova really, quite, a bit."}); score-=0.5}
+ score=Math.max(0,Math.round(score));
+ return {score,wc,issues};
+}
+function renderReport(target,text,save){
+ const r=analyse(text); 
+ let cls=r.score>=27?"ok":r.score>=22?"warn":"bad";
+ let html=`<div class="report">
+ <div class="card"><div class="kpi ${cls}">${r.score}/30</div><p>🏆 Voto stimato</p></div>
+ <div class="card"><div class="kpi">${r.wc}</div><p>✍️ Parole</p></div>
+ <div class="card"><div class="kpi">${r.issues.length}</div><p>🔍 Errori trovati</p></div></div>`;
+ html+=`<h3>🧠 Correzione dettagliata</h3>`;
+ if(!r.issues.length) html+=`<div class="issue ok">🎉 Ottimo: non ho trovato errori principali. Email molto forte.</div>`;
+ r.issues.forEach(i=>html+=`<div class="issue"><span class="pill">${i.type}</span><b class="bad">${i.bad}</b><br>${i.msg}</div>`);
+ html+=`<h3>👨‍🏫 Consiglio del professore</h3><p>${r.score>=28?"Fantastico: struttura chiara, lessico buono e pochi errori. Questa email è da voto alto.":"Prima correggi gli errori evidenziati, poi controlla apertura, chiusura, domanda finale e 120-150 parole."}</p>`;
+ document.getElementById(target).innerHTML=html;
+ if(save){let arr=JSON.parse(localStorage.getItem("a2progress3")||"[]"); arr.push({date:new Date().toLocaleString(),score:r.score,words:r.wc,issues:r.issues.length}); localStorage.setItem("a2progress3",JSON.stringify(arr)); renderProgress();}
+}
+
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ if(id==="progress") renderProgress();
+}
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+document.querySelectorAll(".go").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+
+const sel=document.getElementById("unitSelect");
+units.forEach((u,i)=>{let o=document.createElement("option");o.value=i;o.textContent=`Unit ${u.u} - ${u.t}`;sel.appendChild(o)});
+function loadUnit(){let u=units[sel.value]; taskTitle.textContent=`Unit ${u.u}: ${u.t}`; taskText.textContent=u.task; modelBox.textContent=u.model; modelBox.classList.add("hidden")}
+sel.addEventListener("change",loadUnit); loadUnit();
+showModel.onclick=()=>modelBox.classList.toggle("hidden");
+studyText.addEventListener("input",()=>countWords("studyText","wordCount"));
+examText.addEventListener("input",()=>countWords("examText","examWords"));
+correctStudy.onclick=()=>renderReport("studyReport",studyText.value,true);
+
+let examTimer=null, timeLeft=2400;
+function tick(){let m=Math.floor(timeLeft/60),s=timeLeft%60; timer.textContent=`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`; if(timeLeft>0)timeLeft--; else clearInterval(examTimer)}
+startExam.onclick=()=>{
+ let u=units[Math.floor(Math.random()*units.length)];
+ examTitle.textContent=`🎲 Exam task: ${u.t}`;
+ examTask.textContent=u.task+" Write 120-150 words. You cannot see the model in exam mode.";
+ examText.value=""; examReport.innerHTML=""; examWords.textContent="0";
+ clearInterval(examTimer); timeLeft=2400; tick(); examTimer=setInterval(tick,1000);
+};
+finishExam.onclick=()=>renderReport("examReport",examText.value,true);
+
+grammarList.innerHTML=grammar.map(g=>`<div class="rule"><h3>${g[0]}</h3><p>${g[1]}</p></div>`).join("");
+
+function renderProgress(){
+ let arr=JSON.parse(localStorage.getItem("a2progress3")||"[]");
+ progressList.innerHTML=arr.length?arr.slice(-14).reverse().map(x=>`<div class="issue"><b>🏆 ${x.score}/30</b> — ✍️ ${x.words} parole — 🔍 ${x.issues} errori<br>${x.date}</div>`).join(""):"<p>Nessun progresso salvato ancora.</p>";
+}
+setInterval(()=>{tipBox.textContent=tips[Math.floor(Math.random()*tips.length)]},5500);
+</script>
+</body>
+</html>
