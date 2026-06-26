@@ -1,9 +1,3 @@
-import OpenAI from "openai";
-
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Use POST" });
@@ -14,6 +8,14 @@ export default async function handler(req, res) {
 
     if (!text || typeof text !== "string") {
       return res.status(400).json({ error: "Missing text" });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+
+    if (!apiKey) {
+      return res.status(500).json({
+        error: "Missing GEMINI_API_KEY environment variable on Vercel."
+      });
     }
 
     const prompt = `
@@ -38,22 +40,48 @@ EMAIL STUDENTE:
 ${text}
 `;
 
-    const completion = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      temperature: 0.2,
-      messages: [
-        { role: "system", content: "You are an expert A2 English writing examiner." },
-        { role: "user", content: prompt }
-      ]
-    });
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": apiKey
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: prompt }]
+            }
+          ],
+          generationConfig: {
+            temperature: 0.2,
+            maxOutputTokens: 1800
+          }
+        })
+      }
+    );
 
-    const feedback = completion.choices?.[0]?.message?.content || "Nessun feedback generato.";
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error(data);
+      return res.status(response.status).json({
+        error: data?.error?.message || "Gemini API error"
+      });
+    }
+
+    const feedback =
+      data?.candidates?.[0]?.content?.parts?.map((part) => part.text).join("\n") ||
+      "Nessun feedback generato.";
+
     return res.status(200).json({ feedback });
 
   } catch (error) {
     console.error(error);
     return res.status(500).json({
-      error: "AI correction failed. Check OPENAI_API_KEY and Vercel logs."
+      error: "AI correction failed. Check GEMINI_API_KEY and Vercel logs."
     });
   }
 }

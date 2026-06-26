@@ -1,26 +1,25 @@
-# A2 English Master V6 AI Vercel
+# A2 English Master V6 Gemini Vercel
 
-Questa versione contiene:
-- frontend statico
-- correzione offline
-- progressi
-- Teacher AI tramite Vercel Serverless Function `/api/correct`
+Questa versione usa **Google Gemini** invece di OpenAI.
 
-## Come attivare Teacher AI
+## Come attivare Teacher AI gratis
 
-1. Carica tutto su GitHub.
+1. Carica questi file su GitHub.
 2. Vai su Vercel.
-3. Importa la repository.
-4. In Vercel vai su Settings → Environment Variables.
+3. Importa / aggiorna la repository.
+4. Vai su **Settings → Environment Variables**.
 5. Aggiungi:
 
 ```text
-OPENAI_API_KEY = la tua chiave OpenAI
+GEMINI_API_KEY = la tua chiave Google AI Studio
 ```
 
-6. Fai Redeploy.
-7. Apri il link Vercel, non GitHub Pages.
+6. Fai **Redeploy**.
+7. Apri il link Vercel.
+8. Premi **Teacher AI** dentro l'app.
 
 ## Importante
 
-Non mettere mai la chiave API nel frontend, in `index.html` o in `js/app.js`.
+- Non inserire mai la chiave in `index.html` o `js/app.js`.
+- La chiave deve stare solo su Vercel come Environment Variable.
+- GitHub Pages può mostrare l'app, ma la Teacher AI funziona solo dal link Vercel.
