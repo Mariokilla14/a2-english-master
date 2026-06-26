@@ -1,15 +1,17 @@
-# A2 English Master V10
+# A2 English Master - Gemini Fix + Email Spunto
 
-Versione professionale con:
-- Teacher AI Gemini
-- Dashboard statistiche
-- Correzione riga per riga tramite AI
-- Valutazione Cambridge
-- 200+ tracce
-- Memoria errori ricorrenti
+Questa versione rimane solo su:
+- GitHub
+- Vercel
+- Gemini
 
-## Deploy
-Carica tutto su GitHub e fai deploy su Vercel.
+## Cosa risolve
+- Problema quota/modello Gemini: prova automaticamente più modelli.
+- Aggiunge sezione Email Spunto.
+- Intestazione e parte finale sono sempre uguali al modello del libro.
 
-## Environment Variable su Vercel
-GEMINI_API_KEY = la tua chiave Google AI Studio
+## Su Vercel
+Environment Variable:
+GEMINI_API_KEY = tua chiave Google AI Studio
+
+Poi fai Redeploy.

@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "category": "Friends",
+    "score": 18,
+    "label": "18/30 - semplice con errori",
+    "title": "Friends example 18/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nLast week I met a new friend at university. Her name are Anna and she is very kind. She usually wears jeans and a colourful shirt, but yesterday she wore a beautiful dress because we go to a party. We talked about music, films and sport. I think she is one of the nicest people in my class. Next weekend we are going to study together. You have made any new friends this year?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 2,
+    "category": "Travel",
+    "score": 18,
+    "label": "18/30 - semplice con errori",
+    "title": "Travel example 18/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI have just come back from London. I go there by plane with two friends. The flight was short, but our luggage arrived late, so we were a little worried. Our hotel was near the centre and it was comfortable enough. We vareited a museum, walked near the river and bought some souvenirs. London is more expensive than my town, but it is really exciting. Where would you like to travel next?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 3,
+    "category": "Restaurant",
+    "score": 18,
+    "label": "18/30 - semplice con errori",
+    "title": "Restaurant example 18/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nYesterday I go to a new Italian restaurant with my family. The place was small but very nice. I ordered pasta with tomato sauce and my sareter had pizza. The waiter was friendly and the food was delicious. It wasn't too expensive, so I think we should go there together one day. What kind of food do you like best?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 4,
+    "category": "Accident",
+    "score": 18,
+    "label": "18/30 - semplice con errori",
+    "title": "Accident example 18/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nLast Saturday I go to a birthday party with my friends. While I was going home, a car suddenly stopped in front of me. I was driving slowly, so nobody was hurt, but my car was damaged. I felt really scared and worried. A police officer arrived after ten minutes and helped us. You have ever had an accident?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 5,
+    "category": "Technology",
+    "score": 18,
+    "label": "18/30 - semplice con errori",
+    "title": "Technology example 18/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI bought a new smartphone two days ago because my old one was too slow. Thare phone is faster and the camera is much better. I use it to study English, listen to music and send messages to my friends. I have already downloaded a useful app which helps me learn new words. Do you use any good apps for studying?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 6,
+    "category": "Health",
+    "score": 18,
+    "label": "18/30 - semplice con errori",
+    "title": "Health example 18/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI'm happy you want to have a healthier life. If I were you, I would eat more fruit and vegetables and drink a lot of water. You shouldn't eat too many sweets, and you should do some sport twice a week. Last year I used to stay at home all afternoon, but now I go running with my cousin. What sport would you like to try?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 7,
+    "category": "Sport",
+    "score": 18,
+    "label": "18/30 - semplice con errori",
+    "title": "Sport example 18/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nYesterday evening I watched a football match with my brother. Our team played very well in the first half, but the other team scored after tgoy minutes. While everyone was shouting, our best player scored a fantastic goal. In the end we won 2-1. It was the most exciting match I have seen thare year. Do you prefer watching sport at home or at the stadium?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 8,
+    "category": "Job interview",
+    "score": 18,
+    "label": "18/30 - semplice con errori",
+    "title": "Job interview example 18/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nYesterday I had my first job interview in a clothes shop. I was very nervous before it, but the manager was kind. She asked me why I wanted the job and what I could do well. I said that I am friendly, organareed and good with people. They will call me next week. You have ever had a job interview?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 9,
+    "category": "Lost wallet",
+    "score": 18,
+    "label": "18/30 - semplice con errori",
+    "title": "Lost wallet example 18/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nLast month, while I was on holiday, I lost my wallet at the train station. I had some money and my student card inside, so I was very worried. I go to the information office and explained the problem. Luckily, a woman had found it near a ticket machine and gave it to the police. What would you do in thare situation?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 10,
+    "category": "Doctor",
+    "score": 18,
+    "label": "18/30 - semplice con errori",
+    "title": "Doctor example 18/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI haven't been very well thare week. On Monday I had a headache and a sore throat, so I go to the doctor. He said I had to stay at home for three days and drink a lot of water. I was bored because I couldn't go out, but I watched a funny series and read a book. Do you know any good ways to feel stronger after being ill?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 11,
+    "category": "Friends",
+    "score": 24,
+    "label": "24/30 - buona",
+    "title": "Friends example 24/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nLast week I met a new friend at university. Her name is Anna and she is very kind. She usually wears jeans and a colourful shirt, but yesterday she wore a beautiful dress because we went to a party. We talked about music, films and sport. I think she is one of the nicest people in my class. Next weekend we are going to study together. Have you made any new friends this year?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 12,
+    "category": "Travel",
+    "score": 24,
+    "label": "24/30 - buona",
+    "title": "Travel example 24/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI have just come back from London. I went there by plane with two friends. The flight was short, but our luggage arrived late, so we were a little worried. Our hotel was near the centre and it was comfortable enough. We visited a museum, walked near the river and bought some souvenirs. London is more expensive than my town, but it is really exciting. Where would you like to travel next?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 13,
+    "category": "Restaurant",
+    "score": 24,
+    "label": "24/30 - buona",
+    "title": "Restaurant example 24/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nYesterday I went to a new Italian restaurant with my family. The place was small but very nice. I ordered pasta with tomato sauce and my sister had pizza. The waiter was friendly and the food was delicious. It wasn't too expensive, so I think we should go there together one day. What kind of food do you like best?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 14,
+    "category": "Accident",
+    "score": 24,
+    "label": "24/30 - buona",
+    "title": "Accident example 24/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nLast Saturday I went to a birthday party with my friends. While I was going home, a car suddenly stopped in front of me. I was driving slowly, so nobody was hurt, but my car was damaged. I felt really scared and worried. A police officer arrived after ten minutes and helped us. Have you ever had an accident?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 15,
+    "category": "Technology",
+    "score": 24,
+    "label": "24/30 - buona",
+    "title": "Technology example 24/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI bought a new smartphone two days ago because my old one was too slow. This phone is faster and the camera is much better. I use it to study English, listen to music and send messages to my friends. I have already downloaded a useful app which helps me learn new words. Do you use any good apps for studying?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 16,
+    "category": "Health",
+    "score": 24,
+    "label": "24/30 - buona",
+    "title": "Health example 24/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI'm happy you want to have a healthier life. If I were you, I would eat more fruit and vegetables and drink a lot of water. You shouldn't eat too many sweets, and you should do some sport twice a week. Last year I used to stay at home all afternoon, but now I go running with my cousin. What sport would you like to try?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 17,
+    "category": "Sport",
+    "score": 24,
+    "label": "24/30 - buona",
+    "title": "Sport example 24/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nYesterday evening I watched a football match with my brother. Our team played very well in the first half, but the other team scored after twenty minutes. While everyone was shouting, our best player scored a fantastic goal. In the end we won 2-1. It was the most exciting match I have seen this year. Do you prefer watching sport at home or at the stadium?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 18,
+    "category": "Job interview",
+    "score": 24,
+    "label": "24/30 - buona",
+    "title": "Job interview example 24/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nYesterday I had my first job interview in a clothes shop. I was very nervous before it, but the manager was kind. She asked me why I wanted the job and what I could do well. I said that I am friendly, organised and good with people. They will call me next week. Have you ever had a job interview?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 19,
+    "category": "Lost wallet",
+    "score": 24,
+    "label": "24/30 - buona",
+    "title": "Lost wallet example 24/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nLast month, while I was on holiday, I lost my wallet at the train station. I had some money and my student card inside, so I was very worried. I went to the information office and explained the problem. Luckily, a woman had found it near a ticket machine and gave it to the police. What would you do in this situation?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 20,
+    "category": "Doctor",
+    "score": 24,
+    "label": "24/30 - buona",
+    "title": "Doctor example 24/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI haven't been very well this week. On Monday I had a headache and a sore throat, so I went to the doctor. He said I had to stay at home for three days and drink a lot of water. I was bored because I couldn't go out, but I watched a funny series and read a book. Do you know any good ways to feel stronger after being ill?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 21,
+    "category": "Friends",
+    "score": 30,
+    "label": "30/30 - modello forte",
+    "title": "Friends example 30/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nLast week I met a new friend at university. Her name is Anna and she is very kind. She usually wears jeans and a colourful shirt, but yesterday she wore a beautiful dress because we went to a party. We talked about music, films and sport. I think she is one of the nicest people in my class. Next weekend we are going to study together. Have you made any new friends this year? I think experiences like this are useful because they help us become more confident.\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 22,
+    "category": "Travel",
+    "score": 30,
+    "label": "30/30 - modello forte",
+    "title": "Travel example 30/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI have just come back from London. I went there by plane with two friends. The flight was short, but our luggage arrived late, so we were a little worried. Our hotel was near the centre and it was comfortable enough. We visited a museum, walked near the river and bought some souvenirs. London is more expensive than my town, but it is really exciting. Where would you like to travel next? I think experiences like this are useful because they help us become more confident.\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 23,
+    "category": "Restaurant",
+    "score": 30,
+    "label": "30/30 - modello forte",
+    "title": "Restaurant example 30/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nYesterday I went to a new Italian restaurant with my family. The place was small but very nice. I ordered pasta with tomato sauce and my sister had pizza. The waiter was friendly and the food was delicious. It wasn't too expensive, so I think we should go there together one day. What kind of food do you like best? I think experiences like this are useful because they help us become more confident.\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 24,
+    "category": "Accident",
+    "score": 30,
+    "label": "30/30 - modello forte",
+    "title": "Accident example 30/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nLast Saturday I went to a birthday party with my friends. While I was going home, a car suddenly stopped in front of me. I was driving slowly, so nobody was hurt, but my car was damaged. I felt really scared and worried. A police officer arrived after ten minutes and helped us. Have you ever had an accident? I think experiences like this are useful because they help us become more confident.\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 25,
+    "category": "Technology",
+    "score": 30,
+    "label": "30/30 - modello forte",
+    "title": "Technology example 30/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI bought a new smartphone two days ago because my old one was too slow. This phone is faster and the camera is much better. I use it to study English, listen to music and send messages to my friends. I have already downloaded a useful app which helps me learn new words. Do you use any good apps for studying? I think experiences like this are useful because they help us become more confident.\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 26,
+    "category": "Health",
+    "score": 30,
+    "label": "30/30 - modello forte",
+    "title": "Health example 30/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI'm happy you want to have a healthier life. If I were you, I would eat more fruit and vegetables and drink a lot of water. You shouldn't eat too many sweets, and you should do some sport twice a week. Last year I used to stay at home all afternoon, but now I go running with my cousin. What sport would you like to try? I think experiences like this are useful because they help us become more confident.\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 27,
+    "category": "Sport",
+    "score": 30,
+    "label": "30/30 - modello forte",
+    "title": "Sport example 30/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nYesterday evening I watched a football match with my brother. Our team played very well in the first half, but the other team scored after twenty minutes. While everyone was shouting, our best player scored a fantastic goal. In the end we won 2-1. It was the most exciting match I have seen this year. Do you prefer watching sport at home or at the stadium? I think experiences like this are useful because they help us become more confident.\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 28,
+    "category": "Job interview",
+    "score": 30,
+    "label": "30/30 - modello forte",
+    "title": "Job interview example 30/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nYesterday I had my first job interview in a clothes shop. I was very nervous before it, but the manager was kind. She asked me why I wanted the job and what I could do well. I said that I am friendly, organised and good with people. They will call me next week. Have you ever had a job interview? I think experiences like this are useful because they help us become more confident.\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 29,
+    "category": "Lost wallet",
+    "score": 30,
+    "label": "30/30 - modello forte",
+    "title": "Lost wallet example 30/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nLast month, while I was on holiday, I lost my wallet at the train station. I had some money and my student card inside, so I was very worried. I went to the information office and explained the problem. Luckily, a woman had found it near a ticket machine and gave it to the police. What would you do in this situation? I think experiences like this are useful because they help us become more confident.\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 30,
+    "category": "Doctor",
+    "score": 30,
+    "label": "30/30 - modello forte",
+    "title": "Doctor example 30/30",
+    "email": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nI haven't been very well this week. On Monday I had a headache and a sore throat, so I went to the doctor. He said I had to stay at home for three days and drink a lot of water. I was bored because I couldn't go out, but I watched a funny series and read a book. Do you know any good ways to feel stronger after being ill? I think experiences like this are useful because they help us become more confident.\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  }
+]
