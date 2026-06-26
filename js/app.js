@@ -5,7 +5,7 @@ const words=t=>t.trim().match(/[A-Za-z']+/g)||[];
 async function init(){
   traces=await fetch('data/traces.json').then(r=>r.json());
   examples=await fetch('data/examples.json').then(r=>r.json());
-  nav(); teacher(); exam(); fillGapUI(); traceUI(); examplesUI(); dashboard();
+  nav(); teacher(); exam(); fillGapUI(); traceUI(); emailLibraryUI(); dashboard();
 }
 
 function nav(){
@@ -139,4 +139,287 @@ function dashboard(){
   $('clearData').onclick=()=>{localStorage.removeItem('a2_ai_memory');localStorage.removeItem('a2_fillgap_memory');dashboard();}
 }
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+
+/* ===========================
+   AI EMAIL LIBRARY - PACKAGE 1
+   IndexedDB offline archive
+=========================== */
+
+const DB_NAME = 'A2EnglishMasterDB';
+const DB_VERSION = 1;
+const EMAIL_STORE = 'emails';
+let favOnly = false;
+
+function openDB(){
+  return new Promise((resolve,reject)=>{
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if(!db.objectStoreNames.contains(EMAIL_STORE)){
+        const store = db.createObjectStore(EMAIL_STORE, { keyPath:'id' });
+        store.createIndex('createdAt','createdAt');
+        store.createIndex('category','category');
+        store.createIndex('favorite','favorite');
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function dbAddEmail(email){
+  const db = await openDB();
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(EMAIL_STORE,'readwrite');
+    tx.objectStore(EMAIL_STORE).put(email);
+    tx.oncomplete = resolve;
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+async function dbGetEmails(){
+  const db = await openDB();
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(EMAIL_STORE,'readonly');
+    const req = tx.objectStore(EMAIL_STORE).getAll();
+    req.onsuccess = () => resolve(req.result || []);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function dbDeleteEmail(id){
+  const db = await openDB();
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(EMAIL_STORE,'readwrite');
+    tx.objectStore(EMAIL_STORE).delete(id);
+    tx.oncomplete = resolve;
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+async function emailLibraryUI(){
+  const btn = $('generateEmailBtn');
+  if(!btn) return;
+
+  btn.onclick = generateAIEmail;
+  $('librarySearch').oninput = renderEmailLibrary;
+  $('showFavOnly').onclick = () => {
+    favOnly = !favOnly;
+    $('showFavOnly').textContent = favOnly ? '📚 Mostra tutte' : '⭐ Solo preferite';
+    renderEmailLibrary();
+  };
+
+  await seedOldExamplesOnce();
+  renderEmailLibrary();
+}
+
+async function seedOldExamplesOnce(){
+  if(localStorage.getItem('seeded_email_examples_v13')) return;
+  try{
+    const old = await fetch('data/examples.json').then(r=>r.json());
+    for(const item of old.slice(0,12)){
+      await dbAddEmail({
+        id:'seed_'+item.id,
+        title:item.title,
+        category:item.category,
+        task:'Email spunto dal modello iniziale',
+        wordCount: countWords(item.email),
+        grammarUsed:['A2 grammar'],
+        vocabulary:[],
+        email:item.email,
+        why30:item.score === 30 ? ['Opening corretto','Closing corretto','Buona organizzazione'] : ['Esempio di confronto'],
+        favorite:false,
+        createdAt:Date.now() - (1000000-item.id),
+        source:'seed'
+      });
+    }
+    localStorage.setItem('seeded_email_examples_v13','1');
+  }catch{}
+}
+
+async function generateAIEmail(){
+  const topic = $('emailTopic').value;
+  const customTask = $('emailCustomTask').value.trim();
+  const existing = await dbGetEmails();
+
+  $('emailGenStatus').innerHTML = '🤖 Gemini sta generando una email modello 30/30...';
+
+  try{
+    const res = await fetch('/api/generate-email',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        topic,
+        customTask,
+        previousTitles: existing.map(e=>e.title)
+      })
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error || 'Errore generazione email');
+
+    const e = data.email;
+    const saved = {
+      id:'email_'+Date.now(),
+      title:e.title || 'Email 30/30',
+      category:e.category || topic || 'Random',
+      task:e.task || customTask || 'A2 informal email',
+      wordCount:e.wordCount || countWords(e.email || ''),
+      grammarUsed:e.grammarUsed || [],
+      vocabulary:e.vocabulary || [],
+      email:e.email || '',
+      why30:e.why30 || [],
+      favorite:false,
+      createdAt:Date.now(),
+      modelUsed:data.modelUsed || 'Gemini',
+      source:'ai'
+    };
+
+    await dbAddEmail(saved);
+    $('emailGenStatus').innerHTML = `<span class="good">✅ Email generata e salvata offline.</span> Modello: ${saved.modelUsed}`;
+    renderEmailLibrary();
+
+  }catch(err){
+    $('emailGenStatus').innerHTML = `<span class="bad">AI non disponibile:</span> ${err.message}<br>Ho creato una email demo offline.`;
+    const demo = makeDemoEmail(topic, customTask);
+    await dbAddEmail(demo);
+    renderEmailLibrary();
+  }
+}
+
+function makeDemoEmail(topic, customTask){
+  const body = `Last weekend I had a very nice experience connected with ${topic || 'my free time'}. I went there with two friends and we had a great time. At first, I was a little worried because the weather was not very good, but in the end everything was fine. I have never enjoyed an afternoon so much. I think experiences like this are useful because they help us become more confident. What did you do last weekend?`;
+  const email = `Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+${body}
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`;
+  return {
+    id:'demo_'+Date.now(),
+    title:`${topic || 'Random'} email 30/30`,
+    category:topic || 'Random',
+    task:customTask || 'A2 informal email',
+    wordCount:countWords(email),
+    grammarUsed:['Past Simple','Present Perfect','Linkers','Question form'],
+    vocabulary:['experience','worried','confident'],
+    email,
+    why30:['Opening uguale al libro','Closing uguale al libro','Corpo chiaro e naturale','Domanda finale presente'],
+    favorite:false,
+    createdAt:Date.now(),
+    source:'demo'
+  };
+}
+
+async function renderEmailLibrary(){
+  const q = ($('librarySearch')?.value || '').toLowerCase();
+  let emails = await dbGetEmails();
+
+  emails = emails
+    .filter(e => !favOnly || e.favorite)
+    .filter(e => (e.title + e.category + e.task + e.email + (e.grammarUsed||[]).join(' ')).toLowerCase().includes(q))
+    .sort((a,b)=>b.createdAt-a.createdAt);
+
+  const total = emails.length;
+  const favs = emails.filter(e=>e.favorite).length;
+  const avg = total ? Math.round(emails.reduce((s,e)=>s+(e.wordCount||0),0)/total) : 0;
+
+  $('emailLibraryStats').innerHTML = `
+    <div class="stat"><span>📧 Email</span><b>${total}</b></div>
+    <div class="stat"><span>⭐ Preferite</span><b>${favs}</b></div>
+    <div class="stat"><span>✍️ Media parole</span><b>${avg}</b></div>
+  `;
+
+  $('emailLibraryList').innerHTML = emails.length ? emails.map(e => emailCard(e)).join('') : '<div class="box">Nessuna email salvata ancora.</div>';
+
+  emails.forEach(e=>{
+    const fav = document.getElementById('fav_'+e.id);
+    const del = document.getElementById('del_'+e.id);
+    const copy = document.getElementById('copy_'+e.id);
+    const edit = document.getElementById('edit_'+e.id);
+
+    if(fav) fav.onclick = async()=>{ e.favorite=!e.favorite; await dbAddEmail(e); renderEmailLibrary(); };
+    if(del) del.onclick = async()=>{ if(confirm('Eliminare questa email?')){ await dbDeleteEmail(e.id); renderEmailLibrary(); } };
+    if(copy) copy.onclick = async()=>{ await navigator.clipboard.writeText(e.email); copy.textContent='✅ Copiata'; setTimeout(()=>copy.textContent='📋 Copia',1200); };
+    if(edit) edit.onclick = ()=>openEmailEditor(e);
+  });
+}
+
+function emailCard(e){
+  return `<div class="emailcard libraryCard">
+    <div class="emailTop">
+      <div>
+        <span class="scorebadge">🥇 30/30</span>
+        <span class="scorebadge">${escapeHtml(e.category || 'Random')}</span>
+        ${e.favorite ? '<span class="scorebadge">⭐ Preferita</span>' : ''}
+        <h3>${escapeHtml(e.title || 'Email modello')}</h3>
+        <p>${escapeHtml(e.task || '')}</p>
+      </div>
+      <div class="wordBadge">${e.wordCount || countWords(e.email)} words</div>
+    </div>
+
+    <div class="emailtext">${escapeHtml(e.email)}</div>
+
+    <div class="miniChips">
+      ${(e.grammarUsed||[]).map(g=>`<span class="chip">${escapeHtml(g)}</span>`).join('')}
+    </div>
+
+    ${(e.why30||[]).length ? `<details class="whyBox"><summary>🏆 Perché è da 30/30</summary>${(e.why30||[]).map(w=>`<div>✅ ${escapeHtml(w)}</div>`).join('')}</details>` : ''}
+
+    <div class="cardActions">
+      <button id="fav_${e.id}" class="secondary">${e.favorite ? '💔 Rimuovi preferito' : '⭐ Preferito'}</button>
+      <button id="copy_${e.id}" class="secondary">📋 Copia</button>
+      <button id="edit_${e.id}" class="secondary">📝 Modifica</button>
+      <button id="del_${e.id}" class="secondary dangerBtn">🗑 Elimina</button>
+    </div>
+  </div>`;
+}
+
+function openEmailEditor(e){
+  const newText = prompt('Modifica email:', e.email);
+  if(newText === null) return;
+  e.email = newText;
+  e.wordCount = countWords(newText);
+  e.updatedAt = Date.now();
+  dbAddEmail(e).then(renderEmailLibrary);
+}
+
+function countWords(text){
+  return (String(text).trim().match(/[A-Za-z']+/g) || []).length;
+}
+
+/* ===========================
+   Live word counters - Package 2 foundation
+=========================== */
+
+function setupLiveWordCounters(){
+  addCounterToTextarea('aiText','teacherWordCounter');
+  addCounterToTextarea('examText','examWordCounter');
+}
+
+function addCounterToTextarea(textareaId,counterId){
+  const ta = $(textareaId);
+  if(!ta || $(counterId)) return;
+
+  const box = document.createElement('div');
+  box.className = 'liveCounter';
+  box.id = counterId;
+  ta.insertAdjacentElement('beforebegin', box);
+
+  const update = () => {
+    const n = countWords(ta.value);
+    const ok = n >= 120 && n <= 150;
+    const status = n < 120 ? '⚠️ Too short' : n > 150 ? '❌ Too long' : '✅ Perfect';
+    box.innerHTML = `<span>✍️ Words: <b>${n}</b></span><span>🎯 Target: 120-150</span><span class="${ok?'good':'warn'}">${status}</span>`;
+  };
+
+  ta.addEventListener('input', update);
+  update();
+}
+
+setTimeout(setupLiveWordCounters, 300);
+
 init();

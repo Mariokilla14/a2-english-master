@@ -12,7 +12,7 @@
 <button class="nav" data-page="teacher">🤖 Teacher AI</button>
 <button class="nav" data-page="exam">🎓 Exam Mode</button>
 <button class="nav" data-page="fillgap">🧩 Fill the Gap AI</button>
-<button class="nav" data-page="examples">📧 Email Spunto</button>
+<button class="nav" data-page="examples">📧 AI Email Library</button>
 <button class="nav" data-page="traces">📚 200+ Tracce</button>
 <button class="nav" data-page="dashboard">📊 Dashboard</button>
 <div class="sidecard"><b>🧩 Infinite Gap</b><p>Brani A2 con 30 domande, 4 opzioni e spiegazioni.</p></div>
@@ -26,7 +26,55 @@
 
 <section id="fillgap" class="page"><div class="panel"><div class="toolbar"><div><h2>🧩 Infinite Fill the Gap AI</h2><p>Genera un brano A2 con 30 spazi, 4 risposte a tendina e spiegazioni grammaticali.</p></div><button id="generateGap" class="primary pink">✨ Genera esercizio</button></div><div class="fillControls"><div><label>Grammatica</label><select id="gapGrammar"><option>Mixed Grammar - Tutto il libro</option><option>Present Simple</option><option>Present Continuous</option><option>Past Simple</option><option>Past Continuous</option><option>Present Perfect</option><option>Future: will / going to</option><option>Modals</option><option>Articles</option><option>Prepositions</option><option>Comparatives and Superlatives</option><option>Quantifiers</option><option>Relative Clauses</option><option>Conditionals</option><option>Passive</option><option>Word Formation</option></select></div><div><label>Difficoltà</label><select id="gapLevel"><option>Cambridge Exam</option><option>Easy</option><option>Medium</option><option>Hard</option></select></div><div><label>Argomento</label><select id="gapTopic"><option>Random</option><option>Travel</option><option>Food and restaurants</option><option>Health</option><option>Friends</option><option>Sport</option><option>Technology</option><option>School and work</option><option>Shopping</option><option>Films and music</option></select></div></div><div id="gapStatus" class="box">Premi “Genera esercizio”.</div><div id="gapExercise"></div></div></section>
 
-<section id="examples" class="page"><div class="panel"><h2>📧 Email spunto</h2><p>Intestazione e finale sono sempre uguali al modello del libro. Cambia solo il corpo.</p><input id="exampleSearch" class="search" placeholder="Cerca: travel, restaurant, 30/30..."><div id="exampleList"></div></div></section>
+
+<section id="examples" class="page">
+  <div class="panel">
+    <div class="toolbar">
+      <div>
+        <h2>📧 AI Email Library</h2>
+        <p>Genera email modello da 30/30 con Gemini. Opening e closing restano uguali al libro; cambia solo il corpo.</p>
+      </div>
+      <button id="generateEmailBtn" class="primary pink">✨ Genera Email 30/30</button>
+    </div>
+
+    <div class="emailControls">
+      <div>
+        <label>Argomento</label>
+        <select id="emailTopic">
+          <option>Random</option>
+          <option>Travel</option>
+          <option>Friends</option>
+          <option>Restaurant</option>
+          <option>Technology</option>
+          <option>Health</option>
+          <option>Sport</option>
+          <option>Shopping</option>
+          <option>School</option>
+          <option>Music</option>
+          <option>Job</option>
+          <option>Holiday problem</option>
+        </select>
+      </div>
+      <div>
+        <label>Traccia personalizzata</label>
+        <input id="emailCustomTask" class="search" placeholder="Es. Write an email about a school trip...">
+      </div>
+    </div>
+
+    <div id="emailGenStatus" class="box">
+      Premi “Genera Email 30/30”. Ogni email sarà salvata automaticamente e potrai rivederla offline.
+    </div>
+
+    <div class="toolbar">
+      <input id="librarySearch" class="search wideSearch" placeholder="Cerca nella libreria: travel, present perfect, restaurant...">
+      <button id="showFavOnly" class="secondary">⭐ Solo preferite</button>
+    </div>
+
+    <div id="emailLibraryStats" class="stats"></div>
+    <div id="emailLibraryList"></div>
+  </div>
+</section>
+
 <section id="traces" class="page"><div class="panel"><h2>📚 200+ Tracce</h2><input id="traceSearch" class="search" placeholder="Cerca traccia..."><div id="traceList" class="tracegrid"></div></div></section>
 <section id="dashboard" class="page"><div class="panel"><div class="toolbar"><h2>📊 Dashboard</h2><button id="clearData" class="secondary">🧹 Cancella</button></div><div id="dashboardBox"></div></div></section>
 </main></div>

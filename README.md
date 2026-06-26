@@ -1,17 +1,23 @@
-# A2 English Master V12 - Infinite Fill the Gap AI
+# A2 English Master V13 - AI Email Library
 
-Include:
-- Teacher AI Gemini con report bello
-- Email Spunto
-- 200+ tracce
-- Infinite Fill the Gap AI
-- Brano unico con 30 spazi
-- 4 opzioni a tendina per ogni spazio
-- Correzione automatica e spiegazioni
-- Demo offline se Gemini non risponde
+Pacchetto 1 completato:
+- Genera email modello 30/30 con Gemini
+- Opening e closing identici al libro
+- Salvataggio automatico offline con IndexedDB
+- Archivio email
+- Preferiti
+- Ricerca
+- Copia
+- Modifica
+- Elimina
 
-## Vercel
-Variabile:
-GEMINI_API_KEY = tua chiave Google AI Studio
+Incluso anche:
+- Contaparole live in Teacher AI
+- Contaparole live in Exam Mode
 
-Carica tutto su GitHub e fai Redeploy su Vercel.
+## Deploy
+Carica tutto su GitHub sostituendo i file vecchi.
+Poi su Vercel fai Redeploy.
+
+## Variabile Vercel
+GEMINI_API_KEY = la tua chiave Google AI Studio
