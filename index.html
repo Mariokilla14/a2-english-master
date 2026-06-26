@@ -9,7 +9,7 @@
 <aside class="sidebar">
 <div class="brand"><div class="rocket">🚀</div><h1>A2 English<br><span>Master V12</span></h1><p>Gemini + Fill the Gap AI</p></div>
 <button class="nav active" data-page="home">🏠 Home</button>
-<button class="nav" data-page="teacher">🤖 Teacher AI</button>
+<button class="nav" data-page="teacher">🤖 Teacher AI 4.0</button>
 <button class="nav" data-page="exam">🎓 Exam Mode</button>
 <button class="nav" data-page="fillgap">🧩 Fill the Gap AI</button>
 <button class="nav" data-page="examples">📧 AI Email Library</button>
@@ -20,11 +20,66 @@
 <main>
 <section id="home" class="page active"><div class="hero"><span class="tag">✨ V12 • Gemini 3 • Infinite Fill the Gap</span><h2>Trainer A2 completo</h2><p>Writing, email spunto, Teacher AI e Fill the Gap infinito generato da Gemini.</p><div class="cards"><div class="card"><div class="emoji">🤖</div><h3>Teacher AI</h3><p>Correzione ordinata.</p><button class="primary" data-go="teacher">Apri</button></div><div class="card"><div class="emoji">🧩</div><h3>Fill the Gap AI</h3><p>Brani infiniti da 30 gap.</p><button class="primary pink" data-go="fillgap">Genera</button></div><div class="card"><div class="emoji">📧</div><h3>Email spunto</h3><p>Modelli con opening e closing fissi.</p><button class="primary" data-go="examples">Vedi</button></div></div></div></section>
 
-<section id="teacher" class="page"><div class="panel"><h2>🤖 Teacher AI</h2><label>Traccia</label><textarea id="aiTask" class="smallarea">Write an informal email to an English friend. Write 120-150 words.</textarea><label>Email</label><textarea id="aiText" placeholder="Dear Sam,&#10;&#10;Thanks for your email..."></textarea><button id="aiCorrect" class="primary pink">🤖 Correggi con Gemini</button><div id="aiResult"></div></div></section>
+<section id="teacher" class="page">
+  <div class="panel">
+    <h2>🤖 Teacher AI 4.0</h2>
+    <p>Scrivi la tua email: l’app controlla in tempo reale parole, opening, closing, paragrafi e domanda finale.</p>
 
-<section id="exam" class="page"><div class="panel"><div class="toolbar"><h2>🎓 Exam Mode</h2><button id="newTrace" class="primary pink">🎲 Nuova traccia</button></div><div class="stats"><div class="stat"><span>⏱ Timer</span><b id="timer">40:00</b></div><div class="stat"><span>✍️ Words</span><b id="wordCount">0</b></div><div class="stat"><span>🎯 Target</span><b>120-150</b></div></div><div id="examTrace" class="box">Premi “Nuova traccia”.</div><textarea id="examText"></textarea><button id="examAI" class="primary">🤖 Correggi con AI</button><div id="examResult"></div></div></section>
+    <label>Traccia</label>
+    <textarea id="aiTask" class="smallarea">Write an informal email to an English friend. Write 120-150 words.</textarea>
 
-<section id="fillgap" class="page"><div class="panel"><div class="toolbar"><div><h2>🧩 Infinite Fill the Gap AI</h2><p>Genera un brano A2 con 30 spazi, 4 risposte a tendina e spiegazioni grammaticali.</p></div><button id="generateGap" class="primary pink">✨ Genera esercizio</button></div><div class="fillControls"><div><label>Grammatica</label><select id="gapGrammar"><option>Mixed Grammar - Tutto il libro</option><option>Present Simple</option><option>Present Continuous</option><option>Past Simple</option><option>Past Continuous</option><option>Present Perfect</option><option>Future: will / going to</option><option>Modals</option><option>Articles</option><option>Prepositions</option><option>Comparatives and Superlatives</option><option>Quantifiers</option><option>Relative Clauses</option><option>Conditionals</option><option>Passive</option><option>Word Formation</option></select></div><div><label>Difficoltà</label><select id="gapLevel"><option>Cambridge Exam</option><option>Easy</option><option>Medium</option><option>Hard</option></select></div><div><label>Argomento</label><select id="gapTopic"><option>Random</option><option>Travel</option><option>Food and restaurants</option><option>Health</option><option>Friends</option><option>Sport</option><option>Technology</option><option>School and work</option><option>Shopping</option><option>Films and music</option></select></div></div><div id="gapStatus" class="box">Premi “Genera esercizio”.</div><div id="gapExercise"></div></div></section>
+    <div id="teacherChecklist" class="checkPanel"></div>
+
+    <label>Email</label>
+    <textarea id="aiText" placeholder="Dear Sam,&#10;&#10;Thanks for your email..."></textarea>
+
+    <div class="teacherActions">
+      <button id="aiCorrect" class="primary pink">🤖 Correggi con Gemini</button>
+      <button id="insertTemplateTeacher" class="secondary">📩 Inserisci struttura</button>
+      <button id="clearTeacherText" class="secondary">🧹 Pulisci</button>
+    </div>
+
+    <div id="aiResult"></div>
+  </div>
+</section>
+
+<section id="exam" class="page">
+  <div class="panel">
+    <div class="toolbar">
+      <h2>🎓 Exam Mode Pro</h2>
+      <button id="newTrace" class="primary pink">🎲 Nuova traccia</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span>⏱ Timer</span><b id="timer">40:00</b></div>
+      <div class="stat"><span>✍️ Words</span><b id="wordCount">0</b></div>
+      <div class="stat"><span>🎯 Target</span><b>120-150</b></div>
+    </div>
+
+    <div id="examChecklist" class="checkPanel"></div>
+    <div id="examTrace" class="box">Premi “Nuova traccia”.</div>
+
+    <textarea id="examText" placeholder="Dear Sam,&#10;&#10;Thanks for your email..."></textarea>
+
+    <div class="teacherActions">
+      <button id="examAI" class="primary">🤖 Correggi con AI</button>
+      <button id="insertTemplateExam" class="secondary">📩 Inserisci struttura</button>
+      <button id="clearExamText" class="secondary">🧹 Pulisci</button>
+    </div>
+
+    <div id="examResult"></div>
+  </div>
+</section>
+
+<section id="fillgap" class="page"><div class="panel"><div class="toolbar"><div><h2>🧩 Infinite Fill the Gap AI</h2><p>Genera un brano A2 con 30 spazi, 4 risposte a tendina e spiegazioni grammaticali.</p></div><button id="generateGap" class="primary pink">✨ Genera esercizio</button><button id="useCachedGap" class="secondary">⚡ Usa pronto</button><button id="preloadGap" class="secondary">📦 Prepara cache</button></div><div class="fillControls"><div><label>Grammatica</label><select id="gapGrammar"><option>Mixed Grammar - Tutto il libro</option><option>Present Simple</option><option>Present Continuous</option><option>Past Simple</option><option>Past Continuous</option><option>Present Perfect</option><option>Future: will / going to</option><option>Modals</option><option>Articles</option><option>Prepositions</option><option>Comparatives and Superlatives</option><option>Quantifiers</option><option>Relative Clauses</option><option>Conditionals</option><option>Passive</option><option>Word Formation</option></select></div><div><label>Difficoltà</label><select id="gapLevel"><option>Cambridge Exam</option><option>Easy</option><option>Medium</option><option>Hard</option></select></div><div>
+        <label>Modalità Allenamento</label>
+        <select id="gapMode">
+          <option>🎲 Casuale</option>
+          <option>🎯 Errori ricorrenti</option>
+          <option>🎓 Simulazione Cambridge</option>
+        </select>
+      </div>
+      <div><label>Argomento</label><select id="gapTopic"><option>Random</option><option>Travel</option><option>Food and restaurants</option><option>Health</option><option>Friends</option><option>Sport</option><option>Technology</option><option>School and work</option><option>Shopping</option><option>Films and music</option></select></div></div><div id="gapStatus" class="box">Premi “Genera esercizio”.</div><div id="gapExercise"></div></div></section>
 
 
 <section id="examples" class="page">

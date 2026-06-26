@@ -19,17 +19,38 @@ function show(id){
   if(id==='dashboard') dashboard();
 }
 
-function teacher(){ $('aiCorrect').onclick=()=>ai($('aiText').value,$('aiTask').value,'aiResult'); }
+
+function teacher(){
+  const btn = $('aiCorrect');
+  if(btn) btn.onclick=()=>ai($('aiText').value,$('aiTask').value,'aiResult','teacher');
+  const insert = $('insertTemplateTeacher');
+  if(insert) insert.onclick=()=>insertEmailTemplate('aiText');
+  const clear = $('clearTeacherText');
+  if(clear) clear.onclick=()=>{ $('aiText').value=''; updateAllLiveChecks(); };
+}
+
 function exam(){
   $('newTrace').onclick=()=>{
     let t=traces[Math.floor(Math.random()*traces.length)];
     currentTask=t.task;
     $('examTrace').innerHTML=`<b>${t.title}</b><p>${t.task}</p>`;
-    $('examText').value=''; $('wordCount').textContent='0'; resetTimer(); startTimer();
+    $('examText').value='';
+    $('wordCount').textContent='0';
+    resetTimer();
+    startTimer();
+    updateAllLiveChecks();
   };
-  $('examText').oninput=()=>$('wordCount').textContent=words($('examText').value).length;
-  $('examAI').onclick=()=>ai($('examText').value,currentTask||'A2 informal email','examResult');
+  $('examText').oninput=()=>{
+    $('wordCount').textContent=words($('examText').value).length;
+    updateAllLiveChecks();
+  };
+  $('examAI').onclick=()=>ai($('examText').value,currentTask||'A2 informal email','examResult','exam');
+  const insert = $('insertTemplateExam');
+  if(insert) insert.onclick=()=>insertEmailTemplate('examText');
+  const clear = $('clearExamText');
+  if(clear) clear.onclick=()=>{ $('examText').value=''; $('wordCount').textContent='0'; updateAllLiveChecks(); };
 }
+
 function resetTimer(){if(timer)clearInterval(timer);time=2400;tick();}
 function startTimer(){timer=setInterval(()=>{time=Math.max(0,time-1);tick();if(time===0)clearInterval(timer)},1000)}
 function tick(){let m=Math.floor(time/60),s=time%60;$('timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`}
@@ -43,51 +64,297 @@ function renderExamples(q){
   $('exampleList').innerHTML=examples.filter(e=>(e.title+e.category+e.score).toLowerCase().includes(q)).map(e=>`<div class="emailcard"><span class="scorebadge">${e.label}</span><h3>${e.title}</h3><div class="emailtext">${escapeHtml(e.email)}</div><button class="secondary" onclick="navigator.clipboard.writeText(\`${e.email.replaceAll('`','')}\`)">Copia</button></div>`).join('');
 }
 
-async function ai(text,task,target){
-  if(!text.trim()){ $(target).innerHTML='<div class="issue warn">Scrivi prima una email.</div>'; return; }
-  $(target).innerHTML='<div class="aiout warn">🤖 Teacher AI sta correggendo...</div>';
+
+async function ai(text,task,target,mode='teacher'){
+  if(!text.trim()){
+    $(target).innerHTML='<div class="issue warn">Scrivi prima una email.</div>';
+    return;
+  }
+
+  const checks = analyseLiveText(text);
+  $(target).innerHTML='<div class="aiout warn">🤖 Teacher AI 4.0 sta correggendo...<br>Analizzo grammatica, lessico, struttura e requisiti Cambridge.</div>';
+
   try{
-    let res=await fetch('/api/correct',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,task})});
+    let res=await fetch('/api/correct',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({text,task,liveChecks:checks})
+    });
     let data=await res.json();
     if(!res.ok)throw new Error(data.error||'Errore AI');
-    if(data.report){ $(target).innerHTML=renderBeautifulReport(data.report,data.modelUsed); saveAI(JSON.stringify(data.report)); }
-    else { $(target).innerHTML=`<div class="aiout">${cleanText(data.feedback||'')}</div>`; saveAI(data.feedback||''); }
+
+    if(data.report){
+      $(target).innerHTML=renderBeautifulReport(data.report,data.modelUsed);
+      saveAI(JSON.stringify(data.report));
+      saveTeacherReport(data.report, mode);
+    } else {
+      $(target).innerHTML=`<div class="aiout">${cleanText(data.feedback||'')}</div>`;
+      saveAI(data.feedback||'');
+    }
   }catch(e){
     $(target).innerHTML=`<div class="issue bad"><b>AI non disponibile.</b><br>${e.message}<br>Controlla GEMINI_API_KEY su Vercel e fai Redeploy.</div>`;
   }
 }
+
 function cleanText(text){return String(text).replaceAll('###','').replaceAll('**','').replaceAll('|',' ').replaceAll('---','').replaceAll('\n','<br>');}
 function bandCard(label,value){let n=Number(value||0);let w=Math.max(0,Math.min(100,(n/25)*100));return `<div class="bandCard"><div>${label} <b>${n}/25</b></div><div class="bar"><div style="width:${w}%"></div></div></div>`;}
 function renderBeautifulReport(r,model){
   const issues=Array.isArray(r.issues)?r.issues:[], tips=Array.isArray(r.tips)?r.tips:[], focus=Array.isArray(r.studyFocus)?r.studyFocus:[];
-  return `<div class="reportNice"><div class="reportHero"><div><span class="tag">🤖 ${model||'Gemini'}</span><h2>Valutazione Teacher AI</h2><p>${r.summary||''}</p></div><div class="scoreCircle"><strong>${Number(r.overall||0)}</strong><span>/30</span></div></div><div class="bandGrid">${bandCard('Content',r.bands?.content)}${bandCard('Communicative',r.bands?.communicative)}${bandCard('Organisation',r.bands?.organisation)}${bandCard('Language',r.bands?.language)}</div><h3>📝 Correzione riga per riga</h3>${issues.length?issues.map((i,idx)=>`<div class="errorCard"><b>${idx+1}. ${i.type||'Errore'}</b><div class="compareRows"><div><small>Hai scritto</small><p class="wrongText">${escapeHtml(i.wrong||'-')}</p></div><div><small>Correzione</small><p class="correctText">${escapeHtml(i.correct||'-')}</p></div></div><p>${escapeHtml(i.explanation||'')}</p></div>`).join(''):'<div class="issue good">🎉 Nessun errore importante trovato.</div>'}<h3>✅ Email corretta</h3><div class="correctedEmail">${escapeHtml(r.correctedEmail||'Non disponibile.')}</div><h3>🎯 Consigli</h3>${tips.map(t=>`<div class="tipItem">💡 ${escapeHtml(t)}</div>`).join('')}<h3>📚 Da ripassare</h3>${focus.map(f=>`<span class="chip">${escapeHtml(f)}</span>`).join('')}</div>`;
+  const strengths=Array.isArray(r.strengths)?r.strengths:[];
+  return `<div class="reportNice">
+    <div class="reportHero">
+      <div>
+        <span class="tag">🤖 ${model||'Gemini'}</span>
+        <h2>Teacher AI 4.0 Report</h2>
+        <p>${escapeHtml(r.summary||'Ecco la tua correzione.')}</p>
+        <span class="levelBadge">Livello stimato: ${escapeHtml(r.levelEstimate||'A2')}</span>
+      </div>
+      <div class="scoreCircle"><strong>${Number(r.overall||0)}</strong><span>/30</span></div>
+    </div>
+
+    <div class="bandGrid">
+      ${bandCard('Content',r.bands?.content)}
+      ${bandCard('Communicative',r.bands?.communicative)}
+      ${bandCard('Organisation',r.bands?.organisation)}
+      ${bandCard('Language',r.bands?.language)}
+    </div>
+
+    <div class="reqGrid">
+      ${reqCard('Opening',r.requirements?.opening)}
+      ${reqCard('Closing',r.requirements?.closing)}
+      ${reqCard('Question',r.requirements?.finalQuestion)}
+      <div class="reqCard"><span>Words</span><b>${r.requirements?.wordCount ?? '-'}</b><small>${escapeHtml(r.requirements?.wordCountComment||'')}</small></div>
+    </div>
+
+    ${strengths.length ? `<h3>✅ Punti forti</h3><div class="twoCols">${strengths.map(s=>`<div class="tipItem good">✅ ${escapeHtml(s)}</div>`).join('')}</div>` : ''}
+
+    <h3>📝 Correzione riga per riga</h3>
+    ${issues.length?issues.map((i,idx)=>`<div class="errorCard severity_${escapeHtml(i.severity||'low')}">
+      <div class="errorHeader"><span>${idx+1}</span><b>${escapeHtml(i.type||'Errore')}</b><em>${escapeHtml(i.rule||'')}</em></div>
+      <div class="compareRows">
+        <div><small>Hai scritto</small><p class="wrongText">${escapeHtml(i.wrong||'-')}</p></div>
+        <div><small>Correzione</small><p class="correctText">${escapeHtml(i.correct||'-')}</p></div>
+      </div>
+      <p class="explain">${escapeHtml(i.explanation||'')}</p>
+      ${(i.examples||[]).length ? `<div class="exampleMini"><b>Esempi:</b>${(i.examples||[]).map(ex=>`<div>• ${escapeHtml(ex)}</div>`).join('')}</div>` : ''}
+    </div>`).join(''):'<div class="issue good">🎉 Nessun errore importante trovato.</div>'}
+
+    <h3>✅ Email corretta</h3>
+    <div class="correctedEmail">${escapeHtml(r.correctedEmail||'Non disponibile.')}</div>
+
+    ${r.improvedEmail ? `<h3>🌟 Versione migliorata 30/30</h3><div class="correctedEmail improved">${escapeHtml(r.improvedEmail)}</div>` : ''}
+
+    <div class="twoCols">
+      <div>
+        <h3>🎯 Consigli per salire</h3>
+        ${tips.length?tips.map(t=>`<div class="tipItem">💡 ${escapeHtml(t)}</div>`).join(''):'<p>Nessun consiglio.</p>'}
+      </div>
+      <div>
+        <h3>📚 Da ripassare</h3>
+        ${focus.length?focus.map(f=>`<span class="chip">${escapeHtml(f)}</span>`).join(''):'<p>Nessun focus.</p>'}
+      </div>
+    </div>
+
+    ${r.nextExercise ? `<h3>🧩 Esercizio mirato</h3><div class="box">${escapeHtml(r.nextExercise)}</div>` : ''}
+  </div>`;
 }
+
+function reqCard(label,value){
+  const v = value || 'weak';
+  const cls = v === 'ok' ? 'good' : v === 'missing' ? 'bad' : 'warn';
+  const text = v === 'ok' ? 'OK' : v === 'missing' ? 'Mancante' : 'Da migliorare';
+  return `<div class="reqCard"><span>${label}</span><b class="${cls}">${text}</b></div>`;
+}
+
+
+
+
+/* ===========================
+   V14 SMART FILL THE GAP
+   Cache intelligente + modalità allenamento
+=========================== */
+
+const GAP_CACHE_KEY = 'a2_smart_gap_cache';
+const GAP_USED_KEY = 'a2_smart_gap_used';
 
 function fillGapUI(){
   const btn=$('generateGap');
   if(!btn)return;
-  btn.onclick=generateFillGap;
+  btn.onclick=generateSmartFillGap;
+
+  const cached=$('useCachedGap');
+  if(cached) cached.onclick=useReadyGap;
+
+  const preload=$('preloadGap');
+  if(preload) preload.onclick=()=>preloadGapCache(true);
+
+  updateGapCacheStatus();
+  setTimeout(()=>preloadGapCache(false), 800);
 }
-async function generateFillGap(){
-  const grammar=$('gapGrammar').value, level=$('gapLevel').value, topic=$('gapTopic').value;
-  $('gapStatus').innerHTML='🤖 Gemini sta generando un brano con 30 domande...';
-  $('gapExercise').innerHTML='';
-  try{
-    const res=await fetch('/api/fillgap',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({grammar,level,topic})});
-    const data=await res.json();
-    if(!res.ok) throw new Error(data.error||'Errore generazione fill the gap');
-    renderFillGap(data.exercise||data);
-  }catch(e){
-    $('gapStatus').innerHTML=`<span class="bad">AI non disponibile:</span> ${e.message}<br>Uso esercizio demo offline.`;
-    renderFillGap(makeDemoGap());
+
+function getGapCache(){
+  try{return JSON.parse(localStorage.getItem(GAP_CACHE_KEY)||'[]')}catch{return []}
+}
+function setGapCache(items){
+  localStorage.setItem(GAP_CACHE_KEY, JSON.stringify(items.slice(-25)));
+}
+function getUsedGaps(){
+  try{return JSON.parse(localStorage.getItem(GAP_USED_KEY)||'[]')}catch{return []}
+}
+function setUsedGaps(items){
+  localStorage.setItem(GAP_USED_KEY, JSON.stringify(items.slice(-50)));
+}
+
+function getWeakRules(){
+  const gaps=JSON.parse(localStorage.getItem('a2_fillgap_memory')||'[]');
+  const reports=JSON.parse(localStorage.getItem('a2_teacher_reports')||'[]');
+  const rules={};
+
+  gaps.forEach(g=>{
+    Object.entries(g.wrongRules||{}).forEach(([r,n])=>rules[r]=(rules[r]||0)+n);
+  });
+  reports.forEach(r=>{
+    (r.issues||[]).forEach(x=>rules[x]=(rules[x]||0)+1);
+  });
+
+  return Object.entries(rules).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([r])=>r);
+}
+
+function getRecentExerciseLabels(){
+  const used=getUsedGaps();
+  return used.slice(-12).map(x=>`${x.title||'Exercise'} / ${x.topic||''} / ${x.grammarFocus||''}`);
+}
+
+function updateGapCacheStatus(){
+  const cache=getGapCache();
+  const weak=getWeakRules();
+  const status=$('gapStatus');
+  if(status && status.textContent.includes('Premi')){
+    status.innerHTML=`Premi “Genera esercizio”.<br><small>⚡ Esercizi pronti in cache: <b>${cache.length}</b>${weak.length?` • 🎯 Focus consigliato: ${weak.join(', ')}`:''}</small>`;
   }
 }
-function renderFillGap(ex){
-  if(!ex||!Array.isArray(ex.questions)){ $('gapStatus').innerHTML='<span class="bad">Esercizio non valido.</span>'; return; }
-  $('gapStatus').innerHTML=`<b>${ex.title||'Fill the Gap A2'}</b><p>${ex.instructions||'Choose the correct option for each gap.'}</p>`;
-  $('gapExercise').innerHTML=`<div class="gapPassage">${renderPassageWithSelects(ex.passage,ex.questions)}</div><button id="checkGap" class="primary pink">✅ Correggi esercizio</button><div id="gapResult"></div>`;
-  $('checkGap').onclick=()=>checkFillGap(ex);
+
+async function generateSmartFillGap(){
+  const cache=getGapCache();
+
+  // If cache has items, show immediately and refill in background.
+  if(cache.length){
+    const ex=cache.shift();
+    setGapCache(cache);
+    markGapAsUsed(ex);
+    $('gapStatus').innerHTML=`⚡ Esercizio pronto caricato dalla cache.<br><small>Nel frattempo preparo un nuovo esercizio in background.</small>`;
+    renderFillGap(ex);
+    preloadGapCache(false);
+    return;
+  }
+
+  $('gapStatus').innerHTML='🤖 Cache vuota: Gemini sta generando un nuovo esercizio...';
+  $('gapExercise').innerHTML='';
+  try{
+    const ex=await fetchNewGap();
+    markGapAsUsed(ex);
+    renderFillGap(ex);
+    preloadGapCache(false);
+  }catch(e){
+    $('gapStatus').innerHTML=`<span class="bad">AI non disponibile:</span> ${e.message}<br>Uso esercizio demo offline.`;
+    const demo=makeDemoGap();
+    markGapAsUsed(demo);
+    renderFillGap(demo);
+  }
 }
+
+function useReadyGap(){
+  const cache=getGapCache();
+  if(!cache.length){
+    $('gapStatus').innerHTML='⚠️ Non ci sono esercizi pronti. Premi “Prepara cache” oppure “Genera esercizio”.';
+    return;
+  }
+  const ex=cache.shift();
+  setGapCache(cache);
+  markGapAsUsed(ex);
+  renderFillGap(ex);
+  updateGapCacheStatus();
+  preloadGapCache(false);
+}
+
+async function preloadGapCache(force=false){
+  const cache=getGapCache();
+  if(!force && cache.length>=3) return;
+
+  const status=$('gapStatus');
+  if(force && status) status.innerHTML='📦 Sto preparando esercizi in cache...';
+
+  const target=force ? 3 : 2;
+  let current=getGapCache();
+
+  while(current.length<target){
+    try{
+      const ex=await fetchNewGap();
+      current=getGapCache();
+      current.push(ex);
+      setGapCache(current);
+      if(force && status) status.innerHTML=`✅ Cache aggiornata: ${current.length} esercizi pronti.`;
+    }catch(e){
+      if(force && status) status.innerHTML=`<span class="bad">Non riesco a preparare la cache:</span> ${e.message}`;
+      break;
+    }
+  }
+  updateGapCacheStatus();
+}
+
+async function fetchNewGap(){
+  const grammar=$('gapGrammar')?.value || 'Mixed Grammar - Tutto il libro';
+  const level=$('gapLevel')?.value || 'Cambridge Exam';
+  const topic=$('gapTopic')?.value || 'Random';
+  const mode=$('gapMode')?.value || '🎲 Casuale';
+  const weakRules=getWeakRules();
+  const recentExercises=getRecentExerciseLabels();
+
+  const res=await fetch('/api/fillgap',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({grammar,level,topic,mode,weakRules,recentExercises})
+  });
+
+  const data=await res.json();
+  if(!res.ok) throw new Error(data.error||'Errore generazione fill the gap');
+
+  const ex=data.exercise||data;
+  ex.modelUsed=data.modelUsed||'Gemini';
+  ex.cacheId='gap_'+Date.now()+'_'+Math.random().toString(16).slice(2);
+  return ex;
+}
+
+function markGapAsUsed(ex){
+  const used=getUsedGaps();
+  used.push({
+    id:ex.cacheId||Date.now(),
+    title:ex.title,
+    topic:ex.topic,
+    grammarFocus:ex.grammarFocus,
+    mode:ex.mode,
+    usedAt:Date.now()
+  });
+  setUsedGaps(used);
+}
+
+function renderFillGap(ex){
+  if(!ex||!Array.isArray(ex.questions)){
+    $('gapStatus').innerHTML='<span class="bad">Esercizio non valido.</span>';
+    return;
+  }
+
+  $('gapStatus').innerHTML=`<b>${ex.title||'Fill the Gap A2'}</b><p>${ex.instructions||'Choose the correct option for each gap.'}</p><small>🤖 ${ex.modelUsed||'Gemini'} • ${ex.mode||''}</small>`;
+
+  $('gapExercise').innerHTML=`<div class="gapPassage">${renderPassageWithSelects(ex.passage,ex.questions)}</div>
+  <button id="checkGap" class="primary pink">✅ Correggi esercizio</button>
+  <button id="nextGapSmart" class="secondary">⚡ Prossimo pronto</button>
+  <div id="gapResult"></div>`;
+
+  $('checkGap').onclick=()=>checkFillGap(ex);
+  $('nextGapSmart').onclick=generateSmartFillGap;
+}
+
 function renderPassageWithSelects(passage,questions){
   let out=escapeHtml(passage||'');
   questions.forEach(q=>{
@@ -97,6 +364,7 @@ function renderPassageWithSelects(passage,questions){
   });
   return out.replaceAll('\n','<br>');
 }
+
 function checkFillGap(ex){
   let correct=0; const details=[];
   ex.questions.forEach(q=>{
@@ -107,10 +375,27 @@ function checkFillGap(ex){
     if(sel){sel.classList.remove('right','wrong');sel.classList.add(ok?'right':'wrong');}
     details.push({...q,chosen:val,ok});
   });
+
   const percent=Math.round((correct/ex.questions.length)*100);
   saveGap(correct,ex.questions.length,details);
-  $('gapResult').innerHTML=`<div class="reportHero"><div><span class="tag">🧩 Fill the Gap</span><h2>${correct}/${ex.questions.length}</h2><p>${percent}% corretto</p></div><div class="scoreCircle"><strong>${percent}</strong><span>%</span></div></div><h3>📚 Errori e spiegazioni</h3>${details.map(d=>`<div class="errorCard"><b>${d.id}. ${escapeHtml(d.rule||'Grammar')}</b><div class="compareRows"><div><small>Hai scelto</small><p class="${d.ok?'correctText':'wrongText'}">${escapeHtml(d.chosen||'—')}</p></div><div><small>Risposta corretta</small><p class="correctText">${escapeHtml(d.answer)}</p></div></div><p>${escapeHtml(d.explanation||'')}</p></div>`).join('')}`;
+
+  $('gapResult').innerHTML=`<div class="reportHero">
+    <div><span class="tag">🧩 Fill the Gap</span><h2>${correct}/${ex.questions.length}</h2><p>${percent}% corretto</p></div>
+    <div class="scoreCircle"><strong>${percent}</strong><span>%</span></div>
+  </div>
+  <h3>📚 Errori e spiegazioni</h3>
+  ${details.map(d=>`<div class="errorCard">
+    <b>${d.id}. ${escapeHtml(d.rule||'Grammar')}</b>
+    <div class="compareRows">
+      <div><small>Hai scelto</small><p class="${d.ok?'correctText':'wrongText'}">${escapeHtml(d.chosen||'—')}</p></div>
+      <div><small>Risposta corretta</small><p class="correctText">${escapeHtml(d.answer)}</p></div>
+    </div>
+    <p>${escapeHtml(d.explanation||'')}</p>
+  </div>`).join('')}`;
+
+  preloadGapCache(false);
 }
+
 function saveGap(correct,total,details){
   const old=JSON.parse(localStorage.getItem('a2_fillgap_memory')||'[]');
   const wrongRules={};
@@ -118,9 +403,17 @@ function saveGap(correct,total,details){
   old.push({id:Date.now(),date:new Date().toLocaleString(),correct,total,wrongRules});
   localStorage.setItem('a2_fillgap_memory',JSON.stringify(old));
 }
+
 function makeDemoGap(){
-  const passage=`Dear Anna,\n\nYesterday I ___1___ to a new restaurant with my family. The waiter ___2___ very kind and the food was delicious. I ___3___ pasta because I love Italian food. My sister ___4___ pizza, but she didn't like it very much. We ___5___ there for two hours and then we went home.\n\nI think you ___6___ come with me next time. It is ___7___ than the restaurant near school, but the food is better. I have ___8___ eaten such good pasta before.\n\nWrite back soon,\nMarco`;
-  return {title:'Demo Fill the Gap A2',instructions:'Choose the correct option.',passage,questions:[
+  const passage=`Dear Anna,
+
+Yesterday I ___1___ to a new restaurant with my family. The waiter ___2___ very kind and the food was delicious. I ___3___ pasta because I love Italian food. My sister ___4___ pizza, but she didn't like it very much. We ___5___ there for two hours and then we went home.
+
+I think you ___6___ come with me next time. It is ___7___ than the restaurant near school, but the food is better. I have ___8___ eaten such good pasta before.
+
+Write back soon,
+Marco`;
+  return {title:'Demo Fill the Gap A2',instructions:'Choose the correct option.',passage,mode:'Demo',modelUsed:'Offline',questions:[
     {id:1,options:['go','went','gone','going'],answer:'went',rule:'Past Simple',explanation:'Con yesterday si usa il Past Simple: went.'},
     {id:2,options:['was','were','is','be'],answer:'was',rule:'Past Simple of be',explanation:'The waiter è singolare: was.'},
     {id:3,options:['order','ordered','ordering','orders'],answer:'ordered',rule:'Past Simple',explanation:'Azione passata conclusa: ordered.'},
@@ -131,13 +424,41 @@ function makeDemoGap(){
     {id:8,options:['never','ever','yet','already not'],answer:'never',rule:'Present Perfect',explanation:'I have never eaten = non ho mai mangiato.'}
   ]};
 }
+
 function saveAI(feedback){let old=JSON.parse(localStorage.getItem('a2_ai_memory')||'[]');old.push({id:Date.now(),date:new Date().toLocaleString(),feedback:String(feedback).slice(0,500)});localStorage.setItem('a2_ai_memory',JSON.stringify(old));}
 function dashboard(){
   const ai=JSON.parse(localStorage.getItem('a2_ai_memory')||'[]');
   const gaps=JSON.parse(localStorage.getItem('a2_fillgap_memory')||'[]');
-  $('dashboardBox').innerHTML=`<div class="stats"><div class="stat"><span>Correzioni AI</span><b>${ai.length}</b></div><div class="stat"><span>Fill the Gap</span><b>${gaps.length}</b></div><div class="stat"><span>Memoria</span><b>ON</b></div></div><h3>Storico Fill the Gap</h3>${gaps.slice().reverse().map(g=>`<div class="issue"><b>${g.correct}/${g.total}</b><br><small>${g.date}</small></div>`).join('')||'<p>Nessun esercizio salvato.</p>'}<h3>Storico AI</h3>${ai.slice().reverse().map(x=>`<div class="issue"><b>${x.date}</b><br>${escapeHtml(x.feedback)}</div>`).join('')||'<p>Nessuna correzione salvata.</p>'}`;
-  $('clearData').onclick=()=>{localStorage.removeItem('a2_ai_memory');localStorage.removeItem('a2_fillgap_memory');dashboard();}
+  const reports=JSON.parse(localStorage.getItem('a2_teacher_reports')||'[]');
+
+  const avg = reports.length ? Math.round(reports.reduce((s,r)=>s+Number(r.score||0),0)/reports.length) : 0;
+  const rules = {};
+  reports.forEach(r => (r.issues||[]).forEach(x => rules[x]=(rules[x]||0)+1));
+  const common = Object.entries(rules).sort((a,b)=>b[1]-a[1]).slice(0,6);
+
+  $('dashboardBox').innerHTML=`<div class="stats">
+    <div class="stat"><span>Correzioni AI</span><b>${reports.length || ai.length}</b></div>
+    <div class="stat"><span>Media voto</span><b>${avg || '-'}/30</b></div>
+    <div class="stat"><span>Fill the Gap</span><b>${gaps.length}</b></div><div class="stat"><span>Gap pronti</span><b>${getGapCache().length}</b></div>
+  </div>
+
+  <h3>🧠 Errori ricorrenti</h3>
+  ${common.length ? common.map(([rule,n])=>`<div class="issue"><b>${escapeHtml(rule)}</b><div class="bar"><div style="width:${Math.min(100,n*20)}%"></div></div>${n} volte</div>`).join('') : '<p>Nessun errore ricorrente ancora.</p>'}
+
+  <h3>Storico Teacher AI</h3>
+  ${reports.slice().reverse().map(r=>`<div class="issue"><b>${r.score}/30</b> — ${escapeHtml(r.level)}<br><small>${r.date} • ${r.mode}</small></div>`).join('') || '<p>Nessun report salvato.</p>'}
+
+  <h3>Storico Fill the Gap</h3>
+  ${gaps.slice().reverse().map(g=>`<div class="issue"><b>${g.correct}/${g.total}</b><br><small>${g.date}</small></div>`).join('')||'<p>Nessun esercizio salvato.</p>'}`;
+
+  $('clearData').onclick=()=>{
+    localStorage.removeItem('a2_ai_memory');
+    localStorage.removeItem('a2_fillgap_memory');
+    localStorage.removeItem('a2_teacher_reports');
+    dashboard();
+  };
 }
+
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
 
 /* ===========================
@@ -421,5 +742,94 @@ function addCounterToTextarea(textareaId,counterId){
 }
 
 setTimeout(setupLiveWordCounters, 300);
+
+
+/* ===========================
+   PACKAGE 2 - Teacher AI 4.0
+   Live checklist + better memory
+=========================== */
+
+function insertEmailTemplate(textareaId){
+  const ta = $(textareaId);
+  if(!ta) return;
+  ta.value = `Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+[Write your main body here.]
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`;
+  ta.dispatchEvent(new Event('input'));
+  updateAllLiveChecks();
+}
+
+function analyseLiveText(text){
+  const n = countWords(text);
+  const lower = String(text).toLowerCase();
+  const paragraphs = String(text).trim().split(/\n\s*\n/).filter(Boolean).length;
+  return {
+    words:n,
+    wordStatus:n>=120 && n<=150 ? 'ok' : n<120 ? 'short' : 'long',
+    opening:/dear\s+\w+/i.test(text) && /thanks for your email/i.test(text),
+    closing:/best wishes/i.test(text) || /write back soon/i.test(text),
+    question:/\?/.test(text),
+    paragraphs,
+    paragraphStatus:paragraphs>=3 ? 'ok' : 'weak',
+    hasLinker:/\b(because|but|so|although|while|when|if|in the end|luckily|unfortunately)\b/i.test(text),
+    hasPast:/\b(went|had|was|were|visited|bought|met|watched|played|ordered|arrived)\b/i.test(text),
+    hasPresentPerfect:/\b(have|has)\s+(been|gone|seen|visited|eaten|met|bought|done|taken)\b/i.test(text)
+  };
+}
+
+function updateChecklist(panelId,textareaId){
+  const panel = $(panelId);
+  const ta = $(textareaId);
+  if(!panel || !ta) return;
+
+  const c = analyseLiveText(ta.value);
+  const wordClass = c.wordStatus === 'ok' ? 'okItem' : c.wordStatus === 'short' ? 'warnItem' : 'badItem';
+  const wordText = c.wordStatus === 'ok' ? 'Perfetto' : c.wordStatus === 'short' ? 'Troppo corta' : 'Troppo lunga';
+
+  panel.innerHTML = `
+    <div class="checkItem ${wordClass}"><b>✍️ ${c.words}</b><span>Words: ${wordText}</span></div>
+    <div class="checkItem ${c.opening?'okItem':'badItem'}"><b>${c.opening?'✅':'❌'}</b><span>Opening</span></div>
+    <div class="checkItem ${c.closing?'okItem':'badItem'}"><b>${c.closing?'✅':'❌'}</b><span>Closing</span></div>
+    <div class="checkItem ${c.question?'okItem':'warnItem'}"><b>${c.question?'✅':'⚠️'}</b><span>Final question</span></div>
+    <div class="checkItem ${c.paragraphStatus==='ok'?'okItem':'warnItem'}"><b>${c.paragraphs}</b><span>Paragraphs</span></div>
+    <div class="checkItem ${c.hasLinker?'okItem':'warnItem'}"><b>${c.hasLinker?'✅':'⚠️'}</b><span>Linkers</span></div>
+  `;
+}
+
+function updateAllLiveChecks(){
+  updateChecklist('teacherChecklist','aiText');
+  updateChecklist('examChecklist','examText');
+}
+
+function setupTeacherPackage2(){
+  const ai = $('aiText');
+  const ex = $('examText');
+  if(ai) ai.addEventListener('input', updateAllLiveChecks);
+  if(ex) ex.addEventListener('input', updateAllLiveChecks);
+  updateAllLiveChecks();
+}
+
+function saveTeacherReport(report, mode){
+  const old = JSON.parse(localStorage.getItem('a2_teacher_reports') || '[]');
+  old.push({
+    id:Date.now(),
+    date:new Date().toLocaleString(),
+    mode,
+    score:report.overall || 0,
+    level:report.levelEstimate || 'A2',
+    focus:report.studyFocus || [],
+    issues:(report.issues || []).map(i=>i.rule || i.type || 'Grammar')
+  });
+  localStorage.setItem('a2_teacher_reports', JSON.stringify(old));
+}
+
+setTimeout(setupTeacherPackage2, 400);
 
 init();
