@@ -1,0 +1,9 @@
+{
+  "name": "A2 English Master PRO",
+  "short_name": "A2 Master",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#8b5cf6",
+  "icons": []
+}
