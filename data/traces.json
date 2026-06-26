@@ -1,0 +1,1542 @@
+[
+  {
+    "id": 1,
+    "title": "Trace 1: Friends and university",
+    "task": "Write an informal email about a new friend you met at university. Describe the person and ask a question. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Friends and university"
+  },
+  {
+    "id": 2,
+    "title": "Trace 2: Photo competition",
+    "task": "Write an informal email about a photo competition. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Photo competition"
+  },
+  {
+    "id": 3,
+    "title": "Trace 3: Restaurant",
+    "task": "Write an informal email about a new restaurant. Describe the food, service and price. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Restaurant"
+  },
+  {
+    "id": 4,
+    "title": "Trace 4: Car accident",
+    "task": "Write an informal email about a small accident. Explain what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Car accident"
+  },
+  {
+    "id": 5,
+    "title": "Trace 5: Travel",
+    "task": "Write an informal email about a trip. Mention transport, hotel and places you visited. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Travel"
+  },
+  {
+    "id": 6,
+    "title": "Trace 6: Technology",
+    "task": "Write an informal email about a new phone or app. Say why it is useful. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Technology"
+  },
+  {
+    "id": 7,
+    "title": "Trace 7: Health",
+    "task": "Write an informal email giving advice to a friend who wants to be healthier. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Health"
+  },
+  {
+    "id": 8,
+    "title": "Trace 8: Sport",
+    "task": "Write an informal email about a match or a sporting event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Sport"
+  },
+  {
+    "id": 9,
+    "title": "Trace 9: Job interview",
+    "task": "Write an informal email about a job interview. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Job interview"
+  },
+  {
+    "id": 10,
+    "title": "Trace 10: Lost object",
+    "task": "Write an informal email about losing something important and how you solved the problem. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Lost object"
+  },
+  {
+    "id": 11,
+    "title": "Trace 11: Festival",
+    "task": "Write an informal email about a festival or tradition in another country. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Festival"
+  },
+  {
+    "id": 12,
+    "title": "Trace 12: Doctor",
+    "task": "Write an informal email about being ill and going to the doctor. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Doctor"
+  },
+  {
+    "id": 13,
+    "title": "Trace 13: Birthday party",
+    "task": "Write an informal email about a birthday party you organised. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Birthday party"
+  },
+  {
+    "id": 14,
+    "title": "Trace 14: Shopping",
+    "task": "Write an informal email about shopping for clothes for a special event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Shopping"
+  },
+  {
+    "id": 15,
+    "title": "Trace 15: Cinema",
+    "task": "Write an informal email about a film you watched recently. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Cinema"
+  },
+  {
+    "id": 16,
+    "title": "Trace 16: Music event",
+    "task": "Write an informal email about a concert or music event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Music event"
+  },
+  {
+    "id": 17,
+    "title": "Trace 17: New house",
+    "task": "Write an informal email about moving to a new house or room. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "New house"
+  },
+  {
+    "id": 18,
+    "title": "Trace 18: School project",
+    "task": "Write an informal email about a school project you worked on. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "School project"
+  },
+  {
+    "id": 19,
+    "title": "Trace 19: Weekend plans",
+    "task": "Write an informal email about your weekend plans. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Weekend plans"
+  },
+  {
+    "id": 20,
+    "title": "Trace 20: Bad day",
+    "task": "Write an informal email about a bad day and what happened. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Bad day"
+  },
+  {
+    "id": 21,
+    "title": "Trace 21: Friends and university",
+    "task": "Write an informal email about a new friend you met at university. Describe the person and ask a question. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Friends and university"
+  },
+  {
+    "id": 22,
+    "title": "Trace 22: Photo competition",
+    "task": "Write an informal email about a photo competition. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Photo competition"
+  },
+  {
+    "id": 23,
+    "title": "Trace 23: Restaurant",
+    "task": "Write an informal email about a new restaurant. Describe the food, service and price. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Restaurant"
+  },
+  {
+    "id": 24,
+    "title": "Trace 24: Car accident",
+    "task": "Write an informal email about a small accident. Explain what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Car accident"
+  },
+  {
+    "id": 25,
+    "title": "Trace 25: Travel",
+    "task": "Write an informal email about a trip. Mention transport, hotel and places you visited. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Travel"
+  },
+  {
+    "id": 26,
+    "title": "Trace 26: Technology",
+    "task": "Write an informal email about a new phone or app. Say why it is useful. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Technology"
+  },
+  {
+    "id": 27,
+    "title": "Trace 27: Health",
+    "task": "Write an informal email giving advice to a friend who wants to be healthier. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Health"
+  },
+  {
+    "id": 28,
+    "title": "Trace 28: Sport",
+    "task": "Write an informal email about a match or a sporting event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Sport"
+  },
+  {
+    "id": 29,
+    "title": "Trace 29: Job interview",
+    "task": "Write an informal email about a job interview. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Job interview"
+  },
+  {
+    "id": 30,
+    "title": "Trace 30: Lost object",
+    "task": "Write an informal email about losing something important and how you solved the problem. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Lost object"
+  },
+  {
+    "id": 31,
+    "title": "Trace 31: Festival",
+    "task": "Write an informal email about a festival or tradition in another country. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Festival"
+  },
+  {
+    "id": 32,
+    "title": "Trace 32: Doctor",
+    "task": "Write an informal email about being ill and going to the doctor. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Doctor"
+  },
+  {
+    "id": 33,
+    "title": "Trace 33: Birthday party",
+    "task": "Write an informal email about a birthday party you organised. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Birthday party"
+  },
+  {
+    "id": 34,
+    "title": "Trace 34: Shopping",
+    "task": "Write an informal email about shopping for clothes for a special event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Shopping"
+  },
+  {
+    "id": 35,
+    "title": "Trace 35: Cinema",
+    "task": "Write an informal email about a film you watched recently. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Cinema"
+  },
+  {
+    "id": 36,
+    "title": "Trace 36: Music event",
+    "task": "Write an informal email about a concert or music event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Music event"
+  },
+  {
+    "id": 37,
+    "title": "Trace 37: New house",
+    "task": "Write an informal email about moving to a new house or room. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "New house"
+  },
+  {
+    "id": 38,
+    "title": "Trace 38: School project",
+    "task": "Write an informal email about a school project you worked on. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "School project"
+  },
+  {
+    "id": 39,
+    "title": "Trace 39: Weekend plans",
+    "task": "Write an informal email about your weekend plans. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Weekend plans"
+  },
+  {
+    "id": 40,
+    "title": "Trace 40: Bad day",
+    "task": "Write an informal email about a bad day and what happened. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Bad day"
+  },
+  {
+    "id": 41,
+    "title": "Trace 41: Friends and university",
+    "task": "Write an informal email about a new friend you met at university. Describe the person and ask a question. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Friends and university"
+  },
+  {
+    "id": 42,
+    "title": "Trace 42: Photo competition",
+    "task": "Write an informal email about a photo competition. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Photo competition"
+  },
+  {
+    "id": 43,
+    "title": "Trace 43: Restaurant",
+    "task": "Write an informal email about a new restaurant. Describe the food, service and price. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Restaurant"
+  },
+  {
+    "id": 44,
+    "title": "Trace 44: Car accident",
+    "task": "Write an informal email about a small accident. Explain what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Car accident"
+  },
+  {
+    "id": 45,
+    "title": "Trace 45: Travel",
+    "task": "Write an informal email about a trip. Mention transport, hotel and places you visited. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Travel"
+  },
+  {
+    "id": 46,
+    "title": "Trace 46: Technology",
+    "task": "Write an informal email about a new phone or app. Say why it is useful. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Technology"
+  },
+  {
+    "id": 47,
+    "title": "Trace 47: Health",
+    "task": "Write an informal email giving advice to a friend who wants to be healthier. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Health"
+  },
+  {
+    "id": 48,
+    "title": "Trace 48: Sport",
+    "task": "Write an informal email about a match or a sporting event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Sport"
+  },
+  {
+    "id": 49,
+    "title": "Trace 49: Job interview",
+    "task": "Write an informal email about a job interview. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Job interview"
+  },
+  {
+    "id": 50,
+    "title": "Trace 50: Lost object",
+    "task": "Write an informal email about losing something important and how you solved the problem. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Lost object"
+  },
+  {
+    "id": 51,
+    "title": "Trace 51: Festival",
+    "task": "Write an informal email about a festival or tradition in another country. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Festival"
+  },
+  {
+    "id": 52,
+    "title": "Trace 52: Doctor",
+    "task": "Write an informal email about being ill and going to the doctor. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Doctor"
+  },
+  {
+    "id": 53,
+    "title": "Trace 53: Birthday party",
+    "task": "Write an informal email about a birthday party you organised. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Birthday party"
+  },
+  {
+    "id": 54,
+    "title": "Trace 54: Shopping",
+    "task": "Write an informal email about shopping for clothes for a special event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Shopping"
+  },
+  {
+    "id": 55,
+    "title": "Trace 55: Cinema",
+    "task": "Write an informal email about a film you watched recently. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Cinema"
+  },
+  {
+    "id": 56,
+    "title": "Trace 56: Music event",
+    "task": "Write an informal email about a concert or music event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Music event"
+  },
+  {
+    "id": 57,
+    "title": "Trace 57: New house",
+    "task": "Write an informal email about moving to a new house or room. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "New house"
+  },
+  {
+    "id": 58,
+    "title": "Trace 58: School project",
+    "task": "Write an informal email about a school project you worked on. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "School project"
+  },
+  {
+    "id": 59,
+    "title": "Trace 59: Weekend plans",
+    "task": "Write an informal email about your weekend plans. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Weekend plans"
+  },
+  {
+    "id": 60,
+    "title": "Trace 60: Bad day",
+    "task": "Write an informal email about a bad day and what happened. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Bad day"
+  },
+  {
+    "id": 61,
+    "title": "Trace 61: Friends and university",
+    "task": "Write an informal email about a new friend you met at university. Describe the person and ask a question. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Friends and university"
+  },
+  {
+    "id": 62,
+    "title": "Trace 62: Photo competition",
+    "task": "Write an informal email about a photo competition. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Photo competition"
+  },
+  {
+    "id": 63,
+    "title": "Trace 63: Restaurant",
+    "task": "Write an informal email about a new restaurant. Describe the food, service and price. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Restaurant"
+  },
+  {
+    "id": 64,
+    "title": "Trace 64: Car accident",
+    "task": "Write an informal email about a small accident. Explain what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Car accident"
+  },
+  {
+    "id": 65,
+    "title": "Trace 65: Travel",
+    "task": "Write an informal email about a trip. Mention transport, hotel and places you visited. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Travel"
+  },
+  {
+    "id": 66,
+    "title": "Trace 66: Technology",
+    "task": "Write an informal email about a new phone or app. Say why it is useful. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Technology"
+  },
+  {
+    "id": 67,
+    "title": "Trace 67: Health",
+    "task": "Write an informal email giving advice to a friend who wants to be healthier. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Health"
+  },
+  {
+    "id": 68,
+    "title": "Trace 68: Sport",
+    "task": "Write an informal email about a match or a sporting event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Sport"
+  },
+  {
+    "id": 69,
+    "title": "Trace 69: Job interview",
+    "task": "Write an informal email about a job interview. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Job interview"
+  },
+  {
+    "id": 70,
+    "title": "Trace 70: Lost object",
+    "task": "Write an informal email about losing something important and how you solved the problem. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Lost object"
+  },
+  {
+    "id": 71,
+    "title": "Trace 71: Festival",
+    "task": "Write an informal email about a festival or tradition in another country. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Festival"
+  },
+  {
+    "id": 72,
+    "title": "Trace 72: Doctor",
+    "task": "Write an informal email about being ill and going to the doctor. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Doctor"
+  },
+  {
+    "id": 73,
+    "title": "Trace 73: Birthday party",
+    "task": "Write an informal email about a birthday party you organised. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Birthday party"
+  },
+  {
+    "id": 74,
+    "title": "Trace 74: Shopping",
+    "task": "Write an informal email about shopping for clothes for a special event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Shopping"
+  },
+  {
+    "id": 75,
+    "title": "Trace 75: Cinema",
+    "task": "Write an informal email about a film you watched recently. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Cinema"
+  },
+  {
+    "id": 76,
+    "title": "Trace 76: Music event",
+    "task": "Write an informal email about a concert or music event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Music event"
+  },
+  {
+    "id": 77,
+    "title": "Trace 77: New house",
+    "task": "Write an informal email about moving to a new house or room. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "New house"
+  },
+  {
+    "id": 78,
+    "title": "Trace 78: School project",
+    "task": "Write an informal email about a school project you worked on. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "School project"
+  },
+  {
+    "id": 79,
+    "title": "Trace 79: Weekend plans",
+    "task": "Write an informal email about your weekend plans. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Weekend plans"
+  },
+  {
+    "id": 80,
+    "title": "Trace 80: Bad day",
+    "task": "Write an informal email about a bad day and what happened. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Bad day"
+  },
+  {
+    "id": 81,
+    "title": "Trace 81: Friends and university",
+    "task": "Write an informal email about a new friend you met at university. Describe the person and ask a question. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Friends and university"
+  },
+  {
+    "id": 82,
+    "title": "Trace 82: Photo competition",
+    "task": "Write an informal email about a photo competition. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Photo competition"
+  },
+  {
+    "id": 83,
+    "title": "Trace 83: Restaurant",
+    "task": "Write an informal email about a new restaurant. Describe the food, service and price. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Restaurant"
+  },
+  {
+    "id": 84,
+    "title": "Trace 84: Car accident",
+    "task": "Write an informal email about a small accident. Explain what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Car accident"
+  },
+  {
+    "id": 85,
+    "title": "Trace 85: Travel",
+    "task": "Write an informal email about a trip. Mention transport, hotel and places you visited. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Travel"
+  },
+  {
+    "id": 86,
+    "title": "Trace 86: Technology",
+    "task": "Write an informal email about a new phone or app. Say why it is useful. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Technology"
+  },
+  {
+    "id": 87,
+    "title": "Trace 87: Health",
+    "task": "Write an informal email giving advice to a friend who wants to be healthier. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Health"
+  },
+  {
+    "id": 88,
+    "title": "Trace 88: Sport",
+    "task": "Write an informal email about a match or a sporting event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Sport"
+  },
+  {
+    "id": 89,
+    "title": "Trace 89: Job interview",
+    "task": "Write an informal email about a job interview. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Job interview"
+  },
+  {
+    "id": 90,
+    "title": "Trace 90: Lost object",
+    "task": "Write an informal email about losing something important and how you solved the problem. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Lost object"
+  },
+  {
+    "id": 91,
+    "title": "Trace 91: Festival",
+    "task": "Write an informal email about a festival or tradition in another country. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Festival"
+  },
+  {
+    "id": 92,
+    "title": "Trace 92: Doctor",
+    "task": "Write an informal email about being ill and going to the doctor. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Doctor"
+  },
+  {
+    "id": 93,
+    "title": "Trace 93: Birthday party",
+    "task": "Write an informal email about a birthday party you organised. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Birthday party"
+  },
+  {
+    "id": 94,
+    "title": "Trace 94: Shopping",
+    "task": "Write an informal email about shopping for clothes for a special event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Shopping"
+  },
+  {
+    "id": 95,
+    "title": "Trace 95: Cinema",
+    "task": "Write an informal email about a film you watched recently. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Cinema"
+  },
+  {
+    "id": 96,
+    "title": "Trace 96: Music event",
+    "task": "Write an informal email about a concert or music event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Music event"
+  },
+  {
+    "id": 97,
+    "title": "Trace 97: New house",
+    "task": "Write an informal email about moving to a new house or room. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "New house"
+  },
+  {
+    "id": 98,
+    "title": "Trace 98: School project",
+    "task": "Write an informal email about a school project you worked on. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "School project"
+  },
+  {
+    "id": 99,
+    "title": "Trace 99: Weekend plans",
+    "task": "Write an informal email about your weekend plans. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Weekend plans"
+  },
+  {
+    "id": 100,
+    "title": "Trace 100: Bad day",
+    "task": "Write an informal email about a bad day and what happened. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Bad day"
+  },
+  {
+    "id": 101,
+    "title": "Trace 101: Friends and university",
+    "task": "Write an informal email about a new friend you met at university. Describe the person and ask a question. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Friends and university"
+  },
+  {
+    "id": 102,
+    "title": "Trace 102: Photo competition",
+    "task": "Write an informal email about a photo competition. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Photo competition"
+  },
+  {
+    "id": 103,
+    "title": "Trace 103: Restaurant",
+    "task": "Write an informal email about a new restaurant. Describe the food, service and price. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Restaurant"
+  },
+  {
+    "id": 104,
+    "title": "Trace 104: Car accident",
+    "task": "Write an informal email about a small accident. Explain what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Car accident"
+  },
+  {
+    "id": 105,
+    "title": "Trace 105: Travel",
+    "task": "Write an informal email about a trip. Mention transport, hotel and places you visited. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Travel"
+  },
+  {
+    "id": 106,
+    "title": "Trace 106: Technology",
+    "task": "Write an informal email about a new phone or app. Say why it is useful. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Technology"
+  },
+  {
+    "id": 107,
+    "title": "Trace 107: Health",
+    "task": "Write an informal email giving advice to a friend who wants to be healthier. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Health"
+  },
+  {
+    "id": 108,
+    "title": "Trace 108: Sport",
+    "task": "Write an informal email about a match or a sporting event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Sport"
+  },
+  {
+    "id": 109,
+    "title": "Trace 109: Job interview",
+    "task": "Write an informal email about a job interview. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Job interview"
+  },
+  {
+    "id": 110,
+    "title": "Trace 110: Lost object",
+    "task": "Write an informal email about losing something important and how you solved the problem. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Lost object"
+  },
+  {
+    "id": 111,
+    "title": "Trace 111: Festival",
+    "task": "Write an informal email about a festival or tradition in another country. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Festival"
+  },
+  {
+    "id": 112,
+    "title": "Trace 112: Doctor",
+    "task": "Write an informal email about being ill and going to the doctor. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Doctor"
+  },
+  {
+    "id": 113,
+    "title": "Trace 113: Birthday party",
+    "task": "Write an informal email about a birthday party you organised. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Birthday party"
+  },
+  {
+    "id": 114,
+    "title": "Trace 114: Shopping",
+    "task": "Write an informal email about shopping for clothes for a special event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Shopping"
+  },
+  {
+    "id": 115,
+    "title": "Trace 115: Cinema",
+    "task": "Write an informal email about a film you watched recently. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Cinema"
+  },
+  {
+    "id": 116,
+    "title": "Trace 116: Music event",
+    "task": "Write an informal email about a concert or music event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Music event"
+  },
+  {
+    "id": 117,
+    "title": "Trace 117: New house",
+    "task": "Write an informal email about moving to a new house or room. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "New house"
+  },
+  {
+    "id": 118,
+    "title": "Trace 118: School project",
+    "task": "Write an informal email about a school project you worked on. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "School project"
+  },
+  {
+    "id": 119,
+    "title": "Trace 119: Weekend plans",
+    "task": "Write an informal email about your weekend plans. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Weekend plans"
+  },
+  {
+    "id": 120,
+    "title": "Trace 120: Bad day",
+    "task": "Write an informal email about a bad day and what happened. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Bad day"
+  },
+  {
+    "id": 121,
+    "title": "Trace 121: Friends and university",
+    "task": "Write an informal email about a new friend you met at university. Describe the person and ask a question. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Friends and university"
+  },
+  {
+    "id": 122,
+    "title": "Trace 122: Photo competition",
+    "task": "Write an informal email about a photo competition. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Photo competition"
+  },
+  {
+    "id": 123,
+    "title": "Trace 123: Restaurant",
+    "task": "Write an informal email about a new restaurant. Describe the food, service and price. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Restaurant"
+  },
+  {
+    "id": 124,
+    "title": "Trace 124: Car accident",
+    "task": "Write an informal email about a small accident. Explain what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Car accident"
+  },
+  {
+    "id": 125,
+    "title": "Trace 125: Travel",
+    "task": "Write an informal email about a trip. Mention transport, hotel and places you visited. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Travel"
+  },
+  {
+    "id": 126,
+    "title": "Trace 126: Technology",
+    "task": "Write an informal email about a new phone or app. Say why it is useful. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Technology"
+  },
+  {
+    "id": 127,
+    "title": "Trace 127: Health",
+    "task": "Write an informal email giving advice to a friend who wants to be healthier. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Health"
+  },
+  {
+    "id": 128,
+    "title": "Trace 128: Sport",
+    "task": "Write an informal email about a match or a sporting event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Sport"
+  },
+  {
+    "id": 129,
+    "title": "Trace 129: Job interview",
+    "task": "Write an informal email about a job interview. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Job interview"
+  },
+  {
+    "id": 130,
+    "title": "Trace 130: Lost object",
+    "task": "Write an informal email about losing something important and how you solved the problem. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Lost object"
+  },
+  {
+    "id": 131,
+    "title": "Trace 131: Festival",
+    "task": "Write an informal email about a festival or tradition in another country. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Festival"
+  },
+  {
+    "id": 132,
+    "title": "Trace 132: Doctor",
+    "task": "Write an informal email about being ill and going to the doctor. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Doctor"
+  },
+  {
+    "id": 133,
+    "title": "Trace 133: Birthday party",
+    "task": "Write an informal email about a birthday party you organised. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Birthday party"
+  },
+  {
+    "id": 134,
+    "title": "Trace 134: Shopping",
+    "task": "Write an informal email about shopping for clothes for a special event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Shopping"
+  },
+  {
+    "id": 135,
+    "title": "Trace 135: Cinema",
+    "task": "Write an informal email about a film you watched recently. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Cinema"
+  },
+  {
+    "id": 136,
+    "title": "Trace 136: Music event",
+    "task": "Write an informal email about a concert or music event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Music event"
+  },
+  {
+    "id": 137,
+    "title": "Trace 137: New house",
+    "task": "Write an informal email about moving to a new house or room. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "New house"
+  },
+  {
+    "id": 138,
+    "title": "Trace 138: School project",
+    "task": "Write an informal email about a school project you worked on. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "School project"
+  },
+  {
+    "id": 139,
+    "title": "Trace 139: Weekend plans",
+    "task": "Write an informal email about your weekend plans. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Weekend plans"
+  },
+  {
+    "id": 140,
+    "title": "Trace 140: Bad day",
+    "task": "Write an informal email about a bad day and what happened. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Bad day"
+  },
+  {
+    "id": 141,
+    "title": "Trace 141: Friends and university",
+    "task": "Write an informal email about a new friend you met at university. Describe the person and ask a question. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Friends and university"
+  },
+  {
+    "id": 142,
+    "title": "Trace 142: Photo competition",
+    "task": "Write an informal email about a photo competition. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Photo competition"
+  },
+  {
+    "id": 143,
+    "title": "Trace 143: Restaurant",
+    "task": "Write an informal email about a new restaurant. Describe the food, service and price. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Restaurant"
+  },
+  {
+    "id": 144,
+    "title": "Trace 144: Car accident",
+    "task": "Write an informal email about a small accident. Explain what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Car accident"
+  },
+  {
+    "id": 145,
+    "title": "Trace 145: Travel",
+    "task": "Write an informal email about a trip. Mention transport, hotel and places you visited. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Travel"
+  },
+  {
+    "id": 146,
+    "title": "Trace 146: Technology",
+    "task": "Write an informal email about a new phone or app. Say why it is useful. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Technology"
+  },
+  {
+    "id": 147,
+    "title": "Trace 147: Health",
+    "task": "Write an informal email giving advice to a friend who wants to be healthier. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Health"
+  },
+  {
+    "id": 148,
+    "title": "Trace 148: Sport",
+    "task": "Write an informal email about a match or a sporting event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Sport"
+  },
+  {
+    "id": 149,
+    "title": "Trace 149: Job interview",
+    "task": "Write an informal email about a job interview. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Job interview"
+  },
+  {
+    "id": 150,
+    "title": "Trace 150: Lost object",
+    "task": "Write an informal email about losing something important and how you solved the problem. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Lost object"
+  },
+  {
+    "id": 151,
+    "title": "Trace 151: Festival",
+    "task": "Write an informal email about a festival or tradition in another country. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Festival"
+  },
+  {
+    "id": 152,
+    "title": "Trace 152: Doctor",
+    "task": "Write an informal email about being ill and going to the doctor. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Doctor"
+  },
+  {
+    "id": 153,
+    "title": "Trace 153: Birthday party",
+    "task": "Write an informal email about a birthday party you organised. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Birthday party"
+  },
+  {
+    "id": 154,
+    "title": "Trace 154: Shopping",
+    "task": "Write an informal email about shopping for clothes for a special event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Shopping"
+  },
+  {
+    "id": 155,
+    "title": "Trace 155: Cinema",
+    "task": "Write an informal email about a film you watched recently. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Cinema"
+  },
+  {
+    "id": 156,
+    "title": "Trace 156: Music event",
+    "task": "Write an informal email about a concert or music event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Music event"
+  },
+  {
+    "id": 157,
+    "title": "Trace 157: New house",
+    "task": "Write an informal email about moving to a new house or room. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "New house"
+  },
+  {
+    "id": 158,
+    "title": "Trace 158: School project",
+    "task": "Write an informal email about a school project you worked on. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "School project"
+  },
+  {
+    "id": 159,
+    "title": "Trace 159: Weekend plans",
+    "task": "Write an informal email about your weekend plans. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Weekend plans"
+  },
+  {
+    "id": 160,
+    "title": "Trace 160: Bad day",
+    "task": "Write an informal email about a bad day and what happened. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Bad day"
+  },
+  {
+    "id": 161,
+    "title": "Trace 161: Friends and university",
+    "task": "Write an informal email about a new friend you met at university. Describe the person and ask a question. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Friends and university"
+  },
+  {
+    "id": 162,
+    "title": "Trace 162: Photo competition",
+    "task": "Write an informal email about a photo competition. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Photo competition"
+  },
+  {
+    "id": 163,
+    "title": "Trace 163: Restaurant",
+    "task": "Write an informal email about a new restaurant. Describe the food, service and price. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Restaurant"
+  },
+  {
+    "id": 164,
+    "title": "Trace 164: Car accident",
+    "task": "Write an informal email about a small accident. Explain what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Car accident"
+  },
+  {
+    "id": 165,
+    "title": "Trace 165: Travel",
+    "task": "Write an informal email about a trip. Mention transport, hotel and places you visited. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Travel"
+  },
+  {
+    "id": 166,
+    "title": "Trace 166: Technology",
+    "task": "Write an informal email about a new phone or app. Say why it is useful. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Technology"
+  },
+  {
+    "id": 167,
+    "title": "Trace 167: Health",
+    "task": "Write an informal email giving advice to a friend who wants to be healthier. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Health"
+  },
+  {
+    "id": 168,
+    "title": "Trace 168: Sport",
+    "task": "Write an informal email about a match or a sporting event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Sport"
+  },
+  {
+    "id": 169,
+    "title": "Trace 169: Job interview",
+    "task": "Write an informal email about a job interview. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Job interview"
+  },
+  {
+    "id": 170,
+    "title": "Trace 170: Lost object",
+    "task": "Write an informal email about losing something important and how you solved the problem. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Lost object"
+  },
+  {
+    "id": 171,
+    "title": "Trace 171: Festival",
+    "task": "Write an informal email about a festival or tradition in another country. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Festival"
+  },
+  {
+    "id": 172,
+    "title": "Trace 172: Doctor",
+    "task": "Write an informal email about being ill and going to the doctor. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Doctor"
+  },
+  {
+    "id": 173,
+    "title": "Trace 173: Birthday party",
+    "task": "Write an informal email about a birthday party you organised. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Birthday party"
+  },
+  {
+    "id": 174,
+    "title": "Trace 174: Shopping",
+    "task": "Write an informal email about shopping for clothes for a special event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Shopping"
+  },
+  {
+    "id": 175,
+    "title": "Trace 175: Cinema",
+    "task": "Write an informal email about a film you watched recently. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Cinema"
+  },
+  {
+    "id": 176,
+    "title": "Trace 176: Music event",
+    "task": "Write an informal email about a concert or music event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Music event"
+  },
+  {
+    "id": 177,
+    "title": "Trace 177: New house",
+    "task": "Write an informal email about moving to a new house or room. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "New house"
+  },
+  {
+    "id": 178,
+    "title": "Trace 178: School project",
+    "task": "Write an informal email about a school project you worked on. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "School project"
+  },
+  {
+    "id": 179,
+    "title": "Trace 179: Weekend plans",
+    "task": "Write an informal email about your weekend plans. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Weekend plans"
+  },
+  {
+    "id": 180,
+    "title": "Trace 180: Bad day",
+    "task": "Write an informal email about a bad day and what happened. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Bad day"
+  },
+  {
+    "id": 181,
+    "title": "Trace 181: Friends and university",
+    "task": "Write an informal email about a new friend you met at university. Describe the person and ask a question. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Friends and university"
+  },
+  {
+    "id": 182,
+    "title": "Trace 182: Photo competition",
+    "task": "Write an informal email about a photo competition. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Photo competition"
+  },
+  {
+    "id": 183,
+    "title": "Trace 183: Restaurant",
+    "task": "Write an informal email about a new restaurant. Describe the food, service and price. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Restaurant"
+  },
+  {
+    "id": 184,
+    "title": "Trace 184: Car accident",
+    "task": "Write an informal email about a small accident. Explain what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Car accident"
+  },
+  {
+    "id": 185,
+    "title": "Trace 185: Travel",
+    "task": "Write an informal email about a trip. Mention transport, hotel and places you visited. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Travel"
+  },
+  {
+    "id": 186,
+    "title": "Trace 186: Technology",
+    "task": "Write an informal email about a new phone or app. Say why it is useful. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Technology"
+  },
+  {
+    "id": 187,
+    "title": "Trace 187: Health",
+    "task": "Write an informal email giving advice to a friend who wants to be healthier. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Health"
+  },
+  {
+    "id": 188,
+    "title": "Trace 188: Sport",
+    "task": "Write an informal email about a match or a sporting event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Sport"
+  },
+  {
+    "id": 189,
+    "title": "Trace 189: Job interview",
+    "task": "Write an informal email about a job interview. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Job interview"
+  },
+  {
+    "id": 190,
+    "title": "Trace 190: Lost object",
+    "task": "Write an informal email about losing something important and how you solved the problem. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Lost object"
+  },
+  {
+    "id": 191,
+    "title": "Trace 191: Festival",
+    "task": "Write an informal email about a festival or tradition in another country. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Festival"
+  },
+  {
+    "id": 192,
+    "title": "Trace 192: Doctor",
+    "task": "Write an informal email about being ill and going to the doctor. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Doctor"
+  },
+  {
+    "id": 193,
+    "title": "Trace 193: Birthday party",
+    "task": "Write an informal email about a birthday party you organised. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Birthday party"
+  },
+  {
+    "id": 194,
+    "title": "Trace 194: Shopping",
+    "task": "Write an informal email about shopping for clothes for a special event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Shopping"
+  },
+  {
+    "id": 195,
+    "title": "Trace 195: Cinema",
+    "task": "Write an informal email about a film you watched recently. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Cinema"
+  },
+  {
+    "id": 196,
+    "title": "Trace 196: Music event",
+    "task": "Write an informal email about a concert or music event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Music event"
+  },
+  {
+    "id": 197,
+    "title": "Trace 197: New house",
+    "task": "Write an informal email about moving to a new house or room. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "New house"
+  },
+  {
+    "id": 198,
+    "title": "Trace 198: School project",
+    "task": "Write an informal email about a school project you worked on. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "School project"
+  },
+  {
+    "id": 199,
+    "title": "Trace 199: Weekend plans",
+    "task": "Write an informal email about your weekend plans. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Weekend plans"
+  },
+  {
+    "id": 200,
+    "title": "Trace 200: Bad day",
+    "task": "Write an informal email about a bad day and what happened. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Bad day"
+  },
+  {
+    "id": 201,
+    "title": "Trace 201: Friends and university",
+    "task": "Write an informal email about a new friend you met at university. Describe the person and ask a question. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Friends and university"
+  },
+  {
+    "id": 202,
+    "title": "Trace 202: Photo competition",
+    "task": "Write an informal email about a photo competition. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Photo competition"
+  },
+  {
+    "id": 203,
+    "title": "Trace 203: Restaurant",
+    "task": "Write an informal email about a new restaurant. Describe the food, service and price. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Restaurant"
+  },
+  {
+    "id": 204,
+    "title": "Trace 204: Car accident",
+    "task": "Write an informal email about a small accident. Explain what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Car accident"
+  },
+  {
+    "id": 205,
+    "title": "Trace 205: Travel",
+    "task": "Write an informal email about a trip. Mention transport, hotel and places you visited. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Travel"
+  },
+  {
+    "id": 206,
+    "title": "Trace 206: Technology",
+    "task": "Write an informal email about a new phone or app. Say why it is useful. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Technology"
+  },
+  {
+    "id": 207,
+    "title": "Trace 207: Health",
+    "task": "Write an informal email giving advice to a friend who wants to be healthier. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Health"
+  },
+  {
+    "id": 208,
+    "title": "Trace 208: Sport",
+    "task": "Write an informal email about a match or a sporting event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Sport"
+  },
+  {
+    "id": 209,
+    "title": "Trace 209: Job interview",
+    "task": "Write an informal email about a job interview. Say what happened and how you felt. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Job interview"
+  },
+  {
+    "id": 210,
+    "title": "Trace 210: Lost object",
+    "task": "Write an informal email about losing something important and how you solved the problem. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Lost object"
+  },
+  {
+    "id": 211,
+    "title": "Trace 211: Festival",
+    "task": "Write an informal email about a festival or tradition in another country. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Festival"
+  },
+  {
+    "id": 212,
+    "title": "Trace 212: Doctor",
+    "task": "Write an informal email about being ill and going to the doctor. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Doctor"
+  },
+  {
+    "id": 213,
+    "title": "Trace 213: Birthday party",
+    "task": "Write an informal email about a birthday party you organised. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Birthday party"
+  },
+  {
+    "id": 214,
+    "title": "Trace 214: Shopping",
+    "task": "Write an informal email about shopping for clothes for a special event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Shopping"
+  },
+  {
+    "id": 215,
+    "title": "Trace 215: Cinema",
+    "task": "Write an informal email about a film you watched recently. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Cinema"
+  },
+  {
+    "id": 216,
+    "title": "Trace 216: Music event",
+    "task": "Write an informal email about a concert or music event. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Music event"
+  },
+  {
+    "id": 217,
+    "title": "Trace 217: New house",
+    "task": "Write an informal email about moving to a new house or room. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "New house"
+  },
+  {
+    "id": 218,
+    "title": "Trace 218: School project",
+    "task": "Write an informal email about a school project you worked on. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "School project"
+  },
+  {
+    "id": 219,
+    "title": "Trace 219: Weekend plans",
+    "task": "Write an informal email about your weekend plans. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Weekend plans"
+  },
+  {
+    "id": 220,
+    "title": "Trace 220: Bad day",
+    "task": "Write an informal email about a bad day and what happened. Write 120-150 words. Use an informal style and include a final question.",
+    "level": "A2",
+    "category": "Bad day"
+  }
+]

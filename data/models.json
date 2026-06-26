@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "A new friend at university",
+    "task": "Write an email about a new friend.",
+    "vocabulary": [
+      "friend",
+      "classmate",
+      "kind",
+      "jeans",
+      "party",
+      "university"
+    ],
+    "model": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nLast week I met a new friend at university. Her name is Anna and she is very kind. She usually wears jeans and a colourful shirt, but yesterday she wore a beautiful dress because we went to a party. We talked about music, films and sport. Next weekend we are going to study together. Have you made any new friends this year?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  },
+  {
+    "id": 2,
+    "title": "A car accident",
+    "task": "Write an email about a small accident.",
+    "vocabulary": [
+      "accident",
+      "car",
+      "road",
+      "police",
+      "scared",
+      "careful"
+    ],
+    "model": "Dear Sam,\n\nThanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.\n\nLast Saturday I went to a birthday party with my friends. While I was going home, a car suddenly stopped in front of me. I was driving slowly, so nobody was hurt, but my car was damaged. I felt really scared and worried. A police officer arrived after ten minutes and helped us. Have you ever had an accident?\n\nWell, that's all for now. Write back soon and tell me your news.\n\nBest wishes,\nMarco"
+  }
+]
