@@ -2,25 +2,31 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A2 English Master - Gemini Fix</title><link rel="stylesheet" href="css/style.css">
+<title>A2 English Master V12</title><link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="app">
 <aside class="sidebar">
-<div class="brand"><div class="rocket">🚀</div><h1>A2 English<br><span>Master FIX</span></h1><p>Vercel + Gemini + GitHub</p></div>
+<div class="brand"><div class="rocket">🚀</div><h1>A2 English<br><span>Master V12</span></h1><p>Gemini + Fill the Gap AI</p></div>
 <button class="nav active" data-page="home">🏠 Home</button>
 <button class="nav" data-page="teacher">🤖 Teacher AI</button>
 <button class="nav" data-page="exam">🎓 Exam Mode</button>
+<button class="nav" data-page="fillgap">🧩 Fill the Gap AI</button>
 <button class="nav" data-page="examples">📧 Email Spunto</button>
 <button class="nav" data-page="traces">📚 200+ Tracce</button>
 <button class="nav" data-page="dashboard">📊 Dashboard</button>
-<div class="sidecard"><b>✅ Fix Gemini</b><p>Ora prova più modelli automaticamente: 1.5 Flash, 2.0 Flash, 2.5 Flash.</p></div>
+<div class="sidecard"><b>🧩 Infinite Gap</b><p>Brani A2 con 30 domande, 4 opzioni e spiegazioni.</p></div>
 </aside>
 <main>
-<section id="home" class="page active"><div class="hero"><span class="tag">✨ Versione stabile • Gemini fallback • Examples Library</span><h2>Trainer A2 con email spunto</h2><p>Intestazione e chiusura restano sempre uguali al modello del libro; cambia solo il corpo.</p><div class="cards"><div class="card"><div class="emoji">🤖</div><h3>Teacher AI</h3><p>Correzione con Gemini.</p><button class="primary" data-go="teacher">Apri</button></div><div class="card"><div class="emoji">📧</div><h3>Email spunto</h3><p>Modelli 18/24/30.</p><button class="primary pink" data-go="examples">Vedi esempi</button></div><div class="card"><div class="emoji">🎓</div><h3>Exam Mode</h3><p>Timer e tracce.</p><button class="primary" data-go="exam">Start</button></div></div></div></section>
+<section id="home" class="page active"><div class="hero"><span class="tag">✨ V12 • Gemini 3 • Infinite Fill the Gap</span><h2>Trainer A2 completo</h2><p>Writing, email spunto, Teacher AI e Fill the Gap infinito generato da Gemini.</p><div class="cards"><div class="card"><div class="emoji">🤖</div><h3>Teacher AI</h3><p>Correzione ordinata.</p><button class="primary" data-go="teacher">Apri</button></div><div class="card"><div class="emoji">🧩</div><h3>Fill the Gap AI</h3><p>Brani infiniti da 30 gap.</p><button class="primary pink" data-go="fillgap">Genera</button></div><div class="card"><div class="emoji">📧</div><h3>Email spunto</h3><p>Modelli con opening e closing fissi.</p><button class="primary" data-go="examples">Vedi</button></div></div></div></section>
+
 <section id="teacher" class="page"><div class="panel"><h2>🤖 Teacher AI</h2><label>Traccia</label><textarea id="aiTask" class="smallarea">Write an informal email to an English friend. Write 120-150 words.</textarea><label>Email</label><textarea id="aiText" placeholder="Dear Sam,&#10;&#10;Thanks for your email..."></textarea><button id="aiCorrect" class="primary pink">🤖 Correggi con Gemini</button><div id="aiResult"></div></div></section>
+
 <section id="exam" class="page"><div class="panel"><div class="toolbar"><h2>🎓 Exam Mode</h2><button id="newTrace" class="primary pink">🎲 Nuova traccia</button></div><div class="stats"><div class="stat"><span>⏱ Timer</span><b id="timer">40:00</b></div><div class="stat"><span>✍️ Words</span><b id="wordCount">0</b></div><div class="stat"><span>🎯 Target</span><b>120-150</b></div></div><div id="examTrace" class="box">Premi “Nuova traccia”.</div><textarea id="examText"></textarea><button id="examAI" class="primary">🤖 Correggi con AI</button><div id="examResult"></div></div></section>
-<section id="examples" class="page"><div class="panel"><h2>📧 Email spunto</h2><p>Intestazione e finale sono sempre uguali. Usa questi modelli per prendere spunto, non per copiare.</p><input id="exampleSearch" class="search" placeholder="Cerca: travel, restaurant, 30/30..."><div id="exampleList"></div></div></section>
+
+<section id="fillgap" class="page"><div class="panel"><div class="toolbar"><div><h2>🧩 Infinite Fill the Gap AI</h2><p>Genera un brano A2 con 30 spazi, 4 risposte a tendina e spiegazioni grammaticali.</p></div><button id="generateGap" class="primary pink">✨ Genera esercizio</button></div><div class="fillControls"><div><label>Grammatica</label><select id="gapGrammar"><option>Mixed Grammar - Tutto il libro</option><option>Present Simple</option><option>Present Continuous</option><option>Past Simple</option><option>Past Continuous</option><option>Present Perfect</option><option>Future: will / going to</option><option>Modals</option><option>Articles</option><option>Prepositions</option><option>Comparatives and Superlatives</option><option>Quantifiers</option><option>Relative Clauses</option><option>Conditionals</option><option>Passive</option><option>Word Formation</option></select></div><div><label>Difficoltà</label><select id="gapLevel"><option>Cambridge Exam</option><option>Easy</option><option>Medium</option><option>Hard</option></select></div><div><label>Argomento</label><select id="gapTopic"><option>Random</option><option>Travel</option><option>Food and restaurants</option><option>Health</option><option>Friends</option><option>Sport</option><option>Technology</option><option>School and work</option><option>Shopping</option><option>Films and music</option></select></div></div><div id="gapStatus" class="box">Premi “Genera esercizio”.</div><div id="gapExercise"></div></div></section>
+
+<section id="examples" class="page"><div class="panel"><h2>📧 Email spunto</h2><p>Intestazione e finale sono sempre uguali al modello del libro. Cambia solo il corpo.</p><input id="exampleSearch" class="search" placeholder="Cerca: travel, restaurant, 30/30..."><div id="exampleList"></div></div></section>
 <section id="traces" class="page"><div class="panel"><h2>📚 200+ Tracce</h2><input id="traceSearch" class="search" placeholder="Cerca traccia..."><div id="traceList" class="tracegrid"></div></div></section>
 <section id="dashboard" class="page"><div class="panel"><div class="toolbar"><h2>📊 Dashboard</h2><button id="clearData" class="secondary">🧹 Cancella</button></div><div id="dashboardBox"></div></div></section>
 </main></div>

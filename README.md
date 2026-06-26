@@ -1,41 +1,17 @@
-# A2 English Master - Gemini 3 Fix + Email Spunto
+# A2 English Master V12 - Infinite Fill the Gap AI
 
-Questa versione resta solo su:
-- GitHub
-- Vercel
-- Gemini
-
-## Fix principale
-Il tuo Google AI Studio mostra il modello:
-
-```text
-models/gemini-3-flash-preview
-```
-
-Quindi questa versione prova prima:
-
-```text
-gemini-3-flash-preview
-```
-
-e poi fa fallback automatico su:
-- gemini-2.5-flash
-- gemini-2.5-flash-lite
-- gemini-2.0-flash
-- gemini-1.5-flash
-- gemini-1.5-flash-8b
-
-## Include
-- Teacher AI Gemini
-- Email Spunto con apertura e chiusura uguali al modello del libro
+Include:
+- Teacher AI Gemini con report bello
+- Email Spunto
 - 200+ tracce
-- Dashboard base
+- Infinite Fill the Gap AI
+- Brano unico con 30 spazi
+- 4 opzioni a tendina per ogni spazio
+- Correzione automatica e spiegazioni
+- Demo offline se Gemini non risponde
 
 ## Vercel
-Environment Variable:
+Variabile:
+GEMINI_API_KEY = tua chiave Google AI Studio
 
-```text
-GEMINI_API_KEY = la tua chiave Google AI Studio
-```
-
-Dopo aver caricato su GitHub, fai Redeploy su Vercel.
+Carica tutto su GitHub e fai Redeploy su Vercel.
