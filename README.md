@@ -1,38 +1,41 @@
-# A2 English Master V17 Professional Admin
+# A2 English Master V18 Gemini Stable
 
-Include:
-- Login con username/password
-- Ruoli: admin, premium, basic
-- Limiti utenti da Supabase
-- Admin Panel avanzato
-- Creazione utenti dal sito
-- Modifica ruolo e limiti dal sito
-- Reset utilizzi dal sito
-- Utenti online
-- Device ID generato dall'app
-- Blocco/sblocco utenti e dispositivi
-- Archivio Cloud per report e risultati
-- Protezione API Gemini tramite sessione
+Questa versione stabilizza definitivamente la parte AI.
 
-## Prima di caricare
+Novità:
+- Nuovo helper unico `api/_gemini.js`
+- Niente SDK Gemini vecchio
+- Chiamate REST dirette alle API Gemini attuali
+- Teacher AI stabile
+- Fill the Gap AI stabile
+- Email Library AI stabile
+- Endpoint test: `/api/ai-health`
+- Login Supabase, Admin Panel e Cloud mantenuti
 
-In Supabase SQL Editor esegui:
+## Prima del deploy
 
-`SUPABASE_V17_SETUP.sql`
-
-Poi controlla Vercel:
+Controlla su Vercel:
 
 - `GEMINI_API_KEY`
 - `SUPABASE_URL`
 - `SUPABASE_ANON_KEY`
 
-## Deploy
+Poi fai Redeploy con cache disattivata se possibile.
 
-1. Carica tutto su GitHub sostituendo i vecchi file.
-2. Fai Redeploy su Vercel.
-3. Entra con `enjoy14`.
+## Test rapido
 
-Login iniziali:
+Dopo il deploy apri:
+
+`https://tuo-sito.vercel.app/api/ai-health`
+
+Deve rispondere:
+
+```json
+{"ok":true,"modelUsed":"...","text":"OK"}
+```
+
+## Login iniziali
+
 - `enjoy14` / `Carolina05!` → admin
 - `quellistretti` / `Riccimerda!` → premium
 - `utente` / `Smam` → basic

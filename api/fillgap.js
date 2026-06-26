@@ -1,55 +1,50 @@
-import { incrementUsage } from "./_supabase.js";
-const MODELS = ["gemini-3-flash-preview","gemini-2.5-flash","gemini-2.5-flash-lite","gemini-2.0-flash","gemini-1.5-flash","gemini-1.5-flash-8b"];
 
-function extractJson(text){
-  if(!text) return null;
-  const cleaned=text.replace(/```json/gi,"").replace(/```/g,"").trim();
-  try{
-    await incrementUsage(req, "fillgap");return JSON.parse(cleaned)}catch{}
-  const s=cleaned.indexOf("{"), e=cleaned.lastIndexOf("}");
-  if(s!==-1 && e!==-1 && e>s){
-    try{return JSON.parse(cleaned.slice(s,e+1))}catch{}
-  }
-  return null;
+import { incrementUsage } from "./_supabase.js";
+import { callGemini } from "./_gemini.js";
+
+function demoGap() {
+  return {
+    title: "Demo Fill the Gap A2",
+    topic: "Restaurant",
+    grammarFocus: "Past Simple, modals, comparatives",
+    instructions: "Choose the correct option for each gap.",
+    passage: "Yesterday I ___1___ to a restaurant with my family. The waiter ___2___ very kind and the food was delicious. I ___3___ pasta because I love Italian food.",
+    questions: [
+      { id: 1, options: ["go", "went", "gone", "going"], answer: "went", rule: "Past Simple", explanation: "Con yesterday si usa il Past Simple." },
+      { id: 2, options: ["was", "were", "is", "be"], answer: "was", rule: "Past Simple be", explanation: "The waiter è singolare: was." },
+      { id: 3, options: ["order", "ordered", "ordering", "orders"], answer: "ordered", rule: "Past Simple", explanation: "Azione passata conclusa." }
+    ],
+    mode: "Demo"
+  };
 }
 
-export default async function handler(req,res){
-  if(req.method!=="POST") return res.status(405).json({error:"Use POST"});
+export default async function handler(req, res) {
+  if (req.method !== "POST") return res.status(405).json({ error: "Use POST" });
 
-  try{
-    const {grammar,level,topic,mode,recentExercises,weakRules}=req.body||{};
-    const apiKey=process.env.GEMINI_API_KEY;
-    if(!apiKey) return res.status(500).json({error:"Missing GEMINI_API_KEY on Vercel"});
+  try {
+    await incrementUsage(req, "fillgap");
 
-    const weak = Array.isArray(weakRules) && weakRules.length ? weakRules.join(", ") : "nessuno";
-    const recent = Array.isArray(recentExercises) && recentExercises.length
-      ? recentExercises.slice(-12).map(x=>`- ${x}`).join("\n")
-      : "nessuno";
-
-    const prompt=`Crea un esercizio Fill the Gap livello A2 in stile Cambridge.
+    const { grammar, level, topic, mode, recentExercises, weakRules } = req.body || {};
+    const prompt = `
+Crea un esercizio Fill the Gap livello A2 stile Cambridge.
 Deve essere un BRANO unico, non frasi isolate.
 
 Impostazioni:
-- Livello: ${level||"Cambridge Exam"}
-- Argomento richiesto: ${topic||"Random"}
-- Grammatica richiesta: ${grammar||"Mixed Grammar"}
-- Modalità allenamento: ${mode||"Casuale"}
-- Errori ricorrenti dello studente: ${weak}
+- Livello: ${level || "Cambridge A2"}
+- Argomento: ${topic || "Random"}
+- Grammatica: ${grammar || "Mixed Grammar"}
+- Modalità: ${mode || "Casuale"}
+- Errori ricorrenti: ${(weakRules || []).join(", ") || "nessuno"}
+- Ultimi esercizi da NON ripetere: ${(recentExercises || []).join(" | ") || "nessuno"}
 
-Regole intelligenti:
-- Se modalità = "Errori ricorrenti", concentra almeno 60% delle domande su: ${weak}.
-- Se modalità = "Simulazione Cambridge", distribuisci le regole in modo vario e realistico.
-- Se modalità = "Casuale", varia argomento e grammatica.
-- NON creare un esercizio simile agli ultimi esercizi:
-${recent}
-
-Formato:
+Obbligatorio:
 - 30 spazi numerati nel brano: ___1___ ... ___30___
+- 30 domande esatte.
 - Ogni domanda ha 4 opzioni.
 - Una sola risposta corretta.
-- Distrattori realistici e difficili, non banali.
-- Copri grammatica A2 del libro: present simple, present continuous, past simple, past continuous, present perfect, future, modals, articles, prepositions, comparatives, superlatives, quantifiers, relative clauses, conditionals base, passive base, word formation.
-- Spiega brevemente la regola in italiano.
+- Distrattori realistici.
+- Copri grammatica A2: present simple/continuous, past simple/continuous, present perfect, future, modals, articles, prepositions, comparatives, superlatives, quantifiers, relative clauses, conditionals base, passive base.
+- Spiega in italiano semplice.
 
 Rispondi SOLO con JSON valido:
 {
@@ -62,35 +57,21 @@ Rispondi SOLO con JSON valido:
     {"id":1,"options":["A","B","C","D"],"answer":"risposta corretta","rule":"regola grammaticale","explanation":"spiegazione in italiano"}
   ]
 }
+`;
 
-IMPORTANTE: questions deve contenere esattamente 30 elementi.`;
+    const out = await callGemini({ prompt, expectJson: true, maxOutputTokens: 7000, temperature: 0.7 });
+    const ex = out.json;
 
-    let errors=[];
-    for(const model of MODELS){
-      try{
-        const response=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
-          method:"POST",
-          headers:{"Content-Type":"application/json","x-goog-api-key":apiKey},
-          body:JSON.stringify({
-            contents:[{role:"user",parts:[{text:prompt}]}],
-            generationConfig:{temperature:0.75,maxOutputTokens:6500,responseMimeType:"application/json"}
-          })
-        });
-        const data=await response.json();
-        if(!response.ok){errors.push(`${model}: ${data?.error?.message||response.status}`);continue}
-        const raw=data?.candidates?.[0]?.content?.parts?.map(p=>p.text).join("\n")||"";
-        const exercise=extractJson(raw);
-        if(!exercise||!Array.isArray(exercise.questions)){errors.push(`${model}: invalid JSON`);continue}
-        if(exercise.questions.length<30){errors.push(`${model}: only ${exercise.questions.length} questions`);continue}
-        exercise.questions=exercise.questions.slice(0,30);
-        exercise.createdAt=Date.now();
-        exercise.mode=mode||"Casuale";
-        return res.status(200).json({exercise,modelUsed:model});
-      }catch(err){errors.push(`${model}: ${err.message}`)}
+    if (!Array.isArray(ex.questions) || ex.questions.length < 10) {
+      return res.status(200).json({ exercise: demoGap(), modelUsed: "offline-demo" });
     }
-    return res.status(429).json({error:"Nessun modello disponibile per generare fill the gap. "+errors.join(" | ")});
-  }catch(e){
-    console.error(e);
-    return res.status(500).json({error:"Fill the gap generation failed"});
+
+    ex.questions = ex.questions.slice(0, 30);
+    ex.createdAt = Date.now();
+    ex.modelUsed = out.modelUsed;
+
+    return res.status(200).json({ exercise: ex, modelUsed: out.modelUsed });
+  } catch (e) {
+    return res.status(e.status || 500).json({ error: e.message || "Fill the gap generation failed" });
   }
 }

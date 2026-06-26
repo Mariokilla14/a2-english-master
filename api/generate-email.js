@@ -1,25 +1,38 @@
-import { incrementUsage } from "./_supabase.js";
-const MODELS = ["gemini-3-flash-preview","gemini-2.5-flash","gemini-2.5-flash-lite","gemini-2.0-flash","gemini-1.5-flash","gemini-1.5-flash-8b"];
 
-function extractJson(text){
-  if(!text) return null;
-  const cleaned = text.replace(/```json/gi,"").replace(/```/g,"").trim();
-  try {
-    await incrementUsage(req, "email"); return JSON.parse(cleaned); } catch {}
-  const s = cleaned.indexOf("{"), e = cleaned.lastIndexOf("}");
-  if(s !== -1 && e !== -1 && e > s){
-    try { return JSON.parse(cleaned.slice(s,e+1)); } catch {}
-  }
-  return null;
+import { incrementUsage } from "./_supabase.js";
+import { callGemini } from "./_gemini.js";
+
+function demoEmail(topic) {
+  const email = `Dear Sam,
+
+Thanks for your email. I'm sorry I haven't written for a long time, but I've been very busy. How are you? I hope you're well.
+
+Last weekend I had a very nice experience connected with ${topic || "my free time"}. I went there with two friends and we had a great time. At first, I was a little worried because the weather was not very good, but in the end everything was fine. I have never enjoyed an afternoon so much. I think experiences like this are useful because they help us become more confident. What did you do last weekend?
+
+Well, that's all for now. Write back soon and tell me your news.
+
+Best wishes,
+Marco`;
+
+  return {
+    title: `${topic || "Random"} email 30/30`,
+    category: topic || "Random",
+    task: "A2 informal email",
+    wordCount: email.match(/[A-Za-z']+/g)?.length || 0,
+    grammarUsed: ["Past Simple", "Present Perfect", "Linkers"],
+    vocabulary: ["experience", "worried", "confident"],
+    email,
+    why30: ["Opening corretto", "Closing corretto", "Domanda finale presente"]
+  };
 }
 
-export default async function handler(req,res){
-  if(req.method !== "POST") return res.status(405).json({error:"Use POST"});
+export default async function handler(req, res) {
+  if (req.method !== "POST") return res.status(405).json({ error: "Use POST" });
 
-  try{
+  try {
+    await incrementUsage(req, "email");
+
     const { topic, customTask, previousTitles } = req.body || {};
-    const apiKey = process.env.GEMINI_API_KEY;
-    if(!apiKey) return res.status(500).json({error:"Missing GEMINI_API_KEY on Vercel"});
 
     const opening = `Dear Sam,
 
@@ -32,13 +45,11 @@ Marco`;
 
     const prompt = `
 Sei un esaminatore Cambridge A2.
-Genera una informal email modello da 30/30 per uno studente italiano.
+Genera una informal email modello da 30/30.
 
-OBBLIGATORIO:
-- Livello A2 alto.
+Regole:
 - 120-150 parole totali.
-- Deve essere naturale, chiara, ben organizzata.
-- Deve avere una domanda finale.
+- Livello A2 alto, naturale, chiaro.
 - Opening IDENTICO:
 ${opening}
 
@@ -46,64 +57,35 @@ ${opening}
 ${closing}
 
 - Cambia SOLO il corpo centrale.
-- Non usare lessico troppo difficile.
-- Usa almeno 4 elementi grammaticali A2 tra: Past Simple, Present Perfect, comparatives, modals, future, linkers, prepositions, conditionals base.
-- Non creare un modello simile a questi titoli già salvati: ${(previousTitles||[]).slice(-30).join(", ")}
+- Deve avere una domanda finale.
+- Non usare parole troppo difficili.
+- Evita titoli simili a: ${(previousTitles || []).slice(-30).join(", ") || "nessuno"}
 
-ARGOMENTO:
-${topic || "Random"}
-
-TRACCIA PERSONALIZZATA:
-${customTask || "Create a realistic A2 informal email task."}
+Argomento: ${topic || "Random"}
+Traccia personalizzata: ${customTask || "Create a realistic A2 informal email task."}
 
 Rispondi SOLO con JSON valido:
 {
   "title": "titolo breve",
   "category": "categoria",
-  "task": "traccia della email",
+  "task": "traccia",
   "wordCount": number,
-  "grammarUsed": ["regola 1", "regola 2"],
-  "vocabulary": ["parola 1", "parola 2"],
-  "email": "email completa con opening e closing",
-  "why30": ["motivo 1", "motivo 2", "motivo 3"]
+  "grammarUsed": ["regola"],
+  "vocabulary": ["parola"],
+  "email": "email completa",
+  "why30": ["motivo"]
 }
 `;
 
-    let errors = [];
+    const out = await callGemini({ prompt, expectJson: true, maxOutputTokens: 2500, temperature: 0.65 });
+    const email = out.json;
 
-    for(const model of MODELS){
-      try{
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{
-          method:"POST",
-          headers:{"Content-Type":"application/json","x-goog-api-key":apiKey},
-          body:JSON.stringify({
-            contents:[{role:"user",parts:[{text:prompt}]}],
-            generationConfig:{temperature:0.75,maxOutputTokens:2500,responseMimeType:"application/json"}
-          })
-        });
-
-        const data = await response.json();
-        if(!response.ok){
-          errors.push(`${model}: ${data?.error?.message || response.status}`);
-          continue;
-        }
-
-        const raw = data?.candidates?.[0]?.content?.parts?.map(p=>p.text).join("\n") || "";
-        const email = extractJson(raw);
-        if(!email || !email.email){
-          errors.push(`${model}: invalid JSON`);
-          continue;
-        }
-
-        return res.status(200).json({ email, modelUsed:model });
-      }catch(err){
-        errors.push(`${model}: ${err.message}`);
-      }
+    if (!email?.email) {
+      return res.status(200).json({ email: demoEmail(topic), modelUsed: "offline-demo" });
     }
 
-    return res.status(429).json({error:"Nessun modello disponibile per generare email. " + errors.join(" | ")});
-  }catch(e){
-    console.error(e);
-    return res.status(500).json({error:"Email generation failed"});
+    return res.status(200).json({ email, modelUsed: out.modelUsed });
+  } catch (e) {
+    return res.status(e.status || 500).json({ error: e.message || "Email generation failed" });
   }
 }

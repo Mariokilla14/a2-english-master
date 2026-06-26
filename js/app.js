@@ -92,7 +92,7 @@ async function ai(text,task,target,mode='teacher'){
       saveAI(data.feedback||'');
     }
   }catch(e){
-    $(target).innerHTML=`<div class="issue bad"><b>AI non disponibile.</b><br>${e.message}<br>Controlla GEMINI_API_KEY su Vercel e fai Redeploy.</div>`;
+    $(target).innerHTML=`<div class="issue bad"><b>AI non disponibile.</b><br>${e.message}<br>Controlla Vercel → Environment Variables e fai Redeploy.</div>`;
   }
 }
 
