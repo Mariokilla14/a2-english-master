@@ -1022,4 +1022,8 @@ setTimeout(()=>{
 
 
 
+
+document.querySelectorAll('[data-page="archive"]').forEach(btn=>{
+  btn.addEventListener('click',()=>setTimeout(()=>{ if(window.v25LoadArchive) window.v25LoadArchive(); },200));
+});
 init();

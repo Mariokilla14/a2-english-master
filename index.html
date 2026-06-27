@@ -28,6 +28,7 @@
 <button class="nav" data-page="examples">📧 AI Email Library</button>
 <button class="nav" data-page="traces">📚 200+ Tracce</button>
 <button class="nav" data-page="dashboard">📊 Dashboard</button>
+<button class="nav" data-page="archive">📚 Archivio esercizi</button>
 <button id="adminNavBtn" class="nav hidden" data-page="admin">👑 Admin Panel</button>
 <button id="cloudNavBtn" class="nav" data-page="cloud">☁️ Cloud</button>
 <div class="sidecard"><b>🧩 Infinite Gap</b><p>Brani A2 con 30 domande, 4 opzioni e spiegazioni.</p></div>
@@ -174,7 +175,20 @@
     <div id="cloudNotesList"></div>
   </div>
 </section>
+
+<section id="archive" class="page">
+  <div class="panel">
+    <div class="toolbar">
+      <div>
+        <h2>📚 Archivio esercizi</h2>
+        <p>Qui ritrovi tutti i Fill the Gap generati con Gemini, con punteggio e risultati.</p>
+      </div>
+      <button id="loadArchiveBtn" class="primary pink" onclick="v25LoadArchive()">🔄 Aggiorna archivio</button>
+    </div>
+    <div id="archiveList"></div>
+  </div>
+</section>
 </main></div>
 <script type="module" src="js/app.js"></script>
-<script src="js/fillgap-gemini-only-v24.js"></script>
+<script src="js/fillgap-ai-first-v25.js"></script>
 </body></html>

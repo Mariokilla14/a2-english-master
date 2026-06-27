@@ -54,3 +54,8 @@
 
 /* V23 Coherent */
 #coherentAIBtn{margin:8px 8px 8px 0}
+
+/* V25 Archive */
+.archiveItem{transition:.2s}
+.archiveItem:hover{transform:translateY(-2px)}
+#v25GenerateBtn{margin:8px 8px 8px 0}

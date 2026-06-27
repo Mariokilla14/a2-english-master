@@ -1,32 +1,28 @@
-# A2 English Master V24 Gemini Only FillGap
+# A2 English Master V25 AI First Archive
 
-Questa versione elimina il sistema database/offline per il Fill the Gap.
+Questa versione rende il Fill the Gap AI first e archivia tutto.
 
-Ora il bottone:
-- Genera esercizio
-- Brano Cambridge AI
-- Genera con Gemini
+## Novità
 
-chiama direttamente:
+- Eliminato database/cache/offline per Fill the Gap.
+- Un solo flusso: Gemini genera il brano.
+- Ogni esercizio generato viene salvato nell'archivio Supabase.
+- Nuova sezione `📚 Archivio esercizi`.
+- Puoi rivedere gli esercizi.
+- Puoi rifarli.
+- Puoi salvarli come preferiti.
+- Dopo la correzione vengono salvati punteggio, risposte e tempo.
 
-`POST /api/fillgap`
+## Prima del deploy
 
-e crea un brano coerente con Gemini.
+Esegui in Supabase SQL Editor:
 
-## Cosa cambia
-
-- niente database FillGap;
-- niente banca offline;
-- niente bottoni che non fanno nulla;
-- chiamata diretta a Gemini come nelle vecchie versioni;
-- brano unico coerente stile Cambridge;
-- 30 gap;
-- 4 opzioni;
-- spiegazioni grammaticali.
+`SUPABASE_V25_SETUP.sql`
 
 ## Deploy
 
-1. Carica tutto su GitHub sostituendo i vecchi file.
+1. Carica tutto su GitHub.
 2. Fai Redeploy su Vercel.
-3. Sul sito fai hard refresh: `⌘ + Shift + R`.
-4. Apri Network e premi `✨ Genera con Gemini`: deve comparire `POST /api/fillgap`.
+3. Fai hard refresh: `⌘ + Shift + R`.
+4. Vai su Fill the Gap AI e premi `✨ Genera nuovo esercizio`.
+5. Controlla `📚 Archivio esercizi`.
