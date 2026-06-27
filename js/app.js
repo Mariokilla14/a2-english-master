@@ -189,7 +189,7 @@ function fillGapUI(){
   if(preload) preload.onclick=()=>preloadGapCache(true);
 
   updateGapCacheStatus();
-  setTimeout(()=>{try{preloadOfflineFillGapBank(30)}catch{}; preloadGapCache(false);},800);
+  setTimeout(()=>prepareFillGapDatabaseCache(100).then(n=>{ if($('gapCacheStatus')) $('gapCacheStatus').innerHTML='📚 Database offline pronto: '+n+' esercizi'; }).catch(()=>{}), 800);
 }
 
 function getGapCache(){
@@ -236,14 +236,16 @@ function updateGapCacheStatus(){
 
 async function generateSmartFillGap(){
   const grammar=$('gapGrammar')?.value || 'Mixed Grammar - Tutto il libro';
-  const level=$('gapLevel')?.value || 'Cambridge Exam';
   const topic=$('gapTopic')?.value || 'Random';
-  const mode=$('gapMode')?.value || '⚡ Offline Bank';
-  const ex=createOfflineFillGap({grammar,level,topic,mode});
-  markGapAsUsed(ex);
-  $('gapStatus').innerHTML='⚡ Esercizio offline generato senza consumare AI.<br><small>Fonte: V20 Offline Bank</small>';
-  renderFillGap(ex);
-  try{preloadOfflineFillGapBank(30)}catch{}
+  $('gapStatus').innerHTML='📚 Prendo un esercizio dalla banca dati offline...';
+  try{
+    const ex=await getFillGapFromDatabase({grammar,topic});
+    markGapAsUsed(ex);
+    $('gapStatus').innerHTML=`📚 Database Offline V21 • ${ex.title}<br><small>Non consuma Gemini • ${ex.questions.length} domande • ID ${ex.id}</small>`;
+    renderFillGap(ex);
+  }catch(e){
+    $('gapStatus').innerHTML='Errore caricamento database offline: '+e.message;
+  }
 }
 
 function useReadyGap(){
@@ -257,7 +259,7 @@ function useReadyGap(){
   markGapAsUsed(ex);
   renderFillGap(ex);
   updateGapCacheStatus();
-  preloadGapCache(false);
+  prepareFillGapDatabaseCache(100);
 }
 
 async function preloadGapCache(force=false){
@@ -278,7 +280,7 @@ async function preloadGapCache(force=false){
       setGapCache(current);
       if(force && status) status.innerHTML=`✅ Cache aggiornata: ${current.length} esercizi pronti.`;
     }catch(e){
-      if(force && status) status.innerHTML=`<span class="bad">Non riesco a preparare la cache:</span> ${e.message}`;
+      if(force && status) status.innerHTML=`<span class="bad">Database offline pronto; cache Gemini non necessaria:</span> ${e.message}`;
       break;
     }
   }
@@ -287,12 +289,8 @@ async function preloadGapCache(force=false){
 
 async function fetchNewGap(){
   const grammar=$('gapGrammar')?.value || 'Mixed Grammar - Tutto il libro';
-  const level=$('gapLevel')?.value || 'Cambridge Exam';
   const topic=$('gapTopic')?.value || 'Random';
-  const mode=$('gapMode')?.value || '⚡ Offline Bank';
-  const ex=createOfflineFillGap({grammar,level,topic,mode});
-  ex.cacheId='offline_'+Date.now()+'_'+Math.random().toString(16).slice(2);
-  return ex;
+  return await getFillGapFromDatabase({grammar,topic});
 }
 
 function markGapAsUsed(ex){
@@ -363,7 +361,7 @@ function checkFillGap(ex){
     <p>${escapeHtml(d.explanation||'')}</p>
   </div>`).join('')}`;
 
-  preloadGapCache(false);
+  prepareFillGapDatabaseCache(100);
 }
 
 function saveGap(correct,total,details){

@@ -1,27 +1,37 @@
-# A2 English Master V20 Offline FillGap Bank
+# A2 English Master V21 FillGap Database
 
-Questa versione riduce drasticamente i consumi Gemini.
+Questa versione aggiunge una vera banca dati offline di Fill the Gap.
 
-## Novità principale
+## Cosa contiene
 
-Il Fill the Gap NON usa più Gemini a ogni esercizio.
-
-Ora viene generato offline dal browser con:
-- brani sempre diversi
-- 30 domande
+- 3000 esercizi Fill the Gap già pronti
+- Ogni esercizio ha 30 domande
 - 4 opzioni per domanda
 - risposta corretta
 - spiegazione grammaticale
-- grammatica A2 completa
-- argomenti vari
-- nessun consumo API per Fill the Gap
+- argomenti diversi
+- grammatica A2/B1
+- nessuna chiamata Gemini per i Fill the Gap
 
-## Gemini resta attivo solo per
+## Risultato
+
+Il Fill the Gap ora è:
+- istantaneo
+- gratuito
+- non consuma quota Gemini
+- non ripete sempre gli stessi esercizi
+
+Gemini resta solo per:
 - Teacher AI
-- Correzione email
-- Email AI Library
+- correzione email
+- generazione email spunto
 
 ## Deploy
+
 1. Carica tutto su GitHub sostituendo i vecchi file.
-2. Su Vercel controlla `GEMINI_API_KEY`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`.
-3. Fai Redeploy.
+2. Fai Redeploy su Vercel.
+3. Vai su Fill the Gap AI e premi nuova traccia.
+
+File principale banca dati:
+
+`data/fillgap-bank-v21.json`
