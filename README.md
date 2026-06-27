@@ -1,23 +1,32 @@
-# A2 English Master V23 Coherent Cambridge FillGap
+# A2 English Master V24 Gemini Only FillGap
 
-Questa versione corregge il problema dei brani senza senso.
+Questa versione elimina il sistema database/offline per il Fill the Gap.
 
-## Novità
+Ora il bottone:
+- Genera esercizio
+- Brano Cambridge AI
+- Genera con Gemini
 
-- Il Fill the Gap non crea più collage di frasi.
-- I testi sono brani coerenti con inizio, sviluppo e conclusione.
-- Aggiunto bottone `✍️ Brano Cambridge AI`.
-- Il bottone usa Gemini per creare un vero brano Cambridge A2/B1 con 30 gap.
-- Se Gemini non è disponibile, crea comunque un brano coerente offline.
-- Gli esercizi AI vengono salvati nel cloud Supabase.
+chiama direttamente:
 
-## Come usarla
+`POST /api/fillgap`
 
-- `Nuova traccia` = brano coerente offline, gratis.
-- `✍️ Brano Cambridge AI` = qualità massima, consuma Gemini, salva nel cloud.
+e crea un brano coerente con Gemini.
 
-## Prima del deploy
+## Cosa cambia
 
-Se hai già eseguito `SUPABASE_V22_SETUP.sql`, non devi fare altro.
+- niente database FillGap;
+- niente banca offline;
+- niente bottoni che non fanno nulla;
+- chiamata diretta a Gemini come nelle vecchie versioni;
+- brano unico coerente stile Cambridge;
+- 30 gap;
+- 4 opzioni;
+- spiegazioni grammaticali.
 
-Carica tutto su GitHub e fai Redeploy.
+## Deploy
+
+1. Carica tutto su GitHub sostituendo i vecchi file.
+2. Fai Redeploy su Vercel.
+3. Sul sito fai hard refresh: `⌘ + Shift + R`.
+4. Apri Network e premi `✨ Genera con Gemini`: deve comparire `POST /api/fillgap`.
