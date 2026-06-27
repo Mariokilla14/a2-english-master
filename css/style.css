@@ -48,3 +48,6 @@
 .adminGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}.adminGrid input,.adminGrid select{border:1px solid var(--line);background:rgba(2,6,23,.65);color:var(--text);border-radius:14px;padding:12px}
 .cloudPre{white-space:pre-wrap;max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:16px;background:rgba(0,0,0,.25);padding:12px}
 @media(max-width:900px){.deviceRow{display:grid;grid-template-columns:1fr}.adminGrid{grid-template-columns:1fr}}
+
+/* V22 Hybrid */
+#growGapCloudBtn{margin:8px 8px 8px 0;border:1px solid var(--line)}

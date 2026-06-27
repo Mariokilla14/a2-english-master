@@ -237,14 +237,15 @@ function updateGapCacheStatus(){
 async function generateSmartFillGap(){
   const grammar=$('gapGrammar')?.value || 'Mixed Grammar - Tutto il libro';
   const topic=$('gapTopic')?.value || 'Random';
-  $('gapStatus').innerHTML='📚 Prendo un esercizio dalla banca dati offline...';
+  if($('gapStatus')) $('gapStatus').innerHTML='📚 Cerco prima nel database cloud, poi nel database offline...';
   try{
-    const ex=await getFillGapFromDatabase({grammar,topic});
+    const ex=await getHybridFillGap({grammar,topic});
     markGapAsUsed(ex);
-    $('gapStatus').innerHTML=`📚 Database Offline V21 • ${ex.title}<br><small>Non consuma Gemini • ${ex.questions.length} domande • ID ${ex.id}</small>`;
+    if($('gapStatus')) $('gapStatus').innerHTML=`📚 ${ex.modelUsed || 'Database'} • ${ex.title}<br><small>Zero consumo Gemini, salvo quando usi “Cresci database AI”.</small>`;
     renderFillGap(ex);
+    updateHybridBankStatus();
   }catch(e){
-    $('gapStatus').innerHTML='Errore caricamento database offline: '+e.message;
+    if($('gapStatus')) $('gapStatus').innerHTML='Errore banca dati: '+e.message;
   }
 }
 
@@ -290,7 +291,7 @@ async function preloadGapCache(force=false){
 async function fetchNewGap(){
   const grammar=$('gapGrammar')?.value || 'Mixed Grammar - Tutto il libro';
   const topic=$('gapTopic')?.value || 'Random';
-  return await getFillGapFromDatabase({grammar,topic});
+  return await getHybridFillGap({grammar,topic});
 }
 
 function markGapAsUsed(ex){
@@ -1021,5 +1022,93 @@ setTimeout(()=>{
   document.querySelectorAll('[data-page="cloud"]').forEach(b=>b.addEventListener('click',()=>setTimeout(loadCloudNotes,100)));
   checkExistingSession();
 },300);
+
+
+/* V22 HYBRID FILLGAP DATABASE + AI */
+async function getCloudFillGap({grammar, topic} = {}){
+  const qs = new URLSearchParams();
+  if(grammar) qs.set('grammar', grammar);
+  if(topic) qs.set('topic', topic);
+  const res = await fetch('/api/fillgap-cloud?' + qs.toString());
+  if(!res.ok) throw new Error('Nessun esercizio cloud disponibile');
+  const data = await res.json();
+  if(!data.ok || !data.exercise) throw new Error(data.error || 'Nessun esercizio cloud');
+  const ex = data.exercise;
+  ex.modelUsed = 'Supabase Cloud Bank';
+  ex.cacheId = 'cloud_' + (ex.cloudId || Date.now());
+  return ex;
+}
+
+async function saveExerciseToCloud(ex){
+  try{
+    await fetch('/api/fillgap-cloud',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({exercise:ex})
+    });
+  }catch{}
+}
+
+async function getHybridFillGap({grammar, topic} = {}){
+  try{
+    return await getCloudFillGap({grammar, topic});
+  }catch{}
+  const local = await getFillGapFromDatabase({grammar, topic});
+  if(Math.random() < 0.03) saveExerciseToCloud(local);
+  return local;
+}
+
+async function growFillGapCloudWithAI(){
+  const grammar=$('gapGrammar')?.value || 'Mixed Grammar - Tutto il libro';
+  const level=$('gapLevel')?.value || 'Cambridge Exam';
+  const topic=$('gapTopic')?.value || 'Random';
+  if($('gapStatus')) $('gapStatus').innerHTML='🌱 Provo a creare un nuovo esercizio AI e salvarlo nel cloud...';
+  try{
+    const res=await fetch('/api/fillgap',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({grammar,level,topic,mode:'🌱 Crescita database AI',recentExercises:getRecentGapTitles ? getRecentGapTitles() : [],weakRules:getWeakGapRules ? getWeakGapRules() : []})
+    });
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error || 'AI non disponibile');
+    const ex=data.exercise;
+    await saveExerciseToCloud(ex);
+    markGapAsUsed(ex);
+    renderFillGap(ex);
+    if($('gapStatus')) $('gapStatus').innerHTML='🌱 Nuovo esercizio creato con AI e salvato nel database cloud.';
+    updateHybridBankStatus();
+  }catch(e){
+    if($('gapStatus')) $('gapStatus').innerHTML='⚠️ AI esaurita o non disponibile. Uso database offline senza consumare quota.';
+    setTimeout(()=>generateSmartFillGap(), 350);
+  }
+}
+
+async function updateHybridBankStatus(){
+  const el=$('gapCacheStatus');
+  if(!el) return;
+  try{
+    const res=await fetch('/api/fillgap-count');
+    const data=await res.json();
+    const cloud = data?.total ?? 0;
+    const local = (window.FILLGAP_DB && FILLGAP_DB.length) ? FILLGAP_DB.length : '3000';
+    el.innerHTML=`📚 Banca dati: ${local} locali + ${cloud} cloud`;
+  }catch{
+    el.innerHTML='📚 Banca dati offline pronta';
+  }
+}
+
+setTimeout(()=>{
+  const gapPage=document.querySelector('#fillgap, #gap');
+  if(gapPage && !document.getElementById('growGapCloudBtn')){
+    const btn=document.createElement('button');
+    btn.className='secondary';
+    btn.id='growGapCloudBtn';
+    btn.textContent='🌱 Cresci database AI';
+    btn.onclick=growFillGapCloudWithAI;
+    const target=gapPage.querySelector('.toolbar') || gapPage.querySelector('.panel') || gapPage;
+    target.prepend(btn);
+  }
+  updateHybridBankStatus();
+},800);
 
 init();
