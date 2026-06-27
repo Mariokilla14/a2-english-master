@@ -1,13 +1,23 @@
-# A2 English Master V22 Hybrid Database + AI
+# A2 English Master V23 Coherent Cambridge FillGap
 
-Motore ibrido Fill the Gap:
+Questa versione corregge il problema dei brani senza senso.
 
-1. Cerca prima nel database cloud Supabase.
-2. Se non trova nulla, usa il database offline locale da 3000 esercizi.
-3. Se premi “🌱 Cresci database AI”, genera un nuovo esercizio con Gemini e lo salva nel database cloud.
-4. Da quel momento l’esercizio resta disponibile per sempre senza consumare più Gemini.
+## Novità
 
-Prima del deploy:
-- in Supabase SQL Editor esegui `SUPABASE_V22_SETUP.sql`;
-- carica tutto su GitHub;
-- fai Redeploy su Vercel.
+- Il Fill the Gap non crea più collage di frasi.
+- I testi sono brani coerenti con inizio, sviluppo e conclusione.
+- Aggiunto bottone `✍️ Brano Cambridge AI`.
+- Il bottone usa Gemini per creare un vero brano Cambridge A2/B1 con 30 gap.
+- Se Gemini non è disponibile, crea comunque un brano coerente offline.
+- Gli esercizi AI vengono salvati nel cloud Supabase.
+
+## Come usarla
+
+- `Nuova traccia` = brano coerente offline, gratis.
+- `✍️ Brano Cambridge AI` = qualità massima, consuma Gemini, salva nel cloud.
+
+## Prima del deploy
+
+Se hai già eseguito `SUPABASE_V22_SETUP.sql`, non devi fare altro.
+
+Carica tutto su GitHub e fai Redeploy.

@@ -235,17 +235,15 @@ function updateGapCacheStatus(){
 }
 
 async function generateSmartFillGap(){
-  const grammar=$('gapGrammar')?.value || 'Mixed Grammar - Tutto il libro';
   const topic=$('gapTopic')?.value || 'Random';
-  if($('gapStatus')) $('gapStatus').innerHTML='📚 Cerco prima nel database cloud, poi nel database offline...';
+  if($('gapStatus')) $('gapStatus').innerHTML='📚 Creo un brano coerente offline senza consumare Gemini...';
   try{
-    const ex=await getHybridFillGap({grammar,topic});
+    const ex=makeCoherentLocalExercise(topic);
     markGapAsUsed(ex);
-    if($('gapStatus')) $('gapStatus').innerHTML=`📚 ${ex.modelUsed || 'Database'} • ${ex.title}<br><small>Zero consumo Gemini, salvo quando usi “Cresci database AI”.</small>`;
     renderFillGap(ex);
-    updateHybridBankStatus();
+    if($('gapStatus')) $('gapStatus').innerHTML=`📚 Brano coerente offline • ${ex.title}<br><small>Se vuoi qualità massima, usa “Brano Cambridge AI”.</small>`;
   }catch(e){
-    if($('gapStatus')) $('gapStatus').innerHTML='Errore banca dati: '+e.message;
+    if($('gapStatus')) $('gapStatus').innerHTML='Errore generazione coerente: '+e.message;
   }
 }
 
@@ -289,9 +287,8 @@ async function preloadGapCache(force=false){
 }
 
 async function fetchNewGap(){
-  const grammar=$('gapGrammar')?.value || 'Mixed Grammar - Tutto il libro';
   const topic=$('gapTopic')?.value || 'Random';
-  return await getHybridFillGap({grammar,topic});
+  return makeCoherentLocalExercise(topic);
 }
 
 function markGapAsUsed(ex){
@@ -1110,5 +1107,50 @@ setTimeout(()=>{
   }
   updateHybridBankStatus();
 },800);
+
+
+/* V23 COHERENT CAMBRIDGE FILLGAP */
+async function generateCoherentCambridgeAI(){
+  const grammar=$('gapGrammar')?.value || 'Mixed Grammar - Tutto il libro';
+  const level=$('gapLevel')?.value || 'Cambridge Exam';
+  const topic=$('gapTopic')?.value || 'Random';
+  if($('gapStatus')) $('gapStatus').innerHTML='✍️ Gemini sta creando un vero brano Cambridge coerente...';
+  try{
+    const res=await fetch('/api/fillgap',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        grammar,level,topic,
+        mode:'✍️ Cambridge coherent passage',
+        recentExercises:getRecentGapTitles ? getRecentGapTitles() : [],
+        weakRules:getWeakGapRules ? getWeakGapRules() : []
+      })
+    });
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error || 'AI non disponibile');
+    const ex=data.exercise;
+    markGapAsUsed(ex);
+    renderFillGap(ex);
+    if($('gapStatus')) $('gapStatus').innerHTML=`✍️ Brano Cambridge coerente creato con AI e salvato nel cloud.<br><small>${ex.title}</small>`;
+  }catch(e){
+    const ex=makeCoherentLocalExercise(topic);
+    markGapAsUsed(ex);
+    renderFillGap(ex);
+    if($('gapStatus')) $('gapStatus').innerHTML='⚠️ AI non disponibile: ho creato un brano coerente offline.';
+  }
+}
+
+setTimeout(()=>{
+  const gapPage=document.querySelector('#fillgap, #gap');
+  if(gapPage && !document.getElementById('coherentAIBtn')){
+    const btn=document.createElement('button');
+    btn.className='primary pink';
+    btn.id='coherentAIBtn';
+    btn.textContent='✍️ Brano Cambridge AI';
+    btn.onclick=generateCoherentCambridgeAI;
+    const target=gapPage.querySelector('.toolbar') || gapPage.querySelector('.panel') || gapPage;
+    target.prepend(btn);
+  }
+},900);
 
 init();
