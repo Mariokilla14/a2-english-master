@@ -1,5 +1,4 @@
-
-import { incrementUsage } from "./_supabase.js";
+import { incrementUsage, rpc } from "./_supabase.js";
 import { callGemini } from "./_gemini.js";
 
 export default async function handler(req, res) {
@@ -80,11 +79,36 @@ Controllo qualità prima di rispondere:
     }
 
     ex.questions = ex.questions.slice(0, 30);
-    ex.source = "gemini-only-v24";
+    ex.source = "gemini-only-v26";
     ex.createdAt = Date.now();
     ex.modelUsed = out.modelUsed;
 
-    return res.status(200).json({ exercise: ex, modelUsed: out.modelUsed });
+    let archiveId = null;
+
+    try {
+      const sessionId = req.headers["x-session-id"];
+
+      if (sessionId) {
+        const saved = await rpc("save_fillgap_archive", {
+          p_session_id: sessionId,
+          p_exercise: ex
+        });
+
+        if (saved?.ok && saved?.id) {
+          archiveId = saved.id;
+          ex.archiveId = saved.id;
+        }
+      }
+    } catch (err) {
+      console.error("Archive save failed:", err.message);
+    }
+
+    return res.status(200).json({
+      exercise: ex,
+      modelUsed: out.modelUsed,
+      archiveId,
+      savedToArchive: !!archiveId
+    });
   } catch (e) {
     return res.status(e.status || 500).json({ error: e.message || "Fill the gap generation failed" });
   }
