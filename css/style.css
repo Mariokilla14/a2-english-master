@@ -72,3 +72,21 @@
 .v26Explain{border:1px solid var(--line);border-radius:16px;padding:12px;margin:10px 0;background:rgba(255,255,255,.06)}
 .v26Explain.ok{border-color:rgba(34,197,94,.45)}
 .v26Explain.bad{border-color:rgba(239,68,68,.45)}
+
+/* V13 Solid FillGap */
+.v13FillGapDisplay{margin-top:22px}
+.v13Head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:18px}
+.v13Head h2{font-size:34px;margin:0 0 8px}
+.v13Passage{font-size:18px;line-height:2.35;background:rgba(2,6,23,.55);border:1px solid var(--line);border-radius:26px;padding:26px;color:var(--text)}
+.v13Passage select{margin:0 5px;padding:7px 12px;border-radius:10px;background:#070b1d;color:white;border:1px solid rgba(255,255,255,.25);font-weight:800}
+.v13Passage select.right{border-color:#22c55e;background:rgba(34,197,94,.22)}
+.v13Passage select.wrong{border-color:#ef4444;background:rgba(239,68,68,.22)}
+.v13Actions{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+.v13Score{background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:22px;padding:18px;margin:14px 0}
+.v13Explain{border:1px solid var(--line);border-radius:16px;padding:12px;margin:10px 0;background:rgba(255,255,255,.06)}
+.v13Explain.ok{border-color:rgba(34,197,94,.45)}
+.v13Explain.bad{border-color:rgba(239,68,68,.45)}
+.v13ProgressWrap{margin:10px 0 18px}
+.v13Progress{height:12px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;border:1px solid var(--line)}
+#v13ProgressBar{height:100%;width:0%;background:linear-gradient(90deg,#ec4899,#8b5cf6);transition:.25s}
+#v13MainBtn{margin:8px 8px 8px 0}

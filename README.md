@@ -1,19 +1,45 @@
-# A2 English Master V27 Archive Local + Cloud Fix
+# A2 English Master V13 Solid FillGap
 
-Questa versione risolve l'archivio in modo sicuro.
+Questa versione rifà la logica del Fill the Gap in modo solido.
 
-## Come funziona
+## Correzione senza bug
 
-Ogni esercizio generato viene salvato:
-1. subito in locale nel browser;
-2. poi, se possibile, anche su Supabase.
+Prima il sito confrontava stringhe tipo:
+- `A. for`
+- `for`
+- `A`
 
-Quindi l'Archivio funziona anche se Supabase non salva.
+e poteva segnare sbagliata una risposta corretta.
+
+Ora ogni domanda usa:
+
+```json
+{
+  "options": ["for","to","at","with"],
+  "correctIndex": 0
+}
+```
+
+Il menu salva solo un numero: 0, 1, 2 o 3.
+
+Quindi la correzione è:
+`selectedIndex === correctIndex`
+
+## Include
+
+- generazione Gemini di brani Cambridge coerenti;
+- 30 gap;
+- 4 opzioni;
+- correctIndex numerico;
+- spiegazioni;
+- archivio locale;
+- tentativo di archivio cloud Supabase;
+- rifai esercizio dall'archivio;
+- progress bar.
 
 ## Deploy
 
 1. Carica tutto su GitHub.
-2. Redeploy su Vercel.
-3. Apri il sito in finestra privata o svuota cache.
-4. Genera un esercizio.
-5. Vai in Archivio: deve comparire.
+2. Se non lo hai già fatto, esegui in Supabase `SUPABASE_V13_SETUP.sql`.
+3. Fai Redeploy su Vercel.
+4. Apri in finestra privata oppure svuota cache.
